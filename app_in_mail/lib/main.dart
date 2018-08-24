@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/homePage.dart';
 import 'package:flutter/services.dart';
-
+import 'package:app_in_mail/localization.dart';
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    Localization.setLocale(locale.languageCode);
+    
     final appInmailLogoColor = Color.fromRGBO(218, 34, 80, 1.0);
     return new MaterialApp(
       title: 'AppInMail',
