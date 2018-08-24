@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../restApi/restApiClient.dart';
 import "homePage.dart";
 import 'alertHelper.dart';
+import 'package:intl/intl.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key, this.title}) : super(key: key);
@@ -105,7 +106,7 @@ class LoginScreenState extends State<LoginScreen> {
         Container(height: 20.0), //spacing
         RaisedButton(
           child: Text(
-            'LOGIN',
+            Intl.message('Hello', name: 'hello'),
             style: TextStyle( 
                 color: Colors.white,
                 fontSize: 18.0,

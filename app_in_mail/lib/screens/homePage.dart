@@ -3,6 +3,7 @@ import './loginScreen.dart';
 import './sideDrawer.dart';
 import './emailList.dart';
 import '../restApi/restApiClient.dart';
+import 'package:app_in_mail/translations.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     return new Scaffold(
         drawer: SideDrawer(),
         appBar: new AppBar(
-          title: new Text("Inbox"),
+          title: new Text(Translations.of(context).text('main_title')),
         ),
         body: EmailList());
   }
