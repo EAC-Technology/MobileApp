@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'label.dart';
-import 'dart:io' show Platform;
+//import 'dart:io' show Platform;
 
 class Email {
   final int priority;

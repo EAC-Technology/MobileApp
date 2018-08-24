@@ -106,7 +106,7 @@ class LoginScreenState extends State<LoginScreen> {
         Container(height: 20.0), //spacing
         RaisedButton(
           child: Text(
-            Intl.message('Hello', name: 'hello'),
+            Intl.message('Enter', name: 'enter'),
             style: TextStyle( 
                 color: Colors.white,
                 fontSize: 18.0,
