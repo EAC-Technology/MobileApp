@@ -58,9 +58,9 @@ class LoginScreenState extends State<LoginScreen> {
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    return Column(
+    
+    return SingleChildScrollView(child: Column(
       children: <Widget>[
-        Container(height: 20.0), //spacing
         Image.asset('assets/logo.png'),
         Container(height: 40.0), //spacing
         Text('Sign In', style: Theme.of(context).textTheme.headline),
@@ -115,7 +115,8 @@ class LoginScreenState extends State<LoginScreen> {
           onPressed: _onSignInPressed,
         ),
       ],
-    );
+    ));
+
   }
 
   Widget _getProgressIndicator() {
