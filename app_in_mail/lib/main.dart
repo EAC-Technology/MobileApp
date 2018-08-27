@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'screens/homePage.dart';
 import 'package:flutter/services.dart';
 import 'package:app_in_mail/localization.dart';
+import 'package:uni_links/uni_links.dart';
+
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])

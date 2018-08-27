@@ -10,7 +10,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 dependencies:
-  
+  uni_links: ^0.1.2
   intl: ^0.15.7
   io: ^0.3.3
   flutter:
@@ -18,8 +18,7 @@ dependencies:
     
   flutter_localizations:
     sdk: flutter  
-  uni_links:
-
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
