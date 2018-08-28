@@ -3,6 +3,8 @@ import '../restApi/restApiClient.dart';
 import "homePage.dart";
 import 'alertHelper.dart';
 import 'package:intl/intl.dart';
+import 'localeSelector.dart';
+import 'package:app_in_mail/localization.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key, this.title}) : super(key: key);
@@ -54,6 +56,10 @@ class LoginScreenState extends State<LoginScreen> {
     _emailTextController =
         new TextEditingController(text: "p.pavlov@futurist-labs.com");
     _passwordTextController = new TextEditingController(text: "1234");
+    Localization.onLocaleChanged = (){
+      setState(() {
+    });
+    };
   }
 
   bool _shouldDisplayProgressIndicator = false;
@@ -106,7 +112,7 @@ class LoginScreenState extends State<LoginScreen> {
         Container(height: 20.0), //spacing
         RaisedButton(
           child: Text(
-            Intl.message('Enter', name: 'enter'),
+            Localization.getText('enter'),
             style: TextStyle( 
                 color: Colors.white,
                 fontSize: 18.0,
@@ -114,6 +120,10 @@ class LoginScreenState extends State<LoginScreen> {
           ),
           onPressed: _onSignInPressed,
         ),
+        Container(height: 20.0), //spacing
+        LocaleSelector(
+        ),
+
       ],
     ));
 

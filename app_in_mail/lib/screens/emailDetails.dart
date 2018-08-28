@@ -26,7 +26,6 @@ class EmailDetailsState extends State<EmailDetails> {
 
   void _loadEmail() async {
     final mediaQuery = MediaQuery.of(context);
-    final width = mediaQuery.size.width;
     _emailUrl = RestApiClient.buildEmailMobileViewerPageURL(
         widget.mailBox, widget.email.id);
     final verticalOffset =
@@ -36,7 +35,6 @@ class EmailDetailsState extends State<EmailDetails> {
     setState(() {
           this._shouldDisplayProgressIndicator = true;
     });
-    
     
     webview.launch(_emailUrl,
         withJavascript: true,
