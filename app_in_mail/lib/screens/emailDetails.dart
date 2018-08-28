@@ -26,7 +26,7 @@ class EmailDetailsState extends State<EmailDetails> {
 
   void _loadEmail() async {
     final mediaQuery = MediaQuery.of(context);
-    _emailUrl = RestApiClient.buildEmailMobileViewerPageURL(
+    _emailUrl = await RestApiClient.buildEmailMobileViewerPageURL(
         widget.mailBox, widget.email.id);
     final verticalOffset =
         mediaQuery.padding.top + appBar.preferredSize.height + 10;

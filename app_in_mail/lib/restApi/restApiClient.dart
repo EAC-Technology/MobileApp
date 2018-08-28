@@ -104,7 +104,8 @@ class RestApiClient {
     return emails;
   }
 
-  static String buildEmailMobileViewerPageURL(String mailbox, int mailId) {
+  static Future<String> buildEmailMobileViewerPageURL(String mailbox, int mailId) async{
+    await _awakeInstanceIfNeeded();
     final sid = signedInUser.sessionId;
     final url = dedicatedInstanceBaseUrl + '/eacviewer_mobile?id=' + mailId.toString() + '&mailbox=' + mailbox + '&sid=' + sid;
     
