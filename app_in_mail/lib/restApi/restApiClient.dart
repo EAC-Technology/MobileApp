@@ -5,6 +5,7 @@ import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import './user.dart';
 import './email.dart';
+import 'package:app_in_mail/localization.dart';
 
 class RestApiClient {
   static final adminBaseUrl = 'https://admin.appinmail.io';
@@ -40,7 +41,9 @@ class RestApiClient {
 
   static Future<User> signIn(String email, String password) async {
     awakeServerRuntime(email, password);
-    
+    if ( dedicatedInstanceBaseUrl == null) {
+      return null;
+    }
     final path = '/restapi.py';
     final action = 'login';
     final rawXmlData = '{ "login": "' +
@@ -154,6 +157,7 @@ class RestApiClient {
 
   static Future getResponse(String dataURL) async {
     http.Response response = await http.get(dataURL);
+
     if (response.statusCode != 200) { 
       throw ('Server responded with status code: ' + response.statusCode.toString());
     }
@@ -162,7 +166,11 @@ class RestApiClient {
     print (response.body);
     if (responseArray[0] == 'error') {
       dedicatedInstanceBaseUrl = null;
-      throw result.toString();
+      if ( result.toString().toLowerCase().contains("auth error")) { //we need that check because the server returns status 200 on auth error.
+        throw(Localization.getText('invalid_credentials'));
+      }else {
+        throw result.toString();
+      } 
     }
     return result;
   }

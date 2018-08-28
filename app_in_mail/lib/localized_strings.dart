@@ -7,7 +7,8 @@ final localizedStrings = {
     'email':'E-mail',
     'password':'Password',
     'signin':'Sign in',
-    'logout':'Logout'
+    'logout':'Logout',
+    'invalid_credentials':"Invalid user name or password."
   },
   'fr': {
     'inbox':'Inbox_FR',
@@ -17,6 +18,7 @@ final localizedStrings = {
     'email':'E-mail_FR',
     'password':'Password_FR',
     'signin':'Sign in_FR',
-    'logout':'Logout_FR'
+    'logout':'Logout_FR',
+    'invalid_credentials':'Invalid user name or password.'
   },
 };
