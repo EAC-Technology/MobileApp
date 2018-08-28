@@ -25,13 +25,21 @@ class LocaleSelectorState extends State<LocaleSelector> {
       },
       child: Row(children: <Widget>[Text(_locales[index].toUpperCase(),
       
-      style: TextStyle(decoration: TextDecoration.underline, fontSize: 18.0, color: Color.fromRGBO(218, 34, 80, 1.0)),
+      style: TextStyle(decoration: TextDecoration.underline, fontSize: 18.0, color: getTextColor(index)),
       ),
       Container(width: 15.0,)
       ],
       )
         
     );
+  }
+
+  Color getTextColor(index) {
+    if(Localization.languageCode == _locales[index]) {
+      return Color.fromRGBO(218, 34, 80, 1.0);
+    }
+    
+    return Colors.grey;
   }
 
   void _switchLocale(int index) {

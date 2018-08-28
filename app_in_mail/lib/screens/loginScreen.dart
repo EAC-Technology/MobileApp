@@ -74,6 +74,7 @@ class LoginScreenState extends State<LoginScreen> {
         Container(
           width: 300.0,
           child: TextField(
+            keyboardType: TextInputType.emailAddress,
             controller: _emailTextController,
             style: TextStyle(color: Colors.white),
             decoration: new InputDecoration(
@@ -144,7 +145,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Login'),
+        title: new Text('AppInMail'),
       ),
       body: new Center(
         child: _getBody(),
