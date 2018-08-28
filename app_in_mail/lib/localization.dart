@@ -7,15 +7,20 @@ class Localization {
   static String languageCode;
   static VoidCallback onLocaleChanged;
   static setLocale(String code) {
-    languageCode = code;
-    if ( onLocaleChanged != null) {
-      onLocaleChanged();
+    if (supportedLocales.contains(code)) {
+      languageCode = code;
+      
+    }else {
+      languageCode = 'en';//non supported locales default to en.
+    }
+    if (onLocaleChanged != null) {
+        onLocaleChanged();
     }
   }
 
   static List<String> get supportedLocales {
-    final result = localizedStrings.keys.toList(); 
-    return  result;
+    final result = localizedStrings.keys.toList();
+    return result;
   }
 
   static getText(String name) {
