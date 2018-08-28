@@ -36,12 +36,12 @@ class EmailDetailsState extends State<EmailDetails> {
     setState(() {
           this._shouldDisplayProgressIndicator = true;
     });
-
+    
+    
     webview.launch(_emailUrl,
         withJavascript: true,
-        withZoom: true,
-        rect: Rect.fromLTWH(10.0, verticalOffset, width - 20.0,
-            mediaQuery.size.height - verticalOffset));
+        withZoom: false,
+        rect: Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width, mediaQuery.size.height - verticalOffset));
     webview.hide();
   }
 
