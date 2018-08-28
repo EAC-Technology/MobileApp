@@ -53,8 +53,8 @@ class LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     _emailTextController =
-        new TextEditingController(text: "p.pavlov@futurist-labs.com");
-    _passwordTextController = new TextEditingController(text: "1234");
+        new TextEditingController(text: '');
+    _passwordTextController = new TextEditingController(text: '');
     Localization.onLocaleChanged = (){
       setState(() {
     });
