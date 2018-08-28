@@ -5,6 +5,7 @@ import 'emailDetails.dart';
 import 'emailCell.dart';
 import 'alertHelper.dart';
 import 'loginScreen.dart';
+import 'package:app_in_mail/localization.dart';
 
 class EmailList extends StatefulWidget {
   EmailList({Key key, this.title}) : super(key: key);
@@ -41,7 +42,7 @@ class EmailListState extends State<EmailList> {
     setState(() {
       _shouldDisplayProgressIndicator = false;
     });
-    AlertHelper.showErrorMessage(context, 'Error while getting emails list.', error.toString());
+    AlertHelper.showErrorMessage(context, Localization.getText('error_while_getting_emails_list'), error.toString());
   }
 
   void _loadData() async {

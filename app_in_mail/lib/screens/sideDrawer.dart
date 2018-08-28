@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../restApi/restApiClient.dart';
 import 'loginScreen.dart';
-
+import 'package:app_in_mail/localization.dart';
 class SideDrawer extends StatefulWidget {
   SideDrawer({Key key, this.title}) : super(key: key);
 
@@ -72,7 +72,7 @@ class SideDrawerState extends State<SideDrawer> {
                   Text('Country'), //Name
                   Container(height: 10.0), //Spacer //Name
                   Container(height: 1.0,  color: Colors.grey, width: 200.0,),//Separator
-                  FlatButton(child: Text('Logout'), onPressed: _onLogoutPressed,)
+                  FlatButton(child: Text(Localization.getText('logout')), onPressed: _onLogoutPressed,)
                 ],
               ),
             ),

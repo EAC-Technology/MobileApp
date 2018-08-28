@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../restApi/restApiClient.dart';
 import "homePage.dart";
 import 'alertHelper.dart';
-import 'package:intl/intl.dart';
 import 'localeSelector.dart';
 import 'package:app_in_mail/localization.dart';
 
@@ -47,7 +46,7 @@ class LoginScreenState extends State<LoginScreen> {
     setState(() {
       _shouldDisplayProgressIndicator = false;
     });
-    AlertHelper.showErrorMessage(context, 'Error while trying to sign in', error.toString());
+    AlertHelper.showErrorMessage(context, Localization.getText('error_while_trying_to_sign_in'), error.toString());
   }
 
   @override
@@ -69,7 +68,7 @@ class LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         Image.asset('assets/logo.png'),
         Container(height: 40.0), //spacing
-        Text('Sign In', style: Theme.of(context).textTheme.headline),
+        Text(Localization.getText('signin'), style: Theme.of(context).textTheme.headline),
         Container(height: 40.0), //spacing
         Container(
           width: 300.0,
@@ -85,7 +84,7 @@ class LoginScreenState extends State<LoginScreen> {
               ),
               filled: true,
               hintStyle: new TextStyle(color: Colors.grey),
-              hintText: "E-mail",
+              hintText: Localization.getText('email'),
             ),
           ),
         ),
@@ -104,7 +103,7 @@ class LoginScreenState extends State<LoginScreen> {
               ),
               filled: true,
               hintStyle: new TextStyle(color: Colors.grey),
-              hintText: "Password",
+              hintText: Localization.getText('password'),
             ),
           ),
         ),
