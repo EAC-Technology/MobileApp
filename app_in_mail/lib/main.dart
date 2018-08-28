@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:app_in_mail/localization.dart';
 
 import 'dart:async';
-import 'dart:io';
 import 'package:uni_links/uni_links.dart';
 
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();

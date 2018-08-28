@@ -40,7 +40,6 @@ class RestApiClient {
   }
 
   static Future<User> signIn(String email, String password) async {
-    awakeServerRuntime(email, password);
     if ( dedicatedInstanceBaseUrl == null) {
       return null;
     }
@@ -134,7 +133,6 @@ class RestApiClient {
   }
 
   static Future<List<String>> getMailboxesList() async {
-    await _awakeInstanceIfNeeded();
     final sid = signedInUser.sessionId;
     final path = '/restapi.py';
     final action = 'list_mailboxes';
