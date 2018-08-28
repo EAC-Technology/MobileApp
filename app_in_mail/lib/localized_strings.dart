@@ -8,7 +8,8 @@ final localizedStrings = {
     'password':'Password',
     'signin':'Sign in',
     'logout':'Logout',
-    'invalid_credentials':"Invalid user name or password."
+    'invalid_credentials':"Invalid user name or password.",
+    'no_internet': 'You are not connected to internet.'
   },
   'fr': {
     'inbox':'Inbox_FR',
@@ -19,6 +20,7 @@ final localizedStrings = {
     'password':'Password_FR',
     'signin':'Sign in_FR',
     'logout':'Logout_FR',
-    'invalid_credentials':'Invalid user name or password.'
+    'invalid_credentials':'Invalid user name or password._FR.',
+    'no_internet': 'You are not connected to internet._FR'
   },
 };

@@ -156,7 +156,13 @@ class RestApiClient {
   }
 
   static Future getResponse(String dataURL) async {
-    http.Response response = await http.get(dataURL);
+    http.Response response = await http.get(dataURL).catchError((error){
+      print(error);
+    });
+
+    if (response == null) {
+        throw (Localization.getText('no_internet'));
+    }
 
     if (response.statusCode != 200) { 
       throw ('Server responded with status code: ' + response.statusCode.toString());
