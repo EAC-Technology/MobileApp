@@ -122,15 +122,19 @@ class _MyAppState extends State<MyApp> {
           dividerColor: Colors.white,
           hintColor: Color.fromRGBO(255, 255, 255, 0.5),
           highlightColor: Colors.white,
-          buttonColor: appInmailLogoColor,
+          buttonColor: Color(0xFFF33E7D),
           primaryColor: appInmailLogoColor,
           textSelectionColor: appInmailLogoColor,
           textTheme: TextTheme(
+               body1:TextStyle(
+                  color: Color(0xFFF33E7D),
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.normal),
               headline: TextStyle(
-                  color: Colors.white,
+                  color: Color(0xF33E7D),
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold)),
-          scaffoldBackgroundColor: Color.fromRGBO(57, 60, 73, 1.0)),
+          scaffoldBackgroundColor: Colors.white),
       home: new HomePage(),
     );
   }

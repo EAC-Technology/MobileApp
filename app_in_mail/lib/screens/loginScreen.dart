@@ -67,18 +67,18 @@ class LoginScreenState extends State<LoginScreen> {
     
     return SingleChildScrollView(child: Column(
       children: <Widget>[
-        SvgPicture.asset('assets/appinmail_logo.svg', width: 100.0, height: 100.0,), 
-        Container(height: 40.0), //spacing
-        Text(Localization.getText('signin'), style: Theme.of(context).textTheme.headline),
-        Container(height: 40.0), //spacing
+        SvgPicture.asset('assets/appinmail_logo.svg', width: 173.0, height: 85.0,), 
+        Container(height: 148.0), //spacing
+        Text(Localization.getText('signin')), 
+        Container(height: 11.0), //spacing
         Container(
           width: 300.0,
           child: TextField(
             keyboardType: TextInputType.emailAddress,
             controller: _emailTextController,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black87),
             decoration: new InputDecoration(
-              border: new OutlineInputBorder(
+              border: new UnderlineInputBorder (
                 borderRadius: const BorderRadius.all(
                   const Radius.circular(10.0),
                 ),
@@ -97,7 +97,7 @@ class LoginScreenState extends State<LoginScreen> {
             style: TextStyle(color: Colors.white),
             obscureText: true,
             decoration: new InputDecoration(
-              border: new OutlineInputBorder(
+              border: new UnderlineInputBorder(
                 borderRadius: const BorderRadius.all(
                   const Radius.circular(10.0),
                 ),
@@ -144,9 +144,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('AppInMail'),
-      ),
+      
       body: new Center(
         child: _getBody(),
       ),
