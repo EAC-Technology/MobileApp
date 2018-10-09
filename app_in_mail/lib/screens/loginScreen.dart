@@ -4,6 +4,7 @@ import "homePage.dart";
 import 'alertHelper.dart';
 import 'localeSelector.dart';
 import 'package:app_in_mail/localization.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key, this.title}) : super(key: key);
@@ -66,7 +67,7 @@ class LoginScreenState extends State<LoginScreen> {
     
     return SingleChildScrollView(child: Column(
       children: <Widget>[
-        Image.asset('assets/logo.png'),
+        SvgPicture.asset('assets/appinmail_logo.svg', width: 100.0, height: 100.0,), 
         Container(height: 40.0), //spacing
         Text(Localization.getText('signin'), style: Theme.of(context).textTheme.headline),
         Container(height: 40.0), //spacing
