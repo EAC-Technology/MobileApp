@@ -80,7 +80,7 @@ class LoginScreenState extends State<LoginScreen> {
         Container(height: 20.0), //spacing
         Container(
           width: 300.0,
-          child: AppInMailTextField(_passwordTextController, TextInputType.emailAddress, false)
+          child: AppInMailTextField(_passwordTextController, TextInputType.emailAddress, true)
         ),
         Container(height: 20.0), //spacing
 
