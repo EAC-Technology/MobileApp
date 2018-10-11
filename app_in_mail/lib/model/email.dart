@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'label.dart';
+import 'package:app_in_mail/model/label.dart';
 //import 'dart:io' show Platform;
 
 class Email {

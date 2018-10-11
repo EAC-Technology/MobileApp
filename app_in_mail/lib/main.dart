@@ -1,12 +1,16 @@
+import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/constants.dart';
+import 'package:app_in_mail/screens/welcome_page.dart';
 import 'package:flutter/material.dart';
-import 'screens/homePage.dart';
+import 'package:app_in_mail/screens/home/homePage.dart';
 import 'package:flutter/services.dart';
-import 'package:app_in_mail/localization.dart';
+import 'package:app_in_mail/utils/localization.dart';
 
 import 'dart:async';
 import 'package:uni_links/uni_links.dart';
 
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
+
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
@@ -16,10 +20,11 @@ void main() {
   });
 }
 
-class MyApp extends StatefulWidget { 
-    @override
-    _MyAppState createState() => new _MyAppState();
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => new _MyAppState();
 }
+
 class _MyAppState extends State<MyApp> {
   Uri _latestUri;
   String _latestLink = 'Unknown';
@@ -47,8 +52,8 @@ class _MyAppState extends State<MyApp> {
     getUriLinksStream().listen((Uri uri) {
       print('got uri: ${uri?.path} ${uri?.queryParametersAll}');
 
-      final snackBar = SnackBar(content: Text('got uri: ${uri?.path} ${uri?.queryParametersAll}'));
-
+      final snackBar = SnackBar(
+          content: Text('got uri: ${uri?.path} ${uri?.queryParametersAll}'));
 
       Scaffold.of(context).showSnackBar(snackBar);
     }, onError: (err) {
@@ -91,7 +96,7 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   initPlatformState() async {
-      await initPlatformStateForUriUniLinks();
+    await initPlatformStateForUriUniLinks();
   }
 
   @override
@@ -99,16 +104,17 @@ class _MyAppState extends State<MyApp> {
     if (_sub != null) _sub.cancel();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context);
     Localization.setLocale(locale.languageCode);
-    
-    final appInmailLogoColor = Color.fromRGBO(218, 34, 80, 1.0);
+
+    final appInMailLogoColor = AppColors.accentColor;
     return new MaterialApp(
       title: 'AppInMail',
       theme: new ThemeData(
+          fontFamily: Constants.mainFont,
           textSelectionHandleColor: Colors.white,
           buttonTheme: ButtonThemeData(
             textTheme: ButtonTextTheme.primary,
@@ -117,16 +123,16 @@ class _MyAppState extends State<MyApp> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(const Radius.circular(8.0))),
           ),
-          cursorColor: Colors.white,
-          accentColor: Colors.white,
+//          cursorColor: Colors.white,
+          accentColor: appInMailLogoColor,
           dividerColor: Colors.white,
           hintColor: Color.fromRGBO(255, 255, 255, 0.5),
           highlightColor: Colors.white,
           buttonColor: Color(0xFFF33E7D),
-          primaryColor: appInmailLogoColor,
-          textSelectionColor: appInmailLogoColor,
+          primaryColor: appInMailLogoColor,
+          textSelectionColor: appInMailLogoColor,
           textTheme: TextTheme(
-               body1:TextStyle(
+              body1: TextStyle(
                   color: Color(0xFFF33E7D),
                   fontSize: 13.0,
                   fontWeight: FontWeight.normal),
@@ -135,9 +141,7 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold)),
           scaffoldBackgroundColor: Colors.white),
-      home: new HomePage(),
+      home: new WelcomePage(),//new HomePage(),
     );
   }
 }
- 
-

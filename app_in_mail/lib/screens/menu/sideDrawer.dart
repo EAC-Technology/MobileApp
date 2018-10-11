@@ -1,7 +1,7 @@
+import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
-import '../restApi/restApiClient.dart';
-import 'loginScreen.dart';
-import 'package:app_in_mail/localization.dart';
+import 'package:app_in_mail/screens/login/loginScreen.dart';
+import 'package:app_in_mail/utils/localization.dart';
 class SideDrawer extends StatefulWidget {
   SideDrawer({Key key, this.title}) : super(key: key);
 

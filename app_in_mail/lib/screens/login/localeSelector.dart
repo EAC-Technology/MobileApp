@@ -1,5 +1,6 @@
+import 'package:app_in_mail/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:app_in_mail/localization.dart';
+import 'package:app_in_mail/utils/localization.dart';
 
 class LocaleSelector extends StatefulWidget {
   LocaleSelector({Key key, this.title}) : super(key: key);
@@ -36,7 +37,7 @@ class LocaleSelectorState extends State<LocaleSelector> {
 
   Color getTextColor(index) {
     if(Localization.languageCode == _locales[index]) {
-      return Color.fromRGBO(218, 34, 80, 1.0);
+      return AppColors.accentColor;
     }
     
     return Colors.grey;

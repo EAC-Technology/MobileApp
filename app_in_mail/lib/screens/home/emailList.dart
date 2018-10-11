@@ -1,11 +1,11 @@
+import 'package:app_in_mail/model/email.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/login/loginScreen.dart';
 import 'package:flutter/material.dart';
-import '../restApi/restApiClient.dart';
-import '../restApi/email.dart';
-import 'emailDetails.dart';
-import 'emailCell.dart';
-import 'alertHelper.dart';
-import 'loginScreen.dart';
-import 'package:app_in_mail/localization.dart';
+import 'package:app_in_mail/screens/home/emailDetails.dart';
+import 'package:app_in_mail/screens/home/emailCell.dart';
+import 'package:app_in_mail/utils/alertHelper.dart';
+import 'package:app_in_mail/utils/localization.dart';
 
 class EmailList extends StatefulWidget {
   EmailList({Key key, this.title}) : super(key: key);

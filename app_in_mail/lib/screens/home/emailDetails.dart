@@ -1,7 +1,8 @@
+import 'package:app_in_mail/model/email.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import '../restApi/restApiClient.dart';
-import '../restApi/email.dart';
+
 
 class EmailDetails extends StatefulWidget {
   EmailDetails({this.email, this.mailBox});

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
-import './user.dart';
-import './email.dart';
-import 'package:app_in_mail/localization.dart';
+import 'package:app_in_mail/model/user.dart';
+import 'package:app_in_mail/model/email.dart';
+import 'package:app_in_mail/utils/localization.dart';
 
 class RestApiClient {
   static final adminBaseUrl = 'https://admin.appinmail.io';

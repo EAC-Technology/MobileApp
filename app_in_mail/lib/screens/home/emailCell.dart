@@ -1,6 +1,7 @@
+import 'package:app_in_mail/model/email.dart';
+import 'package:app_in_mail/model/label.dart';
 import 'package:flutter/material.dart';
-import '../restApi/email.dart';
-import '../restApi/label.dart';
+
 
 
 class EmailCell extends ListTile {

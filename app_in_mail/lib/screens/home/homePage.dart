@@ -1,9 +1,11 @@
+import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/login/loginScreen.dart';
+import 'package:app_in_mail/screens/menu/sideDrawer.dart';
+import 'package:app_in_mail/utils/logger.dart';
 import 'package:flutter/material.dart';
-import './loginScreen.dart';
-import './sideDrawer.dart';
-import './emailList.dart';
-import '../restApi/restApiClient.dart';
-import 'package:app_in_mail/localization.dart';
+import 'package:app_in_mail/screens/home/emailList.dart';
+import 'package:app_in_mail/utils/localization.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _navigateToLogin() {
+    Log.d("no saved user, redirect to Login screen");
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
@@ -29,12 +32,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //todo change the SideDrawer to single page
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         drawer: SideDrawer(),
         appBar: new AppBar(
-          title: new Text(Localization.getText("inbox")),
+          title: new Text(Localization.getString(Keys.inbox)),
         ),
         body: EmailList());
   }
