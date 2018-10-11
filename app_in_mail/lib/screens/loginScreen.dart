@@ -5,6 +5,7 @@ import 'alertHelper.dart';
 import 'localeSelector.dart';
 import 'package:app_in_mail/localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:app_in_mail/custom_widgets/appinmail_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key, this.title}) : super(key: key);
@@ -71,42 +72,15 @@ class LoginScreenState extends State<LoginScreen> {
         Container(height: 148.0), //spacing
         Text(Localization.getText('signin')), 
         Container(height: 11.0), //spacing
+        
         Container(
           width: 300.0,
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            controller: _emailTextController,
-            style: TextStyle(color: Colors.black87),
-            decoration: new InputDecoration(
-              border: new UnderlineInputBorder (
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              filled: true,
-              hintStyle: new TextStyle(color: Colors.grey),
-              hintText: Localization.getText('email'),
-            ),
-          ),
+          child: AppInMailTextField(_emailTextController, TextInputType.emailAddress, false)
         ),
         Container(height: 20.0), //spacing
         Container(
           width: 300.0,
-          child: TextField(
-            controller: _passwordTextController,
-            style: TextStyle(color: Colors.white),
-            obscureText: true,
-            decoration: new InputDecoration(
-              border: new UnderlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              filled: true,
-              hintStyle: new TextStyle(color: Colors.grey),
-              hintText: Localization.getText('password'),
-            ),
-          ),
+          child: AppInMailTextField(_passwordTextController, TextInputType.emailAddress, false)
         ),
         Container(height: 20.0), //spacing
 
