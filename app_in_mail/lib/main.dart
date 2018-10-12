@@ -1,6 +1,5 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/constants.dart';
-import 'package:app_in_mail/screens/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_in_mail/screens/home/homePage.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +25,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // ignore: unused_field
   Uri _latestUri;
   String _latestLink = 'Unknown';
   StreamSubscription _sub;
@@ -141,7 +141,8 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold)),
           scaffoldBackgroundColor: Colors.white),
-      home: new WelcomePage(),//new HomePage(),
+      home: //new WelcomePage(),
+              new HomePage(),
     );
   }
 }

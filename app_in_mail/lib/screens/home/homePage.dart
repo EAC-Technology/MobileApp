@@ -37,9 +37,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         drawer: SideDrawer(),
-        appBar: new AppBar(
-          title: new Text(Localization.getString(Keys.inbox)),
-        ),
+        appBar: !RestApiClient.needsLogin()
+            ? new AppBar(
+                title: new Text(Localization.getString(Strings.inbox)),
+              )
+            : null,
         body: EmailList());
   }
 }

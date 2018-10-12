@@ -22,7 +22,7 @@ class AlertHelper {
     ScaffoldState scaffoldState = Scaffold.of(context, nullOk: true);
     if (scaffoldState != null){
       scaffoldState.showSnackBar(snackBar);
-    }else{
+    }else{//fallback to popup
       showDialog<Null>(
         context: context,
         barrierDismissible: true, // user must tap button!

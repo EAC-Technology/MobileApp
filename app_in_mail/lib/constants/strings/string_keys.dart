@@ -1,5 +1,6 @@
-///Here we keep the keys for our translation Strings
-class Keys{
+///Here we keep the keys for our translation Strings, please use the same
+///text for the value as is the property name, this way we make sure is unique
+class Strings{
   static final inbox = 'inbox';
   static final enter = 'next';
   static final errorWhileGettingEmailsList = 'error_while_getting_emails_list';
@@ -10,4 +11,11 @@ class Keys{
   static final logout = 'logout';
   static final invalidCredentials = 'invalid_credentials';
   static final noInternet = 'no_internet';
+  static final welcomeTitle1 = 'welcomeTitle1';
+  static final welcomeTitle2 = 'welcomeTitle2';
+  static final welcomeMsg = 'welcomeMsg';
+  static final welcomeBtnOK = 'welcomeBtnOK';
+  static final registerMsg = 'registerMsg';
+  static final registerBtn = 'registerBtn';
+  static final forgotPasswordBtn = 'forgotPasswordBtn';
 }

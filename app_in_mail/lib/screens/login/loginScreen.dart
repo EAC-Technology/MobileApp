@@ -1,10 +1,13 @@
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/custom_widgets/appinmail_textfield.dart';
+import 'package:app_in_mail/custom_widgets/flat_ripple_button.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/welcome_page.dart';
+import 'package:app_in_mail/utils/config.dart';
 import 'package:app_in_mail/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import "package:app_in_mail/screens/home/homePage.dart";
 import 'package:app_in_mail/utils/alertHelper.dart';
 import 'package:app_in_mail/screens/login/localeSelector.dart';
 import 'package:app_in_mail/utils/localization.dart';
@@ -35,16 +38,18 @@ class LoginScreenState extends State<LoginScreen> {
     print(instanceUrl);
     var user =
         await RestApiClient.signIn(userName, password).catchError(_onError);
-    setState(() {
-      this._shouldDisplayProgressIndicator = false;
-    });
+//    setState(() {
+//      this._shouldDisplayProgressIndicator = false;
+//    });
 
     Log.d("Logged in user with session:" + user.sessionId, tag);
 
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return new HomePage();
+//          todo Check if welcome page has been seen already, if not redirect
+// to it else go Home
+          return new WelcomePage(); //new HomePage();
         },
       ),
     );
@@ -56,7 +61,7 @@ class LoginScreenState extends State<LoginScreen> {
     });
     AlertHelper.showErrorMessage(
         context,
-        Localization.getString(Keys.errorWhileTryingToSignIn),
+        Localization.getString(Strings.errorWhileTryingToSignIn),
         error.toString());
     Log.e('Error on login user', tag, error);
   }
@@ -68,8 +73,8 @@ class LoginScreenState extends State<LoginScreen> {
     _passwordTextController = new TextEditingController(text: '');
 
     assert(() {
-      _emailTextController.text = 'p.pavlov@futurist-labs.com';
-      _passwordTextController.text = '1234';
+      _emailTextController.text = AppProperties.username;
+      _passwordTextController.text = AppProperties.password;
       return true;
     }());
 
@@ -78,84 +83,107 @@ class LoginScreenState extends State<LoginScreen> {
     };
   }
 
-  bool _shouldDisplayProgressIndicator = false;
-
-  Widget _getStandardBody() {
-    return SingleChildScrollView(
-        child: Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 104.0, bottom: 104.0),
-          child: SvgPicture.asset(
-            Img.icAppMail,
-            width: 173.0,
-            height: 85.0,
-          ),
-        ),
-//        Container(height: 148.0), //spacing
-        Text(Localization.getString(Keys.signIn)),
-        Container(
-          margin: EdgeInsets.only(top: 11.0),
-          width: 300.0,
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            controller: _emailTextController,
-            style: _tfStyle(),
-            decoration: new InputDecoration(
-              border: new UnderlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              filled: true,
-              hintStyle: new TextStyle(color: Colors.grey),
-              hintText: Localization.getString(Keys.email),
-            ),
-          ),
-        ),
-        Container(height: 11.0), //spacing
-        Text(Localization.getString(Keys.password)),
-        Container(height: 11.0), //spacing
-        Container(
-          width: 300.0,
-          child: TextField(
-            controller: _passwordTextController,
-            style: _tfStyle(),
-            obscureText: true,
-            decoration: new InputDecoration(
-              border: new UnderlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              filled: true,
-//              hintStyle: new TextStyle(color: Colors.grey),
-//              hintText: Localization.getString(Keys.password),
-            ),
-          ),
-        ),
-
-        Container(
-          margin: EdgeInsets.only(top: 40.0),
-          width: 190.0,
-          child: RaisedButton(
-            child: Text(
-              Localization.getString(Keys.enter),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.normal),
-            ),
-            onPressed: _onSignInPressed,
-          ),
-        ),
-        Container(height: 20.0), //spacing
-        LocaleSelector(),
-      ],
-    ));
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: new Center(
+        child: _getBody(),
+      ),
+    );
   }
 
-  TextStyle _tfStyle() => TextStyle(color: Colors.black87, fontSize: 16.0);
+  bool _shouldDisplayProgressIndicator = false;
+  double _textFieldWidth = 300.0, _textFieldMargin = 11.0;
+
+  Widget _getStandardBody() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        SvgPicture.asset(
+          Img.icAppMailSvg,
+          width: 173.0,
+          height: 85.0,
+        ),
+        _formSection(),
+        _extraOptionSection()
+      ],
+//    )
+    );
+  }
+
+  Column _extraOptionSection() {
+    return Column(
+        children: <Widget>[
+          LocaleSelector(),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: _registerRow(),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 16.0),
+            child: FlatAppButton(
+                Strings.forgotPasswordBtn,
+                (contextFromButton) =>
+                    AlertHelper.showSnackBar(contextFromButton, "TBI")),
+          ),
+        ],
+      );
+  }
+
+  Column _formSection() {
+    return Column(
+        children: <Widget>[
+          Text(Localization.getString(Strings.signIn)),
+          Container(
+              margin: EdgeInsets.only(top: _textFieldMargin, bottom: _textFieldMargin),
+              width: _textFieldWidth,
+              child: AppInMailTextField(
+                  _emailTextController, TextInputType.emailAddress, false)),
+          Text(Localization.getString(Strings.password)),
+          Container(
+              margin: EdgeInsets.only(top: _textFieldMargin),
+              width: _textFieldWidth,
+              child: AppInMailTextField(
+                  _passwordTextController, TextInputType.emailAddress, true)),
+          Container(
+            margin: EdgeInsets.only(top: 40.0),
+            width: 190.0,
+            child: RaisedButton(
+              child: Text(
+                Localization.getString(Strings.enter),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.normal),
+              ),
+              onPressed: _onSignInPressed,
+            ),
+          ),
+        ],
+      );
+  }
+
+  Row _registerRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          Localization.getString(Strings.registerMsg),
+          style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 13.0,
+              color: Colors.black),
+        ),
+        Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: FlatAppButton(
+                Strings.registerBtn,
+                (contextFromButton) =>
+                    AlertHelper.showSnackBar(contextFromButton, "TBI")))
+      ],
+    );
+  }
 
   Widget _getProgressIndicator() {
     return Center(child: CircularProgressIndicator());
@@ -167,13 +195,5 @@ class LoginScreenState extends State<LoginScreen> {
     } else {
       return _getStandardBody();
     }
-  }
-
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Center(
-        child: _getBody(),
-      ),
-    );
   }
 }

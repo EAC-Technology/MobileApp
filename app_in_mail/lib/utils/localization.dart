@@ -1,5 +1,6 @@
 import 'package:app_in_mail/constants/strings/en_strings.dart';
 import 'package:app_in_mail/constants/strings/fr_strings.dart';
+import 'package:app_in_mail/utils/logger.dart';
 
 import 'localized_strings.dart';
 import 'dart:ui';
@@ -45,6 +46,11 @@ class Localization {
   ///
   ///import 'package:app_in_mail/constants/strings/string_keys.dart';
   static String getString(String key) {
-    return _strings[key];
+    String textToReturn = _strings[key];
+    if(textToReturn == null){
+      Log.e("No text for id : $key");
+      textToReturn = 'no text';
+    }
+    return textToReturn;
   }
 }

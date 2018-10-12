@@ -10,3 +10,4 @@ build/
 /.idea/
 /pubspec.lock
 /.vscode/
+/lib/utils/config.dart
