@@ -86,6 +86,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: new Center(
         child: _getBody(),
       ),
@@ -114,54 +115,55 @@ class LoginScreenState extends State<LoginScreen> {
 
   Column _extraOptionSection() {
     return Column(
-        children: <Widget>[
-          LocaleSelector(),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: _registerRow(),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 16.0),
-            child: FlatAppButton(
-                Strings.forgotPasswordBtn,
-                (contextFromButton) =>
-                    AlertHelper.showSnackBar(contextFromButton, "TBI")),
-          ),
-        ],
-      );
+      children: <Widget>[
+        LocaleSelector(),
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: _registerRow(),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 16.0),
+          child: FlatAppButton(
+              Strings.forgotPasswordBtn,
+              (contextFromButton) =>
+                  AlertHelper.showSnackBar(contextFromButton, "TBI")),
+        ),
+      ],
+    );
   }
 
   Column _formSection() {
     return Column(
-        children: <Widget>[
-          Text(Localization.getString(Strings.signIn)),
-          Container(
-              margin: EdgeInsets.only(top: _textFieldMargin, bottom: _textFieldMargin),
-              width: _textFieldWidth,
-              child: AppInMailTextField(
-                  _emailTextController, TextInputType.emailAddress, false)),
-          Text(Localization.getString(Strings.password)),
-          Container(
-              margin: EdgeInsets.only(top: _textFieldMargin),
-              width: _textFieldWidth,
-              child: AppInMailTextField(
-                  _passwordTextController, TextInputType.emailAddress, true)),
-          Container(
-            margin: EdgeInsets.only(top: 40.0),
-            width: 190.0,
-            child: RaisedButton(
-              child: Text(
-                Localization.getString(Strings.enter),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.normal),
-              ),
-              onPressed: _onSignInPressed,
+      children: <Widget>[
+        Text(Localization.getString(Strings.signIn)),
+        Container(
+            margin: EdgeInsets.only(
+                top: _textFieldMargin, bottom: _textFieldMargin),
+            width: _textFieldWidth,
+            child: AppInMailTextField(
+                _emailTextController, TextInputType.emailAddress, false)),
+        Text(Localization.getString(Strings.password)),
+        Container(
+            margin: EdgeInsets.only(top: _textFieldMargin),
+            width: _textFieldWidth,
+            child: AppInMailTextField(
+                _passwordTextController, TextInputType.emailAddress, true)),
+        Container(
+          margin: EdgeInsets.only(top: 40.0),
+          width: 190.0,
+          child: RaisedButton(
+            child: Text(
+              Localization.getString(Strings.enter),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.normal),
             ),
+            onPressed: _onSignInPressed,
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   Row _registerRow() {
