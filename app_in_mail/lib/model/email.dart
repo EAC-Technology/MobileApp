@@ -42,6 +42,9 @@ class Email {
     );
   }
   String formattedTimeStamp() {
+    //todo add logic to check if is today(show only time), this year(day and
+    // month), other as is now
+
     //final localeName = Platform.localeName;
     var emailDate = new DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
     var formatter = new DateFormat.yMEd();

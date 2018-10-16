@@ -2,7 +2,7 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 ///english translations, each new String must be also added to the other
 ///translation files and the key must be a constant
 final localizedStringsEn = {
-  Strings.inbox: 'Inbox_en',
+  Strings.inbox: 'Inbox',
   Strings.enter: 'NEXT',
   Strings.errorWhileGettingEmailsList: 'Error while getting emails list.',
   Strings.errorWhileTryingToSignIn: 'Error while trying to sign in',

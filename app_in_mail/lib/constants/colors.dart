@@ -5,4 +5,8 @@ class AppColors {
   static final greyLight = Color(0xFFA4A5BF);
   static final darkSplash = Colors.black45;
   static final lightSplash = Colors.white;
+  static final toolbar = Colors.white;
+  static final titleTextColor = Color(0xFF3C3D63);
+  static final emailSeenTextColor = Color(0xFFA4A5BF);
+  static final emailSeenDateColor = Color(0xFFCCCCCC);
 }

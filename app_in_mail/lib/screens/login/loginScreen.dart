@@ -30,6 +30,7 @@ class LoginScreenState extends State<LoginScreen> {
   void _onSignInPressed() async {
     final userName = _emailTextController.text;
     final password = _passwordTextController.text;
+//    todo validate fields first
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
