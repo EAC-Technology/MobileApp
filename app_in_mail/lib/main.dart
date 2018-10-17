@@ -117,6 +117,7 @@ class _MyAppState extends State<MyApp> {
           fontFamily: Constants.mainFont,
           textSelectionHandleColor: Colors.white,
           buttonTheme: ButtonThemeData(
+            buttonColor: Color(0xFFF33E7D),
             textTheme: ButtonTextTheme.primary,
             minWidth: 300.0,
             height: 44.0,
