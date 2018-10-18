@@ -32,8 +32,8 @@ class EmailListState extends State<EmailList> {
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return new LoginScreen();
-        },
+          return new LoginScreen(); 
+        }, 
       ),
     );
   }

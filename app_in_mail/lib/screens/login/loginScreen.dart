@@ -57,6 +57,8 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void _onError(error) {
+    if (!this.mounted) return; 
+    
     setState(() {
       _shouldDisplayProgressIndicator = false;
     });
@@ -80,6 +82,7 @@ class LoginScreenState extends State<LoginScreen> {
     }());
 
     Localization.onLocaleChanged = () {
+      if (!this.mounted) return; 
       setState(() {});
     };
   }
