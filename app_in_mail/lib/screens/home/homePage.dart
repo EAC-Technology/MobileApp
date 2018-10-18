@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isSearchCollapsed = true;
+
   final TextEditingController _searchTextFieldController =
       TextEditingController();
 
@@ -37,24 +38,19 @@ class _HomePageState extends State<HomePage> {
         drawer: SideDrawer(),
         appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
         body: CollapsibleHeaderContainer(
-      isHeaderCollapsed: this._isSearchCollapsed,
-      header: _buildSearchBox(),
-      headerHeight: 100.0,
-      child: EmailList(
-          isSearchCollapsed: this._isSearchCollapsed,
-        ))
-    );
-        
+            isHeaderCollapsed: this._isSearchCollapsed,
+            header: _buildSearchBox(),
+            headerHeight: 100.0,
+            child: EmailList(
+              isSearchCollapsed: this._isSearchCollapsed,
+              searchText: _searchTextFieldController.text,
+            )));
   }
 
-  void _performSearch(String text) {
-      
-  }
-
-  dynamic _onClearSearchPressed(){
+  dynamic _onClearSearchPressed() {
     setState(() {
-      this._isSearchCollapsed = ! this._isSearchCollapsed;      
-        });
+      this._isSearchCollapsed = !this._isSearchCollapsed;
+    });
   }
 
   Widget _buildSearchBox() {
@@ -63,20 +59,24 @@ class _HomePageState extends State<HomePage> {
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.clear),
-          onPressed:  this._onClearSearchPressed,
+          onPressed: this._onClearSearchPressed,
         ),
         Expanded(
           child: Container(
               width: 100.0,
               child: AppInMailTextField(
                 onChanged: (text) {
-                    //_performSearch(text);
+                  setState(() {
+                    //just triggering re-render , text is alredy in the controller
+                  });
                 },
                 controller: _searchTextFieldController,
                 keyboardType: TextInputType.text,
               )),
         ),
-        Container(width: 20.0,) //right padding
+        Container(
+          width: 20.0,
+        ) //right padding
       ],
     );
   }

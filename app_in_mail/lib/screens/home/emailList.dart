@@ -10,15 +10,17 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 
 class EmailList extends StatefulWidget {
   final bool isSearchCollapsed;
-  EmailList({Key key, this.title, this.isSearchCollapsed}) : super(key: key);
+  EmailList({Key key, this.title, this.isSearchCollapsed, this.searchText}) : super(key: key);
 
   final String title;
+  final String searchText;
   @override
   EmailListState createState() => new EmailListState();
 }
 
 class EmailListState extends State<EmailList> {
   List<Email> _emails = List<Email>();
+  List<Email> _filteredEmails = List<Email>();
   String _mailBox;
   
   
@@ -57,16 +59,27 @@ class EmailListState extends State<EmailList> {
         error.toString());
   }
 
+
+  List<String> _mailBoxes = List<String>();
+  
   void _loadData() async {
     setState(() {
       _shouldDisplayProgressIndicator = true;
     });
+    
+    //todo: should not reload emails and boxes on each redraw. e.g. when we search we trigger redraw on each letter.
+    //this bellow is a temporary hack to test search:
+    if (_mailBoxes.isEmpty) {
+      this._mailBoxes = await RestApiClient.getMailboxesList().catchError(_onError);
+    }
+    
+    _mailBox =_mailBoxes.first;
 
-    final mailBoxes =
-        await RestApiClient.getMailboxesList().catchError(_onError);
-    _mailBox = mailBoxes.first;
-    this._emails =
-        await RestApiClient.getEmailsList(_mailBox).catchError(_onError);
+    if (this._emails.isEmpty) {
+      this._emails = await RestApiClient.getEmailsList(_mailBox).catchError(_onError);
+    }
+    
+    this._filteredEmails = this._emails.where((email) => widget.searchText.isEmpty || email.fromName.toLowerCase().contains(widget.searchText.toLowerCase())).toList();
 
     setState(() {
       _shouldDisplayProgressIndicator = false;
@@ -80,7 +93,7 @@ class EmailListState extends State<EmailList> {
         _navigateToEmail(index);
       },
       child: Column(children: <Widget>[
-        EmailCell(email: _emails[index]),
+        EmailCell(email: _filteredEmails[index]),
         Container(height: 10.0) //spacer
       ]),
     );
@@ -90,7 +103,7 @@ class EmailListState extends State<EmailList> {
     Navigator.of(context).push(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return EmailDetails(mailBox: _mailBox, email: _emails[index]);
+          return EmailDetails(mailBox: _mailBox, email: _filteredEmails[index]);
         },
       ),
     );
@@ -100,7 +113,7 @@ class EmailListState extends State<EmailList> {
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, index) {
-          if (index < _emails.length) {
+          if (index < _filteredEmails.length) {
             return _buildListRow(index);
           }
         });
