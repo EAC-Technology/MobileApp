@@ -6,6 +6,7 @@ import 'package:crypto/crypto.dart' as crypto;
 import 'package:app_in_mail/model/user.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/utils/localization.dart';
+import 'package:app_in_mail/constants/strings/string_keys.dart';
 
 class RestApiClient {
   static final adminBaseUrl = 'https://admin.appinmail.io';
@@ -160,7 +161,7 @@ class RestApiClient {
     });
 
     if (response == null) {
-        throw (Localization.getText('no_internet'));
+        throw (Localization.getString(Strings.noInternet));
     }
 
     if (response.statusCode != 200) { 
@@ -172,7 +173,7 @@ class RestApiClient {
     if (responseArray[0] == 'error') {
       dedicatedInstanceBaseUrl = null;
       if ( result.toString().toLowerCase().contains("auth error")) { //we need that check because the server returns status 200 on auth error.
-        throw(Localization.getText('invalid_credentials'));
+        throw(Localization.getString(Strings.invalidCredentials));
       }else {
         throw result.toString();
       } 

@@ -2,6 +2,7 @@ import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
 import 'package:app_in_mail/screens/login/loginScreen.dart';
 import 'package:app_in_mail/utils/localization.dart';
+import 'package:app_in_mail/constants/strings/string_keys.dart';
 class SideDrawer extends StatefulWidget {
   SideDrawer({Key key, this.title}) : super(key: key);
 
@@ -72,7 +73,7 @@ class SideDrawerState extends State<SideDrawer> {
                   Text('Country'), //Name
                   Container(height: 10.0), //Spacer //Name
                   Container(height: 1.0,  color: Colors.grey, width: 200.0,),//Separator
-                  FlatButton(child: Text(Localization.getText('logout')), onPressed: _onLogoutPressed,)
+                  FlatButton(child: Text(Localization.getString(Strings.logout)), onPressed: _onLogoutPressed,)
                 ],
               ),
             ),

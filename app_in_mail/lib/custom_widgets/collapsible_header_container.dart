@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 /// A container that provides animated collapsible header. Simillar to bottom sheets, however it shows from the top.
 class CollapsibleHeaderContainer extends StatefulWidget {
-  double headerHeight;
-  Widget header;
-  Widget child;
-  CollapsibleHeaderContainer({this.isHeaderCollapsed, this.headerHeight, this.header, this.child}) : super();
+  final double headerHeight;
+  final Widget header;
+  final Widget child;
   final bool isHeaderCollapsed;
+  
+  CollapsibleHeaderContainer({this.isHeaderCollapsed, this.headerHeight, this.header, this.child}) : super();
+  
   @override
   _CollapsibleHeaderContainerState createState() =>
       _CollapsibleHeaderContainerState();
@@ -18,7 +20,13 @@ class _CollapsibleHeaderContainerState
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        AnimatedContainer(curve: Curves.easeIn, duration: Duration(milliseconds: 300), height: widget.isHeaderCollapsed?0:widget.headerHeight, child: _buildHeader()),
+        AnimatedContainer(
+            decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.grey[900], offset: new Offset(0.0, 5.0), blurRadius: 20.0
+            )], ),
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 100),
+            height: widget.isHeaderCollapsed ? 0 : widget.headerHeight,
+            child: _buildHeader()),
         Expanded(child: widget.child,),
       ],
       

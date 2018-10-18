@@ -7,9 +7,11 @@ import 'package:app_in_mail/screens/home/emailCell.dart';
 import 'package:app_in_mail/utils/alertHelper.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:app_in_mail/custom_widgets/collapsible_header_container.dart';
+import 'package:app_in_mail/custom_widgets/appinmail_textfield.dart';
+import 'package:app_in_mail/constants/strings/string_keys.dart';
 
 class EmailList extends StatefulWidget {
-  bool isSearchCollapsed;
+  final bool isSearchCollapsed;
   EmailList({Key key, this.title, this.isSearchCollapsed}) : super(key: key);
 
   final String title;
@@ -25,7 +27,7 @@ class EmailListState extends State<EmailList> {
     super.initState();
     if (RestApiClient.needsLogin()) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _navigateToLogin());
-    }else {
+    } else {
       WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
     }
   }
@@ -34,17 +36,20 @@ class EmailListState extends State<EmailList> {
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return new LoginScreen(); 
-        }, 
+          return new LoginScreen();
+        },
       ),
     );
   }
 
-   void _onError(error) {
+  void _onError(error) {
     setState(() {
       _shouldDisplayProgressIndicator = false;
     });
-    AlertHelper.showErrorMessage(context, Localization.getText('error_while_getting_emails_list'), error.toString());
+    AlertHelper.showErrorMessage(
+        context,
+        Localization.getString(Strings.errorWhileGettingEmailsList) ,
+        error.toString());
   }
 
   void _loadData() async {
@@ -52,10 +57,11 @@ class EmailListState extends State<EmailList> {
       _shouldDisplayProgressIndicator = true;
     });
 
-    final mailBoxes = await RestApiClient.getMailboxesList().catchError(_onError);
-    _mailBox = mailBoxes
-        .first; 
-    this._emails = await RestApiClient.getEmailsList(_mailBox).catchError(_onError);
+    final mailBoxes =
+        await RestApiClient.getMailboxesList().catchError(_onError);
+    _mailBox = mailBoxes.first;
+    this._emails =
+        await RestApiClient.getEmailsList(_mailBox).catchError(_onError);
 
     setState(() {
       _shouldDisplayProgressIndicator = false;
@@ -98,11 +104,20 @@ class EmailListState extends State<EmailList> {
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
     //return Container(color: Colors.white, child: _buildEmailsList());
-    return new CollapsibleHeaderContainer( isHeaderCollapsed: widget.isSearchCollapsed, header: _buildSearchBox(), child: _buildEmailsList(), headerHeight: 100.0,);
+    return new CollapsibleHeaderContainer(
+      isHeaderCollapsed: widget.isSearchCollapsed,
+      header: _buildSearchBox(),
+      child: _buildEmailsList(),
+      headerHeight: 100.0,
+    );
   }
 
   Widget _buildSearchBox() {
-    return Container(color: Colors.pink,);
+    return Row(
+      children: <Widget>[
+        Container(child: AppInMailTextField(controller: null, keyboardType: TextInputType.text,))
+      ],
+    );
   }
 
   Widget _getProgressIndicator() {

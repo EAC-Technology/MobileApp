@@ -57,8 +57,8 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void _onError(error) {
-    if (!this.mounted) return; 
-    
+    if (!this.mounted) return;
+
     setState(() {
       _shouldDisplayProgressIndicator = false;
     });
@@ -82,7 +82,7 @@ class LoginScreenState extends State<LoginScreen> {
     }());
 
     Localization.onLocaleChanged = () {
-      if (!this.mounted) return; 
+      if (!this.mounted) return;
       setState(() {});
     };
   }
@@ -144,14 +144,14 @@ class LoginScreenState extends State<LoginScreen> {
             margin: EdgeInsets.only(
                 top: _textFieldMargin, bottom: _textFieldMargin),
             width: _textFieldWidth,
-            child: AppInMailTextField(
-                _emailTextController, TextInputType.emailAddress, false)),
+            child: AppInMailTextField(controller: 
+                _emailTextController,   keyboardType: TextInputType.emailAddress)),
         Text(Localization.getString(Strings.password)),
         Container(
             margin: EdgeInsets.only(top: _textFieldMargin),
             width: _textFieldWidth,
-            child: AppInMailTextField(
-                _passwordTextController, TextInputType.emailAddress, true)),
+            child: AppInMailTextField(controller:
+                _passwordTextController, keyboardType: TextInputType.emailAddress, obscureText: true)),
         Container(
           margin: EdgeInsets.only(top: 40.0),
           width: 190.0,

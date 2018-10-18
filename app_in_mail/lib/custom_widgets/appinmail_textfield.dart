@@ -6,7 +6,7 @@ class AppInMailTextField extends StatefulWidget {
   final TextInputType keyboardType; 
   final bool obscureText;
   
-  AppInMailTextField(this.controller, this.keyboardType, this.obscureText);
+  AppInMailTextField({this.controller, this.keyboardType, this.obscureText = false});
 
   @override
   _AppInMailTextFieldState createState() => new _AppInMailTextFieldState();
