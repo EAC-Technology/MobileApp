@@ -6,9 +6,11 @@ import 'package:app_in_mail/screens/home/emailDetails.dart';
 import 'package:app_in_mail/screens/home/emailCell.dart';
 import 'package:app_in_mail/utils/alertHelper.dart';
 import 'package:app_in_mail/utils/localization.dart';
+import 'package:app_in_mail/custom_widgets/collapsible_header_container.dart';
 
 class EmailList extends StatefulWidget {
-  EmailList({Key key, this.title}) : super(key: key);
+  bool isSearchCollapsed;
+  EmailList({Key key, this.title, this.isSearchCollapsed}) : super(key: key);
 
   final String title;
   @override
@@ -95,7 +97,12 @@ class EmailListState extends State<EmailList> {
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    return Container(color: Colors.white, child: _buildEmailsList());
+    //return Container(color: Colors.white, child: _buildEmailsList());
+    return new CollapsibleHeaderContainer( isHeaderCollapsed: widget.isSearchCollapsed, header: _buildSearchBox(), child: _buildEmailsList(), headerHeight: 100.0,);
+  }
+
+  Widget _buildSearchBox() {
+    return Container(color: Colors.pink,);
   }
 
   Widget _getProgressIndicator() {

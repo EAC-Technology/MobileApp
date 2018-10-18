@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isSearchCollapsed = true;
 
   @override
   void initState() {
@@ -31,7 +32,9 @@ class _HomePageState extends State<HomePage> {
     return new Scaffold(
         drawer: SideDrawer(),
         appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
-        body: EmailList());
+        body: EmailList(
+          isSearchCollapsed: this._isSearchCollapsed,
+        ));
   }
 
   void _navigateToLogin() {
@@ -64,8 +67,7 @@ class _HomePageState extends State<HomePage> {
                 width: 22.0,
                 height: 18.0,
               ),
-              onPressed: () => Scaffold.of(context).openDrawer()
-          );
+              onPressed: () => Scaffold.of(context).openDrawer());
         },
       ),
       actions: <Widget>[
@@ -97,7 +99,9 @@ class _HomePageState extends State<HomePage> {
               height: 18.0,
             ),
             onPressed: () {
-              //todo do search
+              setState(() {
+                _isSearchCollapsed = !_isSearchCollapsed;
+              });
             }),
       ],
     );
