@@ -6,9 +6,11 @@ class CollapsibleHeaderContainer extends StatefulWidget {
   final Widget header;
   final Widget child;
   final bool isHeaderCollapsed;
-  
-  CollapsibleHeaderContainer({this.isHeaderCollapsed, this.headerHeight, this.header, this.child}) : super();
-  
+
+  CollapsibleHeaderContainer(
+      {this.isHeaderCollapsed, this.headerHeight, this.header, this.child})
+      : super();
+
   @override
   _CollapsibleHeaderContainerState createState() =>
       _CollapsibleHeaderContainerState();
@@ -21,20 +23,24 @@ class _CollapsibleHeaderContainerState
     return Column(
       children: <Widget>[
         AnimatedContainer(
-            decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.grey[900], offset: new Offset(0.0, 5.0), blurRadius: 20.0
-            )], ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey[900],
+                    offset: new Offset(0.0, 5.0),
+                    blurRadius: 20.0)
+              ],
+            ),
             curve: Curves.easeIn,
             duration: Duration(milliseconds: 100),
             height: widget.isHeaderCollapsed ? 0 : widget.headerHeight,
-            child: _buildHeader()),
-        Expanded(child: widget.child,),
+            child: widget.isHeaderCollapsed ? Container() : widget.header),
+            Container(height: 30,), //just making place for the shadow.
+        Expanded(
+          child: widget.child,
+        ),
       ],
-      
     );
   }
-
-  Widget _buildHeader() {
-    return widget.header;
-  }
 }
- 

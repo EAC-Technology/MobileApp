@@ -6,8 +6,6 @@ import 'package:app_in_mail/screens/home/emailDetails.dart';
 import 'package:app_in_mail/screens/home/emailCell.dart';
 import 'package:app_in_mail/utils/alertHelper.dart';
 import 'package:app_in_mail/utils/localization.dart';
-import 'package:app_in_mail/custom_widgets/collapsible_header_container.dart';
-import 'package:app_in_mail/custom_widgets/appinmail_textfield.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 
 class EmailList extends StatefulWidget {
@@ -22,10 +20,17 @@ class EmailList extends StatefulWidget {
 class EmailListState extends State<EmailList> {
   List<Email> _emails = List<Email>();
   String _mailBox;
+  
+  
+
   @override
   void initState() {
     super.initState();
-    if (RestApiClient.needsLogin()) {
+    _redirectToLoginIfNeeded();
+  }
+
+  void _redirectToLoginIfNeeded() {
+     if (RestApiClient.needsLogin()) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _navigateToLogin());
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
@@ -48,7 +53,7 @@ class EmailListState extends State<EmailList> {
     });
     AlertHelper.showErrorMessage(
         context,
-        Localization.getString(Strings.errorWhileGettingEmailsList) ,
+        Localization.getString(Strings.errorWhileGettingEmailsList),
         error.toString());
   }
 
@@ -103,21 +108,7 @@ class EmailListState extends State<EmailList> {
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    //return Container(color: Colors.white, child: _buildEmailsList());
-    return new CollapsibleHeaderContainer(
-      isHeaderCollapsed: widget.isSearchCollapsed,
-      header: _buildSearchBox(),
-      child: _buildEmailsList(),
-      headerHeight: 100.0,
-    );
-  }
-
-  Widget _buildSearchBox() {
-    return Row(
-      children: <Widget>[
-        Container(child: AppInMailTextField(controller: null, keyboardType: TextInputType.text,))
-      ],
-    );
+    return Container(color: Colors.white, child: _buildEmailsList());
   }
 
   Widget _getProgressIndicator() {

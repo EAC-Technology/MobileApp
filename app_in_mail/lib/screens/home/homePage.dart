@@ -7,8 +7,10 @@ import 'package:app_in_mail/screens/menu/sideDrawer.dart';
 import 'package:app_in_mail/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:app_in_mail/screens/home/emailList.dart';
+import 'package:app_in_mail/custom_widgets/collapsible_header_container.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:app_in_mail/custom_widgets/appinmail_textfield.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isSearchCollapsed = true;
+  final TextEditingController _searchTextFieldController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -32,9 +36,49 @@ class _HomePageState extends State<HomePage> {
     return new Scaffold(
         drawer: SideDrawer(),
         appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
-        body: EmailList(
+        body: CollapsibleHeaderContainer(
+      isHeaderCollapsed: this._isSearchCollapsed,
+      header: _buildSearchBox(),
+      headerHeight: 100.0,
+      child: EmailList(
           isSearchCollapsed: this._isSearchCollapsed,
-        ));
+        ))
+    );
+        
+  }
+
+  void _performSearch(String text) {
+      
+  }
+
+  dynamic _onClearSearchPressed(){
+    setState(() {
+      this._isSearchCollapsed = ! this._isSearchCollapsed;      
+        });
+  }
+
+  Widget _buildSearchBox() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.clear),
+          onPressed:  this._onClearSearchPressed,
+        ),
+        Expanded(
+          child: Container(
+              width: 100.0,
+              child: AppInMailTextField(
+                onChanged: (text) {
+                    //_performSearch(text);
+                },
+                controller: _searchTextFieldController,
+                keyboardType: TextInputType.text,
+              )),
+        ),
+        Container(width: 20.0,) //right padding
+      ],
+    );
   }
 
   void _navigateToLogin() {
