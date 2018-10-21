@@ -38,8 +38,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _appInMailBloc  = AppInMailBlocProvider.of(context);
-    return AppInMailBlocProvider(
-          child: new Scaffold(
+     
+          return  new Scaffold(
           drawer: SideDrawer(),
           appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
           body: CollapsibleHeaderContainer(
@@ -49,8 +49,7 @@ class _HomePageState extends State<HomePage> {
               child: EmailList(
                 isSearchCollapsed: this._isSearchCollapsed,
                 searchText: _searchTextFieldController.text,
-              ))),
-    );
+              )));
   }
 
   dynamic _onClearSearchPressed() {
@@ -72,10 +71,10 @@ class _HomePageState extends State<HomePage> {
               width: 100.0,
               child: AppInMailTextField(
                 onChanged: (text) {
-                  
                   setState(() {
-                    //just triggering re-render , text is alredy in the controller
+                    _appInMailBloc.emailsEmailsSearch.add(EmailsSearch(searchText: text));                    
                   });
+                  
                 },
                 controller: _searchTextFieldController,
                 keyboardType: TextInputType.text,
