@@ -1,3 +1,4 @@
+import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
@@ -34,17 +35,19 @@ class _HomePageState extends State<HomePage> {
   //todo change the SideDrawer to single page
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        drawer: SideDrawer(),
-        appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
-        body: CollapsibleHeaderContainer(
-            isHeaderCollapsed: this._isSearchCollapsed,
-            header: _buildSearchBox(),
-            headerHeight: 100.0,
-            child: EmailList(
-              isSearchCollapsed: this._isSearchCollapsed,
-              searchText: _searchTextFieldController.text,
-            )));
+    return AppInMailBlocProvider(
+          child: new Scaffold(
+          drawer: SideDrawer(),
+          appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
+          body: CollapsibleHeaderContainer(
+              isHeaderCollapsed: this._isSearchCollapsed,
+              header: _buildSearchBox(),
+              headerHeight: 100.0,
+              child: EmailList(
+                isSearchCollapsed: this._isSearchCollapsed,
+                searchText: _searchTextFieldController.text,
+              ))),
+    );
   }
 
   dynamic _onClearSearchPressed() {

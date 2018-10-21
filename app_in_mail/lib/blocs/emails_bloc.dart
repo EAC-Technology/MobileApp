@@ -1,0 +1,58 @@
+import 'package:app_in_mail/model/email.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:flutter/widgets.dart';
+import 'dart:async';
+import 'package:rxdart/rxdart.dart';
+
+///This is inherited widget that provides access to the AppInMail bloc.
+class AppInMailBlocProvider extends InheritedWidget {
+  final AppInMailBloc appInMailBloc;
+
+  AppInMailBlocProvider({
+    Key key,
+    AppInMailBloc appInMailBloc,
+    Widget child,
+  })  : appInMailBloc = appInMailBloc ?? AppInMailBloc(),
+        super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+
+  static AppInMailBloc of(BuildContext context) =>
+      (context.inheritFromWidgetOfExactType(AppInMailBlocProvider) as AppInMailBlocProvider)
+          .appInMailBloc;
+}
+
+class EmailsDownload {
+  final String mailBox; 
+  EmailsDownload({this.mailBox});
+}
+
+class AppInMailBloc {
+  static List<Email> _downloadedEmails = List<Email>(); // Todo: refactor: instead of static field , we may use a repository here.
+  final _emailsList = BehaviorSubject<List<Email>>(seedValue: _downloadedEmails);
+  final _emailsCount = BehaviorSubject<int>(seedValue: 0);
+  final _emailsDownloadController = StreamController<EmailsDownload>();
+
+  AppInMailBloc() {
+    _emailsDownloadController.stream.listen(_handleEmailsDownloadRequest);
+  }
+
+  Sink<EmailsDownload> get emailsDownload => _emailsDownloadController.sink;
+  ValueObservable<int> get itemCount => _emailsCount;
+
+  ValueObservable<List<Email>> get emails => _emailsList.stream;
+
+  /// Take care of closing streams.
+  void dispose() {
+    _emailsList.close();
+    _emailsCount.close();
+    _emailsDownloadController.close();
+  }
+
+  
+  void _handleEmailsDownloadRequest(EmailsDownload download) async{
+    _downloadedEmails = await RestApiClient.getEmailsList(download.mailBox);  //.catchError(_onError);  Todo handle errors in bloc .
+    _emailsList.add(_downloadedEmails);  
+  }
+}

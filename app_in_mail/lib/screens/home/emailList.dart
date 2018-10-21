@@ -1,3 +1,4 @@
+import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/login/loginScreen.dart';
@@ -19,15 +20,11 @@ class EmailList extends StatefulWidget {
 }
 
 class EmailListState extends State<EmailList> {
-  List<Email> _emails = List<Email>();
-  List<Email> _filteredEmails = List<Email>();
   String _mailBox;
-  
-  
-
   @override
   void initState() {
     super.initState();
+    
     _redirectToLoginIfNeeded();
   }
 
@@ -61,75 +58,64 @@ class EmailListState extends State<EmailList> {
 
 
   List<String> _mailBoxes = List<String>();
-  
+
   void _loadData() async {
-    setState(() {
-      _shouldDisplayProgressIndicator = true;
-    });
-    
-    //todo: should not reload emails and boxes on each redraw. e.g. when we search we trigger redraw on each letter.
-    //this bellow is a temporary hack to test search:
-    if (_mailBoxes.isEmpty) {
-      this._mailBoxes = await RestApiClient.getMailboxesList().catchError(_onError);
-    }
-    
-    _mailBox =_mailBoxes.first;
-
-    if (this._emails.isEmpty) {
-      this._emails = await RestApiClient.getEmailsList(_mailBox).catchError(_onError);
-    }
-    
-    this._filteredEmails = this._emails.where((email) => widget.searchText.isEmpty || email.fromName.toLowerCase().contains(widget.searchText.toLowerCase())).toList();
-
-    setState(() {
-      _shouldDisplayProgressIndicator = false;
-    });
+    var appInMailBloc = AppInMailBlocProvider.of(context);
+    this._mailBoxes = await RestApiClient.getMailboxesList().catchError(_onError);
+    var firstMailBox = _mailBoxes.first; //TODO: use selected mailbox instead of first. Implement in the Bloc , not here
+    appInMailBloc.emailsDownload.add(EmailsDownload(mailBox: firstMailBox)); 
   }
 
-  Widget _buildListRow(int index) {
+  Widget _buildListRow(Email email) {
     //return Text('asdfasdf');
     return GestureDetector(
       onTap: () {
-        _navigateToEmail(index);
-      },
+        _navigateToEmail(email);
+      }, 
       child: Column(children: <Widget>[
-        EmailCell(email: _filteredEmails[index]),
+        EmailCell(email: email),
         Container(height: 10.0) //spacer
       ]),
     );
   }
 
-  void _navigateToEmail(int index) {
+  void _navigateToEmail(Email email) {
     Navigator.of(context).push(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return EmailDetails(mailBox: _mailBox, email: _filteredEmails[index]);
+          return EmailDetails(mailBox: _mailBox, email: email);
         },
       ),
     );
   }
 
-  Widget _buildEmailsList() {
-    return ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, index) {
-          if (index < _filteredEmails.length) {
-            return _buildListRow(index);
-          }
+
+  Widget _buildEmailsList(List<Email> emails) {
+    return ListView.builder(  
+        padding: const EdgeInsets.all(16.0), 
+        itemCount: emails.length,
+        itemBuilder: (context, index) { 
+          return _buildListRow(emails[index]);
         });
   }
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    return Container(color: Colors.white, child: _buildEmailsList());
+    var appInMailBloc = AppInMailBlocProvider.of(context); 
+    return Container(color: Colors.white, child:StreamBuilder(
+      stream: appInMailBloc.emails,
+      builder: (context, snapshot) {
+        return _buildEmailsList(snapshot.data); 
+      },
+    ));
   }
 
   Widget _getProgressIndicator() {
     return Center(child: CircularProgressIndicator());
   }
 
-  Widget _getBody() {
-    if (_shouldDisplayProgressIndicator) {
+  Widget _getBody() { 
+    if (_shouldDisplayProgressIndicator) { 
       return _getProgressIndicator();
     } else {
       return _getStandardBody();
