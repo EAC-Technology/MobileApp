@@ -1,3 +1,4 @@
+import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -143,7 +144,7 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.bold)),
           scaffoldBackgroundColor: Colors.white),
       home: //new WelcomePage(),
-              new HomePage(),
+              AppInMailBlocProvider(child: new HomePage()),
     );
   }
 }

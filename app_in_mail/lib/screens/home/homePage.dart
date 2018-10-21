@@ -2,6 +2,7 @@ import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/login/loginScreen.dart';
 import 'package:app_in_mail/screens/menu/sideDrawer.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _searchTextFieldController =
       TextEditingController();
 
+  AppInMailBloc _appInMailBloc;
   @override
   void initState() {
     super.initState();
@@ -35,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   //todo change the SideDrawer to single page
   @override
   Widget build(BuildContext context) {
+    _appInMailBloc  = AppInMailBlocProvider.of(context);
     return AppInMailBlocProvider(
           child: new Scaffold(
           drawer: SideDrawer(),
@@ -69,6 +72,7 @@ class _HomePageState extends State<HomePage> {
               width: 100.0,
               child: AppInMailTextField(
                 onChanged: (text) {
+                  
                   setState(() {
                     //just triggering re-render , text is alredy in the controller
                   });
@@ -121,13 +125,17 @@ class _HomePageState extends State<HomePage> {
         InkWell(
           child: Row(
             children: <Widget>[
-              new Text(
-                "1", //todo use new emails count
+              StreamBuilder<List<Email>>(
+                stream: _appInMailBloc.emails,
+                builder: (context, snapshot) => new Text(
+                snapshot.data.length.toString(),
                 style: TextStyle(
                     color: AppColors.accentColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w500),
               ),
+              ),
+              
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: SvgPicture.asset(

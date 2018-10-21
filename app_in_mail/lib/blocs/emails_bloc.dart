@@ -31,7 +31,6 @@ class EmailsDownload {
 class AppInMailBloc {
   static List<Email> _downloadedEmails = List<Email>(); // Todo: refactor: instead of static field , we may use a repository here.
   final _emailsList = BehaviorSubject<List<Email>>(seedValue: _downloadedEmails);
-  final _emailsCount = BehaviorSubject<int>(seedValue: 0);
   final _emailsDownloadController = StreamController<EmailsDownload>();
 
   AppInMailBloc() {
@@ -39,14 +38,12 @@ class AppInMailBloc {
   }
 
   Sink<EmailsDownload> get emailsDownload => _emailsDownloadController.sink;
-  ValueObservable<int> get itemCount => _emailsCount;
 
   ValueObservable<List<Email>> get emails => _emailsList.stream;
 
   /// Take care of closing streams.
   void dispose() {
     _emailsList.close();
-    _emailsCount.close();
     _emailsDownloadController.close();
   }
 

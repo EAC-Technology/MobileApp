@@ -1,3 +1,4 @@
+import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
@@ -61,7 +62,7 @@ class WelcomePage extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return new HomePage();
+          return AppInMailBlocProvider(child: new HomePage());
         },
       ),
     );
