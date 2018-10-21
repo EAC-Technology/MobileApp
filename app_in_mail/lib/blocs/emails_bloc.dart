@@ -61,7 +61,13 @@ class AppInMailBloc {
     var lowerCased = searchRequest.searchText.toLowerCase();
     _filteredEmails = _downloadedEmails.where((email) {
       return lowerCased.isEmpty ||
-       email.fromName.toLowerCase().contains(lowerCased);
+       email.fromName.toLowerCase().contains(lowerCased) ||
+       email.fromEmail.toLowerCase().contains(lowerCased) ||
+       email.preview.toLowerCase().contains(lowerCased) ||
+       email.subject.toLowerCase().contains(lowerCased) ||
+       email.renderedVdomxml.toLowerCase().contains(lowerCased);
+       
+
     }).toList();
 
     _emailsList.add(_filteredEmails);
