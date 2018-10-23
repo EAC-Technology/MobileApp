@@ -18,4 +18,7 @@ class Strings{
   static final registerMsg = 'registerMsg';
   static final registerBtn = 'registerBtn';
   static final forgotPasswordBtn = 'forgotPasswordBtn';
+  static final moveTo = 'emailMoveTo';
+  static final markAsUnread = 'markAsUnread';
+  static final delete = 'delete';
 }

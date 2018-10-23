@@ -18,4 +18,7 @@ final localizedStringsFr = {
   Strings.registerMsg: 'Do not have an account?_FR',
   Strings.registerBtn: "Sign Up_FR",
   Strings.forgotPasswordBtn: "Forgot password?_FR",
+  Strings.moveTo: 'Move to_FR',
+  Strings.markAsUnread: 'Mark as unread_FR',
+  Strings.delete: 'Delete_FR',
 };

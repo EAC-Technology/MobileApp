@@ -19,4 +19,7 @@ final localizedStringsEn = {
   Strings.registerMsg: 'Do not have an account?',
   Strings.registerBtn: "Sign Up",
   Strings.forgotPasswordBtn: "Forgot password?",
+  Strings.moveTo: 'Move to',
+  Strings.markAsUnread: 'Mark as unread',
+  Strings.delete: 'Delete',
 };
