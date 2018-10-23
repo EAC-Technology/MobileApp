@@ -75,6 +75,7 @@ class AppInMailBloc {
   
   void _handleEmailsDownloadRequest(EmailsDownload download) async{
     _downloadedEmails = await RestApiClient.getEmailsList(download.mailBox);  //.catchError(_onError);  Todo handle errors in bloc .
+    _downloadedEmails.first.isNew = true; //Todo:  We currently fake it to be able to adjust the UI. Need to implement later into the repository.
     _emailsList.add(_downloadedEmails);
   }
 }

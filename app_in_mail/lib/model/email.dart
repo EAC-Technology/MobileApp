@@ -13,6 +13,7 @@ class Email {
   final String subject;
   final int id;
   final String fromEmail;
+  var isNew = false;
 
   Email(
       {this.priority,

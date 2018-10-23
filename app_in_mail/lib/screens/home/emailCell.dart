@@ -1,7 +1,9 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/model/label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class EmailCell extends ListTile {
   EmailCell({Key key, this.email}) : super(key: key);
@@ -61,7 +63,7 @@ class EmailCell extends ListTile {
         Container(width: 10.0), //horizontal spacer.
         Expanded(
             child: Container(
-          height: 150.0,
+          height: 120.0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -70,13 +72,20 @@ class EmailCell extends ListTile {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        email.fromName,
-                        style: TextStyle(
-                            //todo bold if is new
-                            fontWeight: FontWeight.normal,
-                            fontSize: 15.0,
-                            color: AppColors.titleTextColor),
+                      Row(
+                        children: <Widget>[
+                          
+                          email.isNew?SvgPicture.asset(Img.icDot, width: 8.0, height: 8.0):Container(),
+                          email.isNew?Container(width: 10.0):Container(),
+                          Text(
+                            email.fromName,
+                            style: TextStyle(
+                                //todo bold if is new
+                                fontWeight:email.isNew?FontWeight.bold:FontWeight.normal,
+                                fontSize: 16.0,
+                                color: AppColors.titleTextColor),
+                          ),
+                        ],
                       ),
                       Text(
                         email.subject,
@@ -94,12 +103,15 @@ class EmailCell extends ListTile {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         //TimeStamp
-                        Text(email.formattedTimeStamp(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10.0,
-                                //todo AppColors.accentColor if is new
-                                color: AppColors.emailSeenDateColor)),
+                        Text(
+                          email.formattedTimeStamp(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10.0,
+                              color: email.isNew
+                                  ? AppColors.accentColor
+                                  : AppColors.emailSeenDateColor),
+                        ),
                       ],
                     ),
                   )

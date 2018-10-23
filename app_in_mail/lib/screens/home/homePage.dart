@@ -35,21 +35,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   //todo change the SideDrawer to single page
-  @override
+  @override 
   Widget build(BuildContext context) {
-    _appInMailBloc  = AppInMailBlocProvider.of(context);
-     
-          return  new Scaffold(
-          drawer: SideDrawer(),
-          appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
-          body: CollapsibleHeaderContainer(
-              isHeaderCollapsed: this._isSearchCollapsed,
-              header: _buildSearchBox(),
-              headerHeight: 100.0,
-              child: EmailList(
-                isSearchCollapsed: this._isSearchCollapsed,
-                searchText: _searchTextFieldController.text,
-              )));
+    _appInMailBloc = AppInMailBlocProvider.of(context);
+
+    return new Scaffold(
+        drawer: SideDrawer(),
+        appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
+        floatingActionButton: FloatingActionButton(
+          
+          shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(
+            const Radius.circular(10.0),
+          )),
+          child:  Icon(Icons.add, size: 40.0,),
+          onPressed: () {
+            //todo: Implement action for add new email button.
+          },
+        ),
+        body: CollapsibleHeaderContainer(
+            isHeaderCollapsed: this._isSearchCollapsed,
+            header: _buildSearchBox(),
+            headerHeight: 100.0,
+            child: EmailList(
+              isSearchCollapsed: this._isSearchCollapsed,
+              searchText: _searchTextFieldController.text,
+            )));
   }
 
   dynamic _onClearSearchPressed() {
@@ -72,9 +83,9 @@ class _HomePageState extends State<HomePage> {
               child: AppInMailTextField(
                 onChanged: (text) {
                   setState(() {
-                    _appInMailBloc.emailsEmailsSearch.add(EmailsSearch(searchText: text));                    
+                    _appInMailBloc.emailsEmailsSearch
+                        .add(EmailsSearch(searchText: text));
                   });
-                  
                 },
                 controller: _searchTextFieldController,
                 keyboardType: TextInputType.text,
@@ -127,14 +138,13 @@ class _HomePageState extends State<HomePage> {
               StreamBuilder<List<Email>>(
                 stream: _appInMailBloc.emails,
                 builder: (context, snapshot) => new Text(
-                snapshot.data.length.toString(),
-                style: TextStyle(
-                    color: AppColors.accentColor,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500),
+                      snapshot.data.length.toString(),
+                      style: TextStyle(
+                          color: AppColors.accentColor,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500),
+                    ),
               ),
-              ),
-              
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: SvgPicture.asset(

@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
           ),
 //          cursorColor: Colors.white,
           accentColor: appInMailLogoColor,
-          dividerColor: Colors.white,
+          dividerColor: Colors.black26,
           hintColor: Color.fromRGBO(255, 255, 255, 0.5),
           highlightColor: Colors.white,
           buttonColor: Color(0xFFF33E7D),
