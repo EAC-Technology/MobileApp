@@ -62,10 +62,9 @@ class EmailDetailsState extends State<EmailDetails> {
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    return Center(
-        child: Container(
-      color: Colors.white,
-    ));
+    return Column(children: <Widget>[
+      Container(height: 150.0,  color: AppColors.accentColor,),
+    ],);
   }
 
   Widget _getProgressIndicator() {
@@ -73,6 +72,16 @@ class EmailDetailsState extends State<EmailDetails> {
   }
 
   Widget _getBody() {
+    final mediaQuery = MediaQuery.of(context);
+    var verticalOffset = mediaQuery.padding.top + appBar.preferredSize.height + 10;
+
+    if (!_isActionsHeaderCollapsed) {
+        verticalOffset += 160;
+    }
+    var webViewRect = Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
+            mediaQuery.size.height - verticalOffset);
+    webview.resize(webViewRect);
+        
     return CollapsibleHeaderContainer(
         isHeaderCollapsed: this._isActionsHeaderCollapsed,
         header: _buildEmailActionSheet(),
