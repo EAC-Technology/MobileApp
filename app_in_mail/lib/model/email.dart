@@ -43,14 +43,13 @@ class Email {
     );
   }
   String formattedTimeStamp() {
-    //TODO: parse the date from the email server data and remove the test code bellow:
+     var emailDate = new DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
     
     //Use bellow test dates to validate the date formatter.
     //var emailDate = DateTime.now().subtract(new Duration(hours: 1));
-    var emailDate = DateTime.now().subtract(new Duration(days: 2));
+    //var emailDate = DateTime.now().subtract(new Duration(days: 2));
     //var emailDate = DateTime.now().subtract(new Duration(days: 8));
     //var emailDate = DateTime.now().subtract(new Duration(days: 330));
-    
     
     return EmailDateFormatter.formatDate(emailDate);
   }
