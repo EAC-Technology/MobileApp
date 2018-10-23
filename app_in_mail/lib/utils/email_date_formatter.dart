@@ -20,4 +20,4 @@ class EmailDateFormatter {
   }
 }
 
-//TODO locale support
+//TODO test and validate with french locales.

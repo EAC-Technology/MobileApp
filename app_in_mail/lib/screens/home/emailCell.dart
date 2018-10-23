@@ -82,7 +82,6 @@ class EmailCell extends ListTile {
                           Text(
                             email.fromName,
                             style: TextStyle(
-                                //todo bold if is new
                                 fontWeight: email.isNew
                                     ? FontWeight.bold
                                     : FontWeight.normal,
@@ -95,8 +94,9 @@ class EmailCell extends ListTile {
                         email.subject,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            //todo bold if is new
-                            fontWeight: FontWeight.normal,
+                            fontWeight: email.isNew
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                             fontSize: 14.0,
                             color: AppColors.emailSeenTextColor),
                       ),
@@ -106,7 +106,6 @@ class EmailCell extends ListTile {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        //TimeStamp
                         Text(
                           email.formattedTimeStamp(),
                           style: TextStyle(
