@@ -18,7 +18,12 @@ class EmailCell extends ListTile {
           padding: const EdgeInsets.all(5.0),
           itemBuilder: (context, index) {
             if (index < email.labels.length) {
-              return _buildLabelCell(index);
+              return Row(
+                children: <Widget>[
+                  _buildLabelCell(index),
+                  Container(width: 5,) //space between items
+                ],
+              );
             }
           }),
     );
@@ -26,26 +31,21 @@ class EmailCell extends ListTile {
 
   Widget _buildLabelCell(int index) {
     final Label label = email.labels[index];
-    return Row(children: <Widget>[
-      ClipPath(
-        child: Container(
-            padding: const EdgeInsets.all(3.0),
-            child: Text(
-              label.name,
-              style: TextStyle(
-                  color: label.textColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10.0),
-            ),
-            color: label.color,
-            width: 48.0,
-            height: 20.0),
-        clipper: LabelClipper(),
+    return Container(
+      padding: const EdgeInsets.all(3.0),
+      child: Text(
+        label.name,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            color: label.textColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 10.0),
       ),
-      Container(
-        width: 8.0,
-      ) //Spacer.
-    ]);
+      decoration: new BoxDecoration(
+          color: label.color,
+          borderRadius: new BorderRadius.all(Radius.circular(3))),
+      height: 20.0,
+    );
   }
 
   Widget build(BuildContext context) {
@@ -74,14 +74,18 @@ class EmailCell extends ListTile {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          
-                          email.isNew?SvgPicture.asset(Img.icDot, width: 8.0, height: 8.0):Container(),
-                          email.isNew?Container(width: 10.0):Container(),
+                          email.isNew
+                              ? SvgPicture.asset(Img.icDot,
+                                  width: 8.0, height: 8.0)
+                              : Container(),
+                          email.isNew ? Container(width: 10.0) : Container(),
                           Text(
                             email.fromName,
                             style: TextStyle(
                                 //todo bold if is new
-                                fontWeight:email.isNew?FontWeight.bold:FontWeight.normal,
+                                fontWeight: email.isNew
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                                 fontSize: 16.0,
                                 color: AppColors.titleTextColor),
                           ),
