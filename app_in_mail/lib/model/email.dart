@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:app_in_mail/utils/email_date_formatter.dart';
 import 'package:app_in_mail/model/label.dart';
 //import 'dart:io' show Platform;
 
@@ -43,14 +43,15 @@ class Email {
     );
   }
   String formattedTimeStamp() {
-    //todo add logic to check if is today(show only time), this year(day and
-    // month), other as is now
-
-    //final localeName = Platform.localeName;
-    var emailDate = new DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-    var formatter = new DateFormat.yMEd();
-    String formatted = formatter.format(emailDate);
+    //TODO: parse the date from the email server data and remove the test code bellow:
     
-    return formatted;
+    //Use bellow test dates to validate the date formatter.
+    //var emailDate = DateTime.now().subtract(new Duration(hours: 1));
+    var emailDate = DateTime.now().subtract(new Duration(days: 2));
+    //var emailDate = DateTime.now().subtract(new Duration(days: 8));
+    //var emailDate = DateTime.now().subtract(new Duration(days: 330));
+    
+    
+    return EmailDateFormatter.formatDate(emailDate);
   }
 }
