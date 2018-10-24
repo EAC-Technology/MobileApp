@@ -16,7 +16,7 @@ class _FolderItemViewState extends State<FolderItemView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 5, bottom: 5),
+      padding: const EdgeInsets.only(left: 20, top: 5, bottom: 5, right: 20),
       child: Container(
         height: 50,
         child: Row(

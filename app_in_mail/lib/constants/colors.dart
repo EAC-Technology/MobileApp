@@ -11,5 +11,5 @@ class AppColors {
   static final emailSeenDateColor = Color(0xFFCCCCCC);
   static final darkBackground = Color(0xFF30314F);
   static final lightDarkBackground = Color(0xFF484970);
-  
+  static final eWalletButtonBackground = Color(0xFF252642);  
 }

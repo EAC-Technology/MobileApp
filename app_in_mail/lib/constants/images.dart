@@ -8,4 +8,6 @@ class Img{
   static final icDot= 'assets/ic_dot.svg';
   static final icSearch= 'assets/ic_search.svg';
   static final icFolder = 'assets/ic_folder.svg';
+  static final icSettings = 'assets/ic_settings.svg';
+  static final icInfo = 'assets/ic_info.svg';
 }
