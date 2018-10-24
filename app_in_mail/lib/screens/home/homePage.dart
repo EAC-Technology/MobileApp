@@ -5,6 +5,7 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/login/loginScreen.dart';
+import 'package:app_in_mail/screens/menu/menu.dart';
 import 'package:app_in_mail/screens/menu/sideDrawer.dart';
 import 'package:app_in_mail/utils/logger.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _showMenu() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute<void>(
+                 builder: (BuildContext context) {
+                    return  Menu();
+                }
+    ));
+  }
+
   AppBar buildAppBar() {
     return new AppBar(
       backgroundColor: AppColors.toolbar,
@@ -128,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 width: 22.0,
                 height: 18.0,
               ),
-              onPressed: () => Scaffold.of(context).openDrawer());
+              onPressed: () => _showMenu()); //Scaffold.of(context).openDrawer());
         },
       ),
       actions: <Widget>[

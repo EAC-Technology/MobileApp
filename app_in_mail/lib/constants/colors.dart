@@ -9,4 +9,7 @@ class AppColors {
   static final titleTextColor = Color(0xFF3C3D63);
   static final emailSeenTextColor = Color(0xFFA4A5BF);
   static final emailSeenDateColor = Color(0xFFCCCCCC);
+  static final darkBackground = Color(0xFF30314F);
+  static final lightDarkBackground = Color(0xFF484970);
+  
 }

@@ -7,4 +7,5 @@ class Img{
   static final icMenu= 'assets/ic_menu.svg';
   static final icDot= 'assets/ic_dot.svg';
   static final icSearch= 'assets/ic_search.svg';
+  static final icFolder = 'assets/ic_folder.svg';
 }
