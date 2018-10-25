@@ -4,7 +4,7 @@ import 'package:app_in_mail/screens/menu/ewallet_action_list.dart';
 import 'package:app_in_mail/screens/menu/folder_list_view.dart';
 import 'package:app_in_mail/screens/menu/info_action_list.dart';
 import 'package:app_in_mail/screens/menu/menu_button.dart';
-import 'package:app_in_mail/screens/menu/settigs_screen.dart';
+import 'package:app_in_mail/screens/settings/settigs_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

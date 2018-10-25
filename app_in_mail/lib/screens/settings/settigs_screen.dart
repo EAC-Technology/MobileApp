@@ -3,6 +3,7 @@ import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/screens/menu/menu.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
+import 'package:app_in_mail/screens/settings/edit_personal_data_form.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,6 +21,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         new MaterialPageRoute<void>(
           builder: (BuildContext context) {
             return new Menu();
+          },
+        ),
+      );
+    }
+
+    void _navigateToPersonalData() {
+      Navigator.of(context).push(
+        new MaterialPageRoute<void>(
+          builder: (BuildContext context) {
+            return new EditPersonalDataForm();
           },
         ),
       );
@@ -43,7 +54,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: AppColors.darkBackground,
       ),
       backgroundColor: AppColors.darkBackground,
-      body: Column( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Column(
             children: <Widget>[
@@ -55,6 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               MenuItemView(
+                onTap: () => _navigateToPersonalData(),
                 textColor: Colors.white,
                 title: Localization.getString(Strings.editPersonalData),
                 icon: SvgPicture.asset(
@@ -70,15 +83,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   width: 20.0,
                 ),
               ),
-              
             ],
           ),
           Padding(
-            child: Row( children: <Widget>[
-                Icon(Icons.info, color: Colors.white,), 
-                Container(width: 20,),
-                Text('account identificator guid to be placed here',  style: TextStyle( color: AppColors.greyLight),)
-              ],), padding: EdgeInsets.all(30),),        
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.info,
+                  color: Colors.white,
+                ),
+                Container(
+                  width: 20,
+                ),
+                Text(
+                  'account identificator guid to be placed here',
+                  style: TextStyle(color: AppColors.greyLight),
+                )
+              ],
+            ),
+            padding: EdgeInsets.all(30),
+          ),
         ],
       ),
     );

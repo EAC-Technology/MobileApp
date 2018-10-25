@@ -33,5 +33,6 @@ class Strings{
   static final terms = 'terms';
   static final blockedAccount = 'blockedAccount';
   static final editPersonalData = 'editPersonalData';
+  static final personalData = 'personalData';
   
 }
