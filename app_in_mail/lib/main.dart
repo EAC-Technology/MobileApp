@@ -120,8 +120,8 @@ class _MyAppState extends State<MyApp> {
           buttonTheme: ButtonThemeData(
             buttonColor: Color(0xFFF33E7D),
             textTheme: ButtonTextTheme.primary,
-            minWidth: 300.0,
-            height: 44.0,
+            minWidth: 200.0,
+            height: 60.0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(const Radius.circular(8.0))),
           ),

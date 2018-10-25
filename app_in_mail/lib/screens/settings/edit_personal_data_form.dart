@@ -10,11 +10,75 @@ class EditPersonalDataForm extends StatefulWidget {
 }
 
 class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
+  final _formKey = GlobalKey<FormState>();
+  
+
+
+   _validateEmptyField(value) {
+    if (value.isEmpty) {
+        return 'This field is required.';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(Localization.getString(Strings.login)),
+              Padding(
+                padding: const EdgeInsets.only(top:10, ),
+                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                ),
+              ),
+              Divider(),
+              Text(Localization.getString(Strings.firstName)),
+              Padding(
+                padding: const EdgeInsets.only(top:10, ),
+                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                ),
+              ),
+              Divider(),
+              Text(Localization.getString(Strings.lastName)),
+              Padding(
+                padding: const EdgeInsets.only(top:10, ),
+                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                ),
+              ),
+              Divider(),
+              Text(Localization.getString(Strings.email)),
+              Padding(
+                padding: const EdgeInsets.only(top:10, ),
+                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                ),
+              ),
+              Divider(),
+              Text('Language'),
+              Padding(
+                padding: const EdgeInsets.only(top:40),
+                child: Center(
+                    child: RaisedButton(
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Processing Data')));
+                        }
+                      },
+                      child: Text(
+                        Strings.save,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -36,7 +100,8 @@ class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
             size: 32.0,
           ),
           onPressed: () => Navigator.of(context).pop()),
-      
     );
   }
 }
+
+//todo  add localizations

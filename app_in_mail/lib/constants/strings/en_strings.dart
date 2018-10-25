@@ -35,4 +35,11 @@ final localizedStringsEn = {
   Strings.blockedAccount: 'Blocked account',
   Strings.editPersonalData: 'Edit personal data',
   Strings.personalData: 'Personal data',
+  Strings.login: 'Login',
+  Strings.firstName: 'First name',
+  Strings.lastName: 'Last name',
+  Strings.language: 'Language',
+  Strings.save: 'SAVE',
+
+
 };

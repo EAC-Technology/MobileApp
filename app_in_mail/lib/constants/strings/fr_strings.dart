@@ -34,4 +34,9 @@ final localizedStringsFr = {
   Strings.blockedAccount: 'Blocked account_FR',
   Strings.editPersonalData: 'Edit personal data_FR',
   Strings.personalData: 'Personal data_FR',
+  Strings.login: 'Login_FR',
+  Strings.firstName: 'First name_FR',
+  Strings.lastName: 'Last name_FR',
+  Strings.language: 'Language_FR',
+  Strings.save: 'SAVE_FR',
 };

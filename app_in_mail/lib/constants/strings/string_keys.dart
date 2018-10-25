@@ -34,5 +34,10 @@ class Strings{
   static final blockedAccount = 'blockedAccount';
   static final editPersonalData = 'editPersonalData';
   static final personalData = 'personalData';
+  static final login = 'login';
+  static final firstName = 'firstName';
+  static final lastName = 'lastName';
+  static final language = 'language';
+  static final save = 'save';
   
 }
