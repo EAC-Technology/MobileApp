@@ -4,6 +4,7 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/screens/menu/menu.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/screens/settings/edit_personal_data_form.dart';
+import 'package:app_in_mail/utils/alertHelper.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -60,6 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Column(
             children: <Widget>[
               MenuItemView(
+                onTap: ()=> AlertHelper.showSnackBar(context, "TBI"),
                 title: Localization.getString(Strings.blockedAccount),
                 icon: SvgPicture.asset(
                   Img.icBlocked,
@@ -76,6 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               MenuItemView(
+                onTap: ()=> AlertHelper.showSnackBar(context, "TBI"),
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.delete),
                 icon: SvgPicture.asset(

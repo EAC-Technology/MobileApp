@@ -74,6 +74,7 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
         sampleString = "Terms ....";
         break;
     }
+    
     return sampleString + 'Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.Lorem ipsum dolor sin amet.';
   }
 
