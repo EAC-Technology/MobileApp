@@ -44,7 +44,7 @@ class _MenuState extends State<Menu> {
   Container _buildLeftButtonColumn() {
     return Container(
                   // Left Column with buttons, settings etc.
-                  width: 80,
+                  width: 90,
                   child: Column(
                     children: <Widget>[
                       MenuButton(

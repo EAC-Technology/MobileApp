@@ -22,4 +22,9 @@ final localizedStringsEn = {
   Strings.moveTo: 'Move to',
   Strings.markAsUnread: 'Mark as unread',
   Strings.delete: 'Delete',
+  Strings.exchange: 'ExchangeR',
+  Strings.euroWallet: 'EURO eWallet',
+  Strings.realTimeChart: '@NT eWallet',
+  Strings.antWallet: 'Real-time chart',
+  Strings.upgradeToStandard: 'Upgrade to Standard',
 };

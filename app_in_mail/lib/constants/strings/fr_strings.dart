@@ -21,4 +21,9 @@ final localizedStringsFr = {
   Strings.moveTo: 'Move to_FR',
   Strings.markAsUnread: 'Mark as unread_FR',
   Strings.delete: 'Delete_FR',
+  Strings.exchange: 'Exchange_FR',
+  Strings.euroWallet: 'EURO eWallet_FR',
+  Strings.realTimeChart: '@NT eWallet_FR',
+  Strings.antWallet: 'Real-time chart_FR',
+  Strings.upgradeToStandard: 'Upgrade to Standard_FR',
 };

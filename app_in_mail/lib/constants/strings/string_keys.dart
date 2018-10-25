@@ -21,4 +21,9 @@ class Strings{
   static final moveTo = 'emailMoveTo';
   static final markAsUnread = 'markAsUnread';
   static final delete = 'delete';
+  static final exchange = 'exchange';
+  static final euroWallet = 'euroWallet';
+  static final realTimeChart = 'realTimeChart';
+  static final antWallet = 'antWallet';
+  static final upgradeToStandard = 'upgradeToStandard';
 }
