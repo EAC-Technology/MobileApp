@@ -32,7 +32,7 @@ class _MenuState extends State<Menu> {
                   ),
                   Expanded(
                     //child: Container(child: FolderListView()),
-                    child: Container(child: EwalletActionList()),
+                    child: Container(child: EwalletActionList()) ,
                   )
                 ],
               ),

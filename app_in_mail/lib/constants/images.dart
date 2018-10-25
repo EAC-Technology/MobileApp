@@ -10,4 +10,9 @@ class Img{
   static final icFolder = 'assets/ic_folder.svg';
   static final icSettings = 'assets/ic_settings.svg';
   static final icInfo = 'assets/ic_info.svg';
+  static final icEuro = 'assets/ic_euro.svg';
+  static final icAnt = 'assets/ic_ant.svg';
+  static final icChart = 'assets/ic_chart.svg';
+  static final icUpgrade = 'assets/ic_upgrade.svg';
+   static final icExchange = 'assets/ic_exchange.svg';
 }

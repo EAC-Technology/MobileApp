@@ -1,11 +1,11 @@
-import 'package:app_in_mail/constants/images.dart';
-import 'package:app_in_mail/model/mailbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MenuItemView extends StatefulWidget {
-  final Mailbox mailbox;
-  MenuItemView({this.mailbox});
+  final String title;
+  final SvgPicture icon;
+
+  MenuItemView({this.title, this.icon});
 
   @override
   _MenuItemViewState createState() => _MenuItemViewState();
@@ -14,19 +14,18 @@ class MenuItemView extends StatefulWidget {
 class _MenuItemViewState extends State<MenuItemView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 20),
-    child: Row( children: <Widget>[
-      SvgPicture.asset(
-                  Img.icFolder,
-                  width: 26.0,
-                ),
-                Container(
-                  width: 15,
-                ), //spacing between icon and tittle
-                Text(
-                  'Exchange',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-    ],), );
+    return Padding(
+      padding: EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 20),
+      child: Row(
+        children: <Widget>[
+          widget.icon,
+          Container(width: 15,),
+          Text(
+            widget.title,
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ],
+      ),
+    );
   }
 }

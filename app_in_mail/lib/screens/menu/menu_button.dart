@@ -29,7 +29,7 @@ class _MenuButtonState extends State<MenuButton> {
             height: 40,
             decoration: new BoxDecoration(
                 border: widget.isSelected
-                    ? Border.all(0, color: Colors.white, width: 2)
+                    ? Border.all(color: Colors.white, width: 2)
                     : null,
                 boxShadow: [
                   BoxShadow(
