@@ -1,4 +1,6 @@
+import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/model/mailbox.dart';
+import 'package:app_in_mail/screens/home/homePage.dart';
 import 'package:app_in_mail/screens/menu/folder_item_view.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +25,17 @@ class _FolderListViewState extends State<FolderListView> {
         padding: EdgeInsets.all(0),
         itemCount: 5,
         itemBuilder: (context, index) {
-          return FolderItemView(mailbox: fakeData[index],);
+          return FolderItemView( mailbox: fakeData[index], onTap: ()=> this._navigateToHome(context),);
         });
+  }
+
+  _navigateToHome(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return AppInMailBlocProvider(child: new HomePage());
+        },
+      ),
+    );
   }
 }
