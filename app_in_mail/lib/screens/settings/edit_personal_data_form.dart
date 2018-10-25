@@ -11,14 +11,13 @@ class EditPersonalDataForm extends StatefulWidget {
 
 class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
   final _formKey = GlobalKey<FormState>();
-  
 
-
-   _validateEmptyField(value) {
+  _validateEmptyField(value) {
     if (value.isEmpty) {
-        return 'This field is required.';
+      return Localization.getString(Strings.thisFieldisRequired);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,48 +31,69 @@ class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
             children: <Widget>[
               Text(Localization.getString(Strings.login)),
               Padding(
-                padding: const EdgeInsets.only(top:10, ),
-                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: TextFormField(
+                  validator: (value) => _validateEmptyField(value),
                 ),
               ),
               Divider(),
               Text(Localization.getString(Strings.firstName)),
               Padding(
-                padding: const EdgeInsets.only(top:10, ),
-                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: TextFormField(
+                  validator: (value) => _validateEmptyField(value),
                 ),
               ),
               Divider(),
               Text(Localization.getString(Strings.lastName)),
               Padding(
-                padding: const EdgeInsets.only(top:10, ),
-                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: TextFormField(
+                  validator: (value) => _validateEmptyField(value),
                 ),
               ),
               Divider(),
               Text(Localization.getString(Strings.email)),
               Padding(
-                padding: const EdgeInsets.only(top:10, ),
-                child: TextFormField(validator: (value) => _validateEmptyField(value),
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: TextFormField(
+                  validator: (value) => _validateEmptyField(value),
                 ),
               ),
               Divider(),
-              Text( Localization.getString(Strings.language)),
+              Text(Localization.getString(Strings.language)),
+              DropdownButton( isExpanded: true,
+                value: 'English',
+                items: <String>['English', 'français',].map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(), onChanged: (String value) {},
+              ),
               Padding(
-                padding: const EdgeInsets.only(top:40),
+                padding: const EdgeInsets.only(top: 40),
                 child: Center(
                     child: RaisedButton(
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          Scaffold.of(context).showSnackBar(
-                              SnackBar(content: Text('Processing Data')));
-                        }
-                      },
-                      child: Text(
-                        Localization.getString(Strings.save),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    )),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('Processing Data')));
+                    }
+                  },
+                  child: Text(
+                    Localization.getString(Strings.save),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )),
               ),
             ],
           ),

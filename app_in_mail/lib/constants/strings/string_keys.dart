@@ -39,5 +39,5 @@ class Strings{
   static final lastName = 'lastName';
   static final language = 'language';
   static final save = 'save';
-  
+  static final thisFieldisRequired = 'requiredFied'; 
 }

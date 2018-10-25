@@ -40,6 +40,7 @@ final localizedStringsEn = {
   Strings.lastName: 'Last name',
   Strings.language: 'Language',
   Strings.save: 'SAVE',
+  Strings.thisFieldisRequired: 'This field is required',
 
 
 };

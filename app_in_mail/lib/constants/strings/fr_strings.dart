@@ -39,4 +39,5 @@ final localizedStringsFr = {
   Strings.lastName: 'Last name_FR',
   Strings.language: 'Language_FR',
   Strings.save: 'SAVE_FR',
+  Strings.thisFieldisRequired: 'This field is required_FR',
 };
