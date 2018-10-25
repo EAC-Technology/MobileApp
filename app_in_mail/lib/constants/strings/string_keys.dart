@@ -26,4 +26,9 @@ class Strings{
   static final realTimeChart = 'realTimeChart';
   static final antWallet = 'antWallet';
   static final upgradeToStandard = 'upgradeToStandard';
+  static final contactAndSupport = 'contactAndSupport';
+  static final faq = 'faq';
+  static final privacyPolicyAndCookies = 'privacyPolicyAndCookies';
+  static final softwareLicense = 'softwareLicense';
+  static final terms = 'terms';
 }

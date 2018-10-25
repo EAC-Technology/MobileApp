@@ -26,4 +26,9 @@ final localizedStringsFr = {
   Strings.realTimeChart: '@NT eWallet_FR',
   Strings.antWallet: 'Real-time chart_FR',
   Strings.upgradeToStandard: 'Upgrade to Standard_FR',
+  Strings.contactAndSupport: 'Contact & support_FR',
+  Strings.faq: 'FAQ_FR',
+  Strings.privacyPolicyAndCookies: 'Privacy policy & cookies_FR',
+  Strings.softwareLicense: 'Software license_FR',
+  Strings.terms: 'Terms_FR',
 };

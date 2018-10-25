@@ -1,13 +1,14 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
-import 'package:app_in_mail/screens/menu/ewalet_action_list.dart';
+import 'package:app_in_mail/screens/menu/ewallet_action_list.dart';
 import 'package:app_in_mail/screens/menu/folder_list_view.dart';
+import 'package:app_in_mail/screens/menu/info_action_list.dart';
 import 'package:app_in_mail/screens/menu/menu_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-enum MenuMode { email, wallet }
+enum MenuMode { email, wallet, settings, info }
 
 class Menu extends StatefulWidget {
   @override
@@ -35,15 +36,24 @@ class _MenuState extends State<Menu> {
                     color: AppColors.greyLight,
                   ),
                   Expanded(
-                    child: this.mode == MenuMode.email
-                        ? Container(child: FolderListView())
-                        : Container(child: EwalletActionList()),
+                    child: _getMenuBody(),
                   )
                 ],
               ),
             )
           ],
         ));
+  }
+
+  Widget _getMenuBody() {
+    switch (this.mode) {
+      case MenuMode.email: return FolderListView();
+      case MenuMode.wallet: return EwalletActionList();
+      case MenuMode.settings: return EwalletActionList();
+      case MenuMode.info: return InfoActionList();
+    }
+
+    return Container();
   }
 
   Container _buildLeftButtonColumn() {
@@ -95,7 +105,11 @@ class _MenuState extends State<Menu> {
           IconButton(
             icon: Icon(Icons.settings),
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                this.mode = MenuMode.settings;
+              });
+            },
           ),
           Container(
             height: 40,
@@ -106,7 +120,11 @@ class _MenuState extends State<Menu> {
               width: 26.0,
             ),
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                this.mode = MenuMode.info;
+              });
+            },
           )
         ],
       ),
