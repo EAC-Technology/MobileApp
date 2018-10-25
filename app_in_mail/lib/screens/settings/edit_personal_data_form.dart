@@ -58,7 +58,7 @@ class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
                 ),
               ),
               Divider(),
-              Text('Language'),
+              Text( Localization.getString(Strings.language)),
               Padding(
                 padding: const EdgeInsets.only(top:40),
                 child: Center(
@@ -70,7 +70,7 @@ class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
                         }
                       },
                       child: Text(
-                        Strings.save,
+                        Localization.getString(Strings.save),
                         style: TextStyle(fontSize: 20),
                       ),
                     )),
@@ -103,5 +103,3 @@ class _EditPersonalDataFormState extends State<EditPersonalDataForm> {
     );
   }
 }
-
-//todo  add localizations
