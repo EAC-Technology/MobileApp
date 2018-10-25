@@ -7,9 +7,13 @@ class MenuButton extends StatefulWidget {
   final Widget child;
   final bool isSelected;
   final bool hasNewItems;
+  final Function onTap;
+  
   @override
   MenuButton(
-      {this.color,
+      {
+      this.onTap,
+      this.color,
       this.child,
       this.isSelected = false,
       this.hasNewItems = false});
@@ -19,41 +23,46 @@ class MenuButton extends StatefulWidget {
 class _MenuButtonState extends State<MenuButton> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topRight,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: new BoxDecoration(
-                border: widget.isSelected
-                    ? Border.all(color: Colors.white, width: 2)
-                    : null,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey[900],
-                      offset: new Offset(2, 15),
-                      blurRadius: 10)
-                ],
-                color: widget.color,
-                borderRadius: new BorderRadius.all(Radius.circular(8))),
-            child: Center(
-              child: widget.child,
+    return GestureDetector(
+        onTap: () {
+          widget.onTap();
+        },
+          child: Stack(
+        alignment: Alignment.topRight,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: new BoxDecoration(
+                  border: widget.isSelected
+                      ? Border.all(color: Colors.white, width: 2)
+                      : null,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey[900],
+                        offset: new Offset(2, 15),
+                        blurRadius: 10)
+                  ],
+                  color: widget.color,
+                  borderRadius: new BorderRadius.all(Radius.circular(8))),
+              child: Center(
+                child: widget.child,
+              ),
             ),
           ),
-        ),
-        widget.hasNewItems
-            ? SvgPicture.asset(
-                Img.icDot,
-                color: Colors.white,
-                width: 10.0,
-              )
-            : Container(
-                width: 10,
-              )
-      ],
+          widget.hasNewItems
+              ? SvgPicture.asset(
+                  Img.icDot,
+                  color: Colors.white,
+                  width: 10.0,
+                )
+              : Container(
+                  width: 10,
+                )
+        ],
+      ),
     );
   }
 }
