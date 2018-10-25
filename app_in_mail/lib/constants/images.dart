@@ -14,5 +14,10 @@ class Img{
   static final icAnt = 'assets/ic_ant.svg';
   static final icChart = 'assets/ic_chart.svg';
   static final icUpgrade = 'assets/ic_upgrade.svg';
-   static final icExchange = 'assets/ic_exchange.svg';
+  static final icExchange = 'assets/ic_exchange.svg';
+
+  static final icBlocked = 'assets/ic_blocked_account.svg';
+  static final icEdit = 'assets/ic_edit.svg';
+  static final icDelete = 'assets/ic_delete.svg';
+
 }

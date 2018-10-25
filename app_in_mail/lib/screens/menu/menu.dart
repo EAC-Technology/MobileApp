@@ -4,6 +4,7 @@ import 'package:app_in_mail/screens/menu/ewallet_action_list.dart';
 import 'package:app_in_mail/screens/menu/folder_list_view.dart';
 import 'package:app_in_mail/screens/menu/info_action_list.dart';
 import 'package:app_in_mail/screens/menu/menu_button.dart';
+import 'package:app_in_mail/screens/menu/settigs_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,10 +48,14 @@ class _MenuState extends State<Menu> {
 
   Widget _getMenuBody() {
     switch (this.mode) {
-      case MenuMode.email: return FolderListView();
-      case MenuMode.wallet: return EwalletActionList();
-      case MenuMode.settings: return EwalletActionList();
-      case MenuMode.info: return InfoActionList();
+      case MenuMode.email:
+        return FolderListView();
+      case MenuMode.wallet:
+        return EwalletActionList();
+      case MenuMode.settings:
+        return Container();
+      case MenuMode.info:
+        return InfoActionList();
     }
 
     return Container();
@@ -108,6 +113,7 @@ class _MenuState extends State<Menu> {
             onPressed: () {
               setState(() {
                 this.mode = MenuMode.settings;
+                _navigateToSetttings();
               });
             },
           ),
@@ -130,4 +136,15 @@ class _MenuState extends State<Menu> {
       ),
     );
   }
+  void _navigateToSetttings() {
+    Navigator.of(context).pushReplacement(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return new SettingsScreen();
+        },
+      ),
+    );
+  }
+
+
 }

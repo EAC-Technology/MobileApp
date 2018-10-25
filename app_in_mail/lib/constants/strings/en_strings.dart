@@ -32,4 +32,6 @@ final localizedStringsEn = {
   Strings.privacyPolicyAndCookies: 'Privacy policy & cookies',
   Strings.softwareLicense: 'Software license',
   Strings.terms: 'Terms',
+  Strings.blockedAccount: 'Blocked account',
+  Strings.editPersonalData: 'Edit personal data',
 };

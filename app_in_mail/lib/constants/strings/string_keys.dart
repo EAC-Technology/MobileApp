@@ -31,4 +31,7 @@ class Strings{
   static final privacyPolicyAndCookies = 'privacyPolicyAndCookies';
   static final softwareLicense = 'softwareLicense';
   static final terms = 'terms';
+  static final blockedAccount = 'blockedAccount';
+  static final editPersonalData = 'editPersonalData';
+  
 }
