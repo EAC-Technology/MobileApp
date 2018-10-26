@@ -8,7 +8,7 @@ class MenuItemView extends StatefulWidget {
   final Function onTap;
   final double verticalPadding;
   final FontWeight fontWeight;
-  MenuItemView({this.onTap,this.textColor = Colors.white, this.title, this.icon, this.verticalPadding = 2, this.fontWeight = FontWeight.normal});
+  MenuItemView({this.onTap,this.textColor = Colors.white, this.title, this.icon, this.verticalPadding = 20, this.fontWeight = FontWeight.normal});
 
   @override
   _MenuItemViewState createState() => _MenuItemViewState();

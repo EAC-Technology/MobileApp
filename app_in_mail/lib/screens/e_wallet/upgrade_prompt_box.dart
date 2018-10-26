@@ -1,4 +1,6 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 class UpgradePromptBox extends StatelessWidget {
@@ -11,7 +13,7 @@ class UpgradePromptBox extends StatelessWidget {
           Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Light account',
+                Localization.getString(Strings.lightAccount),
                 style: TextStyle(
                   fontSize: 16,
                   color: AppColors.greyLight,
@@ -19,7 +21,7 @@ class UpgradePromptBox extends StatelessWidget {
                 ),
               ),
               Text(
-                'IN 2500 € MAX',
+                Localization.getString(Strings.lightAccountIn) + " 2500 € " + Localization.getString(Strings.lightAccountMax),
                 style: TextStyle(
                   fontSize: 12,
                   color: AppColors.titleTextColor,
@@ -30,14 +32,14 @@ class UpgradePromptBox extends StatelessWidget {
           Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Upgrade to standard',
+                Localization.getString(Strings.upgradeToStandard),
                 style: TextStyle(
                   fontSize: 10,
                   color: AppColors.accentColor,
                 ),
               ),
               Text(
-                'OUT 1000 € MAX',
+                Localization.getString(Strings.lightAccountOut) + " 1000 € " + Localization.getString(Strings.lightAccountMax),
                 style: TextStyle(
                   fontSize: 12,
                   color: AppColors.titleTextColor,

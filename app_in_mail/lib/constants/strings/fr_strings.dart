@@ -54,7 +54,6 @@ final localizedStringsFr = {
   Strings.transfer: 'Transfer_FR',
   Strings.activity: 'Activity_FR',
   Strings.depositEur: 'Deposit EUR_FR',
-  Strings.exchangeEurToAnd: 'Exchange EUR to @NT_FR',
+  Strings.exchangeEurToAnt: 'Exchange EUR to @NT_FR',
   Strings.withdraw: 'Withdraw_FR',
-
 };

@@ -54,7 +54,6 @@ class Strings{
   static final transfer = 'transfer';
   static final activity = 'activity';
   static final depositEur = 'depositEur';
-  static final exchangeEurToAnd = 'exchangeEurToAnd';
+  static final exchangeEurToAnt = 'exchangeEurToAnt';
   static final withdraw = 'withdraw';
-
 }

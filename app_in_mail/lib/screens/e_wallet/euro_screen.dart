@@ -43,7 +43,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
-                title: Localization.getString(Strings.antWallet),
+                title: Localization.getString(Strings.depositEur),
                 icon: SvgPicture.asset(
                   Img.icAnt,
                   width: 22.0,
@@ -55,7 +55,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
-                title: Localization.getString(Strings.antWallet),
+                title: Localization.getString(Strings.exchangeEurToAnt),
                 icon: SvgPicture.asset(
                   Img.icAnt,
                   width: 22.0,
@@ -67,7 +67,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
-                title: Localization.getString(Strings.antWallet),
+                title: Localization.getString(Strings.transfer),
                 icon: SvgPicture.asset(
                   Img.icAnt,
                   width: 22.0,
@@ -79,7 +79,19 @@ class _EuroScreenState extends State<EuroScreen> {
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
-                title: Localization.getString(Strings.antWallet),
+                title: Localization.getString(Strings.withdraw),
+                icon: SvgPicture.asset(
+                  Img.icAnt,
+                  width: 22.0,
+                  color: AppColors.accentColor,
+                ),
+              ),
+              MenuItemView(
+                verticalPadding: 10,
+                fontWeight: FontWeight.bold,
+                onTap: () => () {},
+                textColor: AppColors.accentColor,
+                title: Localization.getString(Strings.activity),
                 icon: SvgPicture.asset(
                   Img.icAnt,
                   width: 22.0,
@@ -93,5 +105,3 @@ class _EuroScreenState extends State<EuroScreen> {
     );
   }
 }
-
-//todo: add localizations
