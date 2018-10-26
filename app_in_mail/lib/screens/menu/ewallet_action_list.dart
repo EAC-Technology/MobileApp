@@ -1,7 +1,8 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
-import 'package:app_in_mail/screens/e_wallet/exchange_screen.dart';
+import 'package:app_in_mail/screens/e_wallet/e-wallet_screen.dart';
+import 'package:app_in_mail/screens/e_wallet/upgrade_screen.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -14,22 +15,31 @@ class EwalletActionList extends StatefulWidget {
 
 class _EwalletActionListState extends State<EwalletActionList> {
 
-  void _navigateToExchange() {
+  void _navigateToEwallet(EwalletScreenMode mode) {
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return ExchangeScreen();
+          return EwalletScreen( initialMode: mode,);
         },
       ),
     );
   }
-
+  void _navigateToUpgradeScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return UpgradeScreen( );
+        },
+      ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         MenuItemView(
-          onTap:() => _navigateToExchange() ,
+          onTap:() => _navigateToEwallet(EwalletScreenMode.exchange) ,
           textColor: AppColors.accentColor,
           title: Localization.getString(Strings.exchange),
           icon: SvgPicture.asset(
@@ -38,6 +48,7 @@ class _EwalletActionListState extends State<EwalletActionList> {
           ),
         ),
         MenuItemView(
+          onTap:() => _navigateToEwallet(EwalletScreenMode.euro) ,
           textColor: Colors.white,
           title: Localization.getString(Strings.euroWallet),
           icon: SvgPicture.asset(
@@ -46,6 +57,7 @@ class _EwalletActionListState extends State<EwalletActionList> {
           ),
         ),
         MenuItemView(
+          onTap:() => _navigateToEwallet(EwalletScreenMode.ant) ,
           textColor: Colors.white,
           title: Localization.getString(Strings.antWallet),
           icon: SvgPicture.asset(
@@ -54,6 +66,7 @@ class _EwalletActionListState extends State<EwalletActionList> {
           ),
         ),
         MenuItemView(
+          onTap:() => _navigateToEwallet(EwalletScreenMode.chart) ,
           textColor: Colors.white,
           title: Localization.getString(Strings.realTimeChart),
           icon: SvgPicture.asset(
@@ -62,6 +75,7 @@ class _EwalletActionListState extends State<EwalletActionList> {
           ),
         ),
         MenuItemView(
+          onTap:() => _navigateToUpgradeScreen() ,
           textColor: Colors.white,
           title: Localization.getString(Strings.upgradeToStandard),
           icon: SvgPicture.asset(

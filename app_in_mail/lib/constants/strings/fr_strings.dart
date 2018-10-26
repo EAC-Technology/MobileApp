@@ -23,8 +23,8 @@ final localizedStringsFr = {
   Strings.delete: 'Delete_FR',
   Strings.exchange: 'Exchange_FR',
   Strings.euroWallet: 'EURO eWallet_FR',
-  Strings.realTimeChart: '@NT eWallet_FR',
-  Strings.antWallet: 'Real-time chart_FR',
+  Strings.realTimeChart: 'Real-time chart_FR',
+  Strings.antWallet: '@NT eWallet_FR',
   Strings.upgradeToStandard: 'Upgrade to Standard_FR',
   Strings.contactAndSupport: 'Contact & support_FR',
   Strings.faq: 'FAQ_FR',
@@ -43,4 +43,5 @@ final localizedStringsFr = {
   Strings.youHave: 'YOU\nHAVE_FR', 
   Strings.youGet: 'YOU\nGET_FR', 
   Strings.exchangeEuroWith: 'Exchange euro with:_FR', 
+  Strings.upgradeAccount: 'Upgrade account_FR'
 };

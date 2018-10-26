@@ -43,4 +43,5 @@ class Strings{
   static final youHave = 'youHave';
   static final youGet = 'youGet';
   static final exchangeEuroWith = 'exchangeEuroWith';
+  static final upgradeAccount = 'upgradeAccount';
 }

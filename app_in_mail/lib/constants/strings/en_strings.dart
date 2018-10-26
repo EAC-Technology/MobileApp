@@ -24,8 +24,8 @@ final localizedStringsEn = {
   Strings.delete: 'Delete',
   Strings.exchange: 'Exchange',
   Strings.euroWallet: 'EURO eWallet',
-  Strings.realTimeChart: '@NT eWallet',
-  Strings.antWallet: 'Real-time chart',
+  Strings.realTimeChart: 'Real-time chart',
+  Strings.antWallet: '@NT eWallet',
   Strings.upgradeToStandard: 'Upgrade to Standard',
   Strings.contactAndSupport: 'Contact & support',
   Strings.faq: 'FAQ',
@@ -44,4 +44,5 @@ final localizedStringsEn = {
   Strings.youHave: 'YOU\nHAVE', 
   Strings.youGet: 'YOU\nGET', 
   Strings.exchangeEuroWith: 'Exchange euro with:', 
+  Strings.upgradeAccount: 'Upgrade account',
 };
