@@ -27,11 +27,11 @@ class _EuroScreenState extends State<EuroScreen> {
           decoration: new BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                    color: Colors.pink[200],
+                    color: Colors.grey[300],
                     offset: new Offset(2, 35),
-                    blurRadius: 100)
+                    blurRadius: 20)
               ],
-              color: AppColors.accentColor,
+              color: Colors.white,
               borderRadius: new BorderRadius.all(Radius.circular(8))),
         ),
         Padding(
@@ -39,7 +39,8 @@ class _EuroScreenState extends State<EuroScreen> {
           child: Column(
             children: <Widget>[
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -51,7 +52,8 @@ class _EuroScreenState extends State<EuroScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -63,7 +65,8 @@ class _EuroScreenState extends State<EuroScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -75,7 +78,8 @@ class _EuroScreenState extends State<EuroScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -87,7 +91,8 @@ class _EuroScreenState extends State<EuroScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,

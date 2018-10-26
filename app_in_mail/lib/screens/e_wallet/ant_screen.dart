@@ -39,7 +39,8 @@ class _AntScreenState extends State<AntScreen> {
           child: Column(
             children: <Widget>[
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -51,7 +52,8 @@ class _AntScreenState extends State<AntScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -63,7 +65,8 @@ class _AntScreenState extends State<AntScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,
@@ -75,7 +78,8 @@ class _AntScreenState extends State<AntScreen> {
                 ),
               ),
               MenuItemView(
-                verticalPadding: 10,
+                verticalPadding: 15,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 onTap: () => () {},
                 textColor: AppColors.accentColor,

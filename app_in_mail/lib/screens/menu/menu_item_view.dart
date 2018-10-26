@@ -8,7 +8,8 @@ class MenuItemView extends StatefulWidget {
   final Function onTap;
   final double verticalPadding;
   final FontWeight fontWeight;
-  MenuItemView({this.onTap,this.textColor = Colors.white, this.title, this.icon, this.verticalPadding = 20, this.fontWeight = FontWeight.normal});
+  final double fontSize;
+  MenuItemView({this.onTap,this.textColor = Colors.white, this.title, this.icon, this.verticalPadding = 20, this.fontWeight = FontWeight.normal, this.fontSize = 20});
 
   @override
   _MenuItemViewState createState() => _MenuItemViewState();
@@ -36,7 +37,7 @@ class _MenuItemViewState extends State<MenuItemView> {
             ),
             Text(
               widget.title,
-              style: TextStyle(color: widget.textColor, fontSize: 20, fontWeight: widget.fontWeight),
+              style: TextStyle(color: widget.textColor, fontSize: widget.fontSize, fontWeight: widget.fontWeight),
             ),
           ],
         ),
