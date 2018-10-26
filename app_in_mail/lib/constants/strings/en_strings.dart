@@ -41,6 +41,7 @@ final localizedStringsEn = {
   Strings.language: 'Language',
   Strings.save: 'SAVE',
   Strings.thisFieldisRequired: 'This field is required',
-
-
+  Strings.youHave: 'YOU\nHAVE', 
+  Strings.youGet: 'YOU\nHAVE', 
+  Strings.exchangeEuroWith: 'Exchange euro with:', 
 };

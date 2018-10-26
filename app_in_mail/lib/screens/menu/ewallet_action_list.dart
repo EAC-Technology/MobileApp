@@ -1,6 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/screens/e_wallet/exchange_screen.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,23 @@ class EwalletActionList extends StatefulWidget {
 }
 
 class _EwalletActionListState extends State<EwalletActionList> {
+
+  void _navigateToExchange() {
+    Navigator.of(context).pushReplacement(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return ExchangeScreen();
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         MenuItemView(
+          onTap:() => _navigateToExchange() ,
           textColor: AppColors.accentColor,
           title: Localization.getString(Strings.exchange),
           icon: SvgPicture.asset(

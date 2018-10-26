@@ -39,5 +39,8 @@ class Strings{
   static final lastName = 'lastName';
   static final language = 'language';
   static final save = 'save';
-  static final thisFieldisRequired = 'requiredFied'; 
+  static final thisFieldisRequired = 'requiredFied';
+  static final youHave = 'youHave';
+  static final youGet = 'youGet';
+  static final exchangeEuroWith = 'exchangeEuroWith';
 }
