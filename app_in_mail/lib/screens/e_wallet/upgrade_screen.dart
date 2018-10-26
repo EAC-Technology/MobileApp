@@ -9,7 +9,6 @@ class UpgradeScreen extends StatefulWidget {
 }
 
 class _UpgradeScreenState extends State<UpgradeScreen> {
-  @override
   final _formKey = GlobalKey<FormState>();
 
   _validateEmptyField(value) {

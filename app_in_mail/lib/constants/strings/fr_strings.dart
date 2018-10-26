@@ -43,5 +43,18 @@ final localizedStringsFr = {
   Strings.youHave: 'YOU\nHAVE_FR', 
   Strings.youGet: 'YOU\nGET_FR', 
   Strings.exchangeEuroWith: 'Exchange euro with:_FR', 
-  Strings.upgradeAccount: 'Upgrade account_FR'
+  Strings.upgradeAccount: 'Upgrade account_FR',
+  Strings.lightAccount: 'Light account_FR',
+  Strings.lightAccountIn: 'IN_FR',
+  Strings.lightAccountOut: 'OUT_FR',
+  Strings.lightAccountMax: 'MAX_FR',
+  Strings.currentBalance: 'Current balance_FR',
+  Strings.buyAnt: 'Buy @NT_FR',
+  Strings.exchangeAntToEur: 'Exchange @NT to EUR_FR',
+  Strings.transfer: 'Transfer_FR',
+  Strings.activity: 'Activity_FR',
+  Strings.depositEur: 'Deposit EUR_FR',
+  Strings.exchangeEurToAnd: 'Exchange EUR to @NT_FR',
+  Strings.withdraw: 'Withdraw_FR',
+
 };

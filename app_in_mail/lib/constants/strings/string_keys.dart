@@ -44,4 +44,17 @@ class Strings{
   static final youGet = 'youGet';
   static final exchangeEuroWith = 'exchangeEuroWith';
   static final upgradeAccount = 'upgradeAccount';
+  static final lightAccount = 'lightAccount';
+  static final lightAccountIn = 'lightAccountIn';
+  static final lightAccountOut = 'lightAccountOut';
+  static final lightAccountMax = 'lightAccountMax';
+  static final currentBalance = 'currentBalance';
+  static final buyAnt = 'buyAnt';
+  static final exchangeAntToEur = 'exchangeAntToEur';
+  static final transfer = 'transfer';
+  static final activity = 'activity';
+  static final depositEur = 'depositEur';
+  static final exchangeEurToAnd = 'exchangeEurToAnd';
+  static final withdraw = 'withdraw';
+
 }

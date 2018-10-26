@@ -6,7 +6,9 @@ class MenuItemView extends StatefulWidget {
   final SvgPicture icon;
   final Color textColor;
   final Function onTap;
-  MenuItemView({this.onTap,this.textColor = Colors.white, this.title, this.icon});
+  final double verticalPadding;
+  final FontWeight fontWeight;
+  MenuItemView({this.onTap,this.textColor = Colors.white, this.title, this.icon, this.verticalPadding = 2, this.fontWeight = FontWeight.normal});
 
   @override
   _MenuItemViewState createState() => _MenuItemViewState();
@@ -20,7 +22,7 @@ class _MenuItemViewState extends State<MenuItemView> {
           this.widget.onTap();
         },
         child: Padding(
-        padding: EdgeInsets.only(left: 30, top: 20, bottom: 20, right: 20),
+        padding: EdgeInsets.only(left: 30, top: widget.verticalPadding, bottom: widget.verticalPadding, right: 20),
         child: Row(
           children: <Widget>[
             widget.icon != null
@@ -34,7 +36,7 @@ class _MenuItemViewState extends State<MenuItemView> {
             ),
             Text(
               widget.title,
-              style: TextStyle(color: widget.textColor, fontSize: 20),
+              style: TextStyle(color: widget.textColor, fontSize: 20, fontWeight: widget.fontWeight),
             ),
           ],
         ),
