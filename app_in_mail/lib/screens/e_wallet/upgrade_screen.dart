@@ -65,6 +65,8 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                   ),
                 )),
               ),
+              Divider(),
+              Text('UI implementation in progress...')
             ],
           ),
         ),
