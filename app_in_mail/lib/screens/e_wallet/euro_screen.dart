@@ -22,7 +22,11 @@ class _EuroScreenState extends State<EuroScreen> {
           padding: const EdgeInsets.only(top: 10, bottom: 20),
           child: UpgradePromptBox(),
         ),
-        new CurrencyCard(),
+        CurrencyCard(color: Colors.white, shadowColor: Colors.blueGrey[100], text: '@ 3.25', textColor: AppColors.titleTextColor, watermark:SvgPicture.asset(
+              Img.icEuro,
+              height: 180,
+              color: Color.fromARGB(15, 83, 86, 120),
+            ) ,),
         Padding(
           padding: const EdgeInsets.only(top: 70, left: 50),
           child: Column(

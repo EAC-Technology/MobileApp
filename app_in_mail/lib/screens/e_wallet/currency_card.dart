@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CurrencyCard extends StatelessWidget {
-  const CurrencyCard({
-    Key key,
-  }) : super(key: key);
+  final Color textColor;
+  final Color color;
+  final Color shadowColor;
+  final String text;
+  final Widget watermark;
+
+  CurrencyCard({this.textColor, this.color, this.shadowColor, this.text, this.watermark});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +21,7 @@ class CurrencyCard extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 160, top: 1),
-            child: SvgPicture.asset(
-              Img.icEuro,
-              height: 180,
-              color: Color.fromARGB(15, 83, 86, 120),
-            ),
+            child: this.watermark
           ),
           Padding(
             padding: const EdgeInsets.only(left: 250, top: 20),
@@ -34,18 +34,18 @@ class CurrencyCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   Localization.getString(Strings.currentBalance),
-                  style: TextStyle(color: AppColors.titleTextColor),
+                  style: TextStyle(color: this.textColor),
                 ),
                 Text(
-                  '€ 3.25',
+                  this.text,
                   style: TextStyle(
-                      color: AppColors.titleTextColor,
+                      color: this.textColor,
                       fontSize: 40,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'xxxx-xxxx-xxxxx-xxxx-xxxx-xxxx',
-                  style: TextStyle(color: AppColors.titleTextColor),
+                  style: TextStyle(color: this.textColor),
                 ),
               ],
             ),
@@ -57,11 +57,11 @@ class CurrencyCard extends StatelessWidget {
       decoration: new BoxDecoration(
           boxShadow: [
             BoxShadow(
-                color: Colors.blueGrey[100],
+                color: this.shadowColor,
                 offset: new Offset(2, 35),
                 blurRadius: 20)
           ],
-          color: Colors.white,
+          color: this.color,
           borderRadius: new BorderRadius.all(Radius.circular(8))),
     );
   }
