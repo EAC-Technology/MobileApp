@@ -1,7 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
-import 'package:app_in_mail/screens/e_wallet/currency_card.dart';
+import 'package:app_in_mail/screens/e_wallet/currency_box.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,7 +27,7 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                 style: TextStyle(color: AppColors.titleTextColor, fontSize: 34),
               )),
             ),
-            CurrencyCard(
+            CurrencyBox(
               icon: SvgPicture.asset(
                 Img.icEuro,
                 width: 16.0,
@@ -37,7 +37,7 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
               text: '100000',
               title: Localization.getString(Strings.youHave),
             ),
-            CurrencyCard(
+            CurrencyBox(
               icon: SvgPicture.asset(
                 Img.icAnt,
                 width: 24.0,
