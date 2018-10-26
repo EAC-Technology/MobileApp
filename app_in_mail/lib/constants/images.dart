@@ -18,12 +18,9 @@ class Img{
   static final icBlocked = 'assets/ic_blocked_account.svg';
   static final icEdit = 'assets/ic_edit.svg';
   static final icDelete = 'assets/ic_delete.svg';
-
-
   static final logoVisa = 'assets/logo_visa.png';
   static final logoeWallet = 'assets/logo_ewallet.png';
   static final logoBankTransfer = 'assets/logo_bank_transfer.png';
-
-
+  static final icSwitch = 'assets/ic_switch.svg';
 
 }
