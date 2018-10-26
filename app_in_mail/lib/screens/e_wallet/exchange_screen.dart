@@ -1,6 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/screens/e_wallet/currency_card.dart';
 import 'package:app_in_mail/screens/menu/menu.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +15,73 @@ class ExchangeScreen extends StatefulWidget {
 class _ExchangeScreenState extends State<ExchangeScreen> {
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-       backgroundColor: AppColors.eWalletBackground,
+    return Scaffold(
+      backgroundColor: AppColors.eWalletBackground,
       appBar: _buildAppBar(),
-      body: Container(),
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 50, bottom: 50),
+          child: Center(
+              child: Text(
+            Localization.getString(Strings.exchange),
+            style: TextStyle(color: AppColors.titleTextColor, fontSize: 34),
+          )),
+        ),
+        CurrencyCard(),
+        CurrencyCard(),
+        Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Center(
+              child: RaisedButton(
+            onPressed: () {},
+            child: Container(
+              width: 200,
+              child: Center(
+                child: Text(
+                  Localization.getString(Strings.exchange).toUpperCase(),
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+          )),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top:30, bottom: 30),
+          child: Container( width: 250,
+            child: Row(
+              children: <Widget>[
+                  Text(
+                Localization.getString(Strings.exchangeEuroWith),
+                style: TextStyle(color: AppColors.titleTextColor, fontSize: 16),
+              ),
+              ],
+            ),
+          ),
+        ),
+        Container( width: 250,
+          child: Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+            Image.asset(Img.logoVisa), 
+            Image.asset(Img.logoeWallet), 
+          ],),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Container(width: 250,
+            child: Row(children: <Widget>[ 
+                Image.asset(Img.logoBankTransfer), 
+            ],),
+          ),
+        )
+        
+      ],
     );
   }
 
@@ -40,7 +104,7 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                 width: 22.0,
                 height: 18.0,
               ),
-              onPressed: () => _showMenu()); 
+              onPressed: () => _showMenu());
         },
       ),
       actions: <Widget>[
@@ -50,38 +114,29 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
               width: 35.0,
               color: AppColors.titleTextColor,
             ),
-            onPressed: () {
-              
-            }),
-            IconButton(
+            onPressed: () {}),
+        IconButton(
             icon: SvgPicture.asset(
               Img.icEuro,
               width: 14.0,
               color: AppColors.titleTextColor,
             ),
-            onPressed: () {
-              
-            }),
-            IconButton(
+            onPressed: () {}),
+        IconButton(
             icon: SvgPicture.asset(
               Img.icAnt,
               width: 20.0,
               color: AppColors.titleTextColor,
             ),
-            onPressed: () {
-              
-            }),
+            onPressed: () {}),
       ],
     );
   }
 
   void _showMenu() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute<void>(
-                 builder: (BuildContext context) {
-                    return  Menu();
-                }
-    ));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Menu();
+    }));
   }
-
-
 }
