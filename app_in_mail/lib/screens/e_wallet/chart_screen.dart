@@ -9,7 +9,7 @@ class _ChartScreenState extends State<ChartScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Text('CHAR SCREEN'),
+        child: Text('CHART SCREEN'),
     );
   }
 }

@@ -51,8 +51,8 @@ class _CurrencyCardState extends State<CurrencyCard> {
               style: TextStyle(color: widget.valueColor, fontSize: 28),
             ),
             Padding(
-              padding: const EdgeInsets.only( left: 10, right:20),
-              child: widget.icon
+              padding: const EdgeInsets.only( right:20),
+              child: Container( width: 30, child: widget.icon)
             ),
             ],)
 
