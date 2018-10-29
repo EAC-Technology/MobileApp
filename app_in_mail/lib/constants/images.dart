@@ -23,5 +23,5 @@ class Img{
   static final logoBankTransfer = 'assets/logo_bank_transfer.png';
   static final icSwitch = 'assets/ic_switch.svg';
   static final icAppInMailPNG = 'assets/ic_app_In_mail.png';
-
+  static final icLogout = 'assets/ic_logout.svg';
 }

@@ -1,5 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/login/loginScreen.dart';
 import 'package:app_in_mail/screens/menu/ewallet_action_list.dart';
 import 'package:app_in_mail/screens/menu/folder_list_view.dart';
 import 'package:app_in_mail/screens/menu/info_action_list.dart';
@@ -21,12 +23,18 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.darkBackground,
+          elevation: 0,
+        ),
         backgroundColor: AppColors.darkBackground,
         body: Column(
           children: <Widget>[
             Container(
-              //todo: place the profile widget here once ready.
-              height: 160,
+              child: _buildHeader(context),
+            ),
+            Container(
+              height: 60,
             ),
             Expanded(
               child: Row(
@@ -44,6 +52,63 @@ class _MenuState extends State<Menu> {
             )
           ],
         ));
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 25),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              ClipRRect(
+                  borderRadius: BorderRadius.all(const Radius.circular(7.0)),
+                  child: Image.asset(
+                    'assets/avatar.png',
+                    width: 43.0,
+                    height: 43.0,
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Text(
+                  'FirstName \nLastName',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              icon: SvgPicture.asset(
+                Img.icLogout,
+                width: 25.0,
+                color: AppColors.accentColor,
+              ),
+              onPressed: () {
+                _onLogoutPressed();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onLogoutPressed() {
+    RestApiClient.logOut();
+    Navigator.of(context).pushReplacement(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return new LoginScreen();
+        },
+      ),
+    );
   }
 
   Widget _getMenuBody() {
@@ -136,6 +201,7 @@ class _MenuState extends State<Menu> {
       ),
     );
   }
+
   void _navigateToSetttings() {
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
@@ -145,5 +211,4 @@ class _MenuState extends State<Menu> {
       ),
     );
   }
-
 }
