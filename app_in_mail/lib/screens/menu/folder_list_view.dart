@@ -1,7 +1,11 @@
 import 'package:app_in_mail/blocs/emails_bloc.dart';
+import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/mailbox.dart';
 import 'package:app_in_mail/screens/home/homePage.dart';
 import 'package:app_in_mail/screens/menu/folder_item_view.dart';
+import 'package:app_in_mail/screens/menu/menu_item_view.dart';
+import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 class FolderListView extends StatefulWidget {
@@ -10,7 +14,7 @@ class FolderListView extends StatefulWidget {
 }
 
 class _FolderListViewState extends State<FolderListView> {
-  
+  var isInEditMode = false;
   //TODO: replace the fake data with real mailboxes comming from the server.
   final List<Mailbox> fakeData = [
     Mailbox(hasNewItems: true, itemCount: 754, title: 'Inbox'),
@@ -21,12 +25,82 @@ class _FolderListViewState extends State<FolderListView> {
   ];
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: EdgeInsets.all(0),
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return FolderItemView( mailbox: fakeData[index], onTap: ()=> this._navigateToHome(context),);
-        });
+    return new CustomScrollView(slivers: [
+      new SliverToBoxAdapter(
+          child: this.isInEditMode
+              ? Container(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.clear,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            this.isInEditMode = false;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(left: 20.0, bottom: 20),
+                  child: Text(
+                    "accountholder@sampleemail.com",
+                    style: TextStyle(color: AppColors.greyLight),
+                  ),
+                )),
+      new SliverList(
+        delegate: new SliverChildListDelegate(
+          new List<Widget>.generate(5, (int index) {
+            return FolderItemView(
+              isInEditMode: this.isInEditMode,
+              mailbox: fakeData[index],
+              onTap: () => this._navigateToHome(context),
+            );
+          }),
+        ),
+      ),
+      _getfooter(),
+    ]);
+  }
+
+  SliverToBoxAdapter _getfooter() {
+    if (this.isInEditMode) {
+      return SliverToBoxAdapter(
+         child: MenuItemView(
+          onTap:null,
+          textColor: AppColors.accentColor,
+          title: Localization.getString(Strings.add),
+          icon: Icon(Icons.add, color: AppColors.accentColor, size: 30,),
+        ),
+      );
+    } else {
+      return SliverToBoxAdapter(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: IconButton(
+                icon: Icon(
+                  Icons.more_horiz,
+                  color: Colors.white,
+                  size: 32,
+                ),
+                onPressed: () {
+                  setState(() {
+                    this.isInEditMode = true;
+                  });
+                }),
+          ),
+        ),
+      );
+    }
   }
 
   _navigateToHome(BuildContext context) {

@@ -7,8 +7,9 @@ import 'package:flutter_svg/svg.dart';
 class FolderItemView extends StatefulWidget {
   final Mailbox mailbox;
   final Function onTap;
+  final bool isInEditMode;
 
-  FolderItemView({this.mailbox, this.onTap});
+  FolderItemView({this.mailbox, this.onTap, this.isInEditMode});
 
   @override
   _FolderItemViewState createState() => _FolderItemViewState();
@@ -41,39 +42,71 @@ class _FolderItemViewState extends State<FolderItemView> {
                   ),
                 ],
               ),
-              Stack(
-                alignment: Alignment.topRight,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Container(
-                      height: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
-                        child: Text(
-                          widget.mailbox.itemCount.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      decoration: new BoxDecoration(
-                          color: AppColors.lightDarkBackground,
-                          borderRadius:
-                              new BorderRadius.all(Radius.circular(13))),
-                    ),
-                  ),
-                  widget.mailbox.hasNewItems
-                      ? SvgPicture.asset(
-                          Img.icDot,
-                          width: 10.0,
-                        )
-                      : Container(),
-                ],
-              ),
+              _buildAccessoryViews(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildEditModeAccessories() {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: SvgPicture.asset(
+            Img.icDelete,
+            width: 20.0,
+          ),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: SvgPicture.asset(
+            Img.icEdit,
+            width: 20.0,
+          ),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNormalModeAccessories() {
+    return Stack(
+      alignment: Alignment.topRight,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Container(
+            height: 30,
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+              child: Text(
+                widget.mailbox.itemCount.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            decoration: new BoxDecoration(
+                color: AppColors.lightDarkBackground,
+                borderRadius: new BorderRadius.all(Radius.circular(13))),
+          ),
+        ),
+        widget.mailbox.hasNewItems
+            ? SvgPicture.asset(
+                Img.icDot,
+                width: 10.0,
+              )
+            : Container(),
+      ],
+    );
+  }
+
+  Widget _buildAccessoryViews() {
+    if (this.widget.isInEditMode) {
+      return _buildEditModeAccessories();
+    } else {
+      return _buildNormalModeAccessories();
+    }
   }
 }

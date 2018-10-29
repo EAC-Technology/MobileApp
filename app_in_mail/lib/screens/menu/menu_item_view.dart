@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 class MenuItemView extends StatefulWidget {
   final String title;
-  final SvgPicture icon;
+  final Widget icon;
   final Color textColor;
   final Function onTap;
   final double verticalPadding;
