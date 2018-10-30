@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:app_in_mail/screens/home/homePage.dart';
 import 'package:flutter/services.dart';
 import 'package:app_in_mail/utils/localization.dart';
-
 import 'dart:async';
 import 'package:uni_links/uni_links.dart';
+import 'package:sqflite/sqflite.dart';
 
 final RouteObserver<PageRoute> routeObserver = new RouteObserver<PageRoute>();
 

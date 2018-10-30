@@ -16,6 +16,8 @@ dependencies:
   io: ^0.3.3
   timeago: ^2.0.8
   rxdart: ^0.19.0
+  sqflite: ^0.12.2+1
+  path_provider: ^0.4.1
   flutter:
     sdk: flutter
     
