@@ -27,14 +27,13 @@ class DBHelper {
     await db.execute("CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
   }
 
-  // Retrieving emails from Employee Table
-  Future<List<Email>> getEmployees() async {
+  Future<List<Email>> getEmails() async {
     var dbClient = await db;
     List<Map> list = await dbClient.rawQuery('SELECT * FROM Employee');
-    List<Email> employees = new List();
+    List<Email> emails = new List();
     for (int i = 0; i < list.length; i++) {
       var record = list[i];
-      employees.add(new Email(
+      emails.add(new Email(
           fromEmail: record['fromemail'],
           fromName: record['fromame'],
           id: record['id'],
@@ -47,8 +46,8 @@ class DBHelper {
           timeStamp: record['timestamp']));
     }
 
-    print(employees.length);
-    return employees;
+    print(emails.length);
+    return emails;
   }
 
   void saveEmployee(Email email) async {
@@ -57,19 +56,19 @@ class DBHelper {
       return await txn.rawInsert('');
       // 'INSERT INTO Employee(firstname, lastname, mobileno, emailid ) VALUES(' +
       //     '\'' +
-      //     employee.firstName +
+      //     email.xxxx +
       //     '\'' +
       //     ',' +
       //     '\'' +
-      //     employee.lastName +
+      //     email.xxx +
       //     '\'' +
       //     ',' +
       //     '\'' +
-      //     employee.mobileNo +
+      //     email.xxx +
       //     '\'' +
       //     ',' +
       //     '\'' +
-      //     employee.emailId +
+      //     email.xxxx +
       //     '\'' +
       //     ')');
     });
