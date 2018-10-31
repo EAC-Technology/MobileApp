@@ -65,7 +65,7 @@ class DBHelper {
           ,
           [
             email.id,
-            "Changed subject", //email.subject,
+            email.subject,
             email.priority,
             email.renderedVdomxml,
             email.fromName,
