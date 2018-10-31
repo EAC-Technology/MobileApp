@@ -1,3 +1,4 @@
+import 'package:app_in_mail/local_storage/database.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/widgets.dart';
@@ -75,7 +76,16 @@ class AppInMailBloc {
   
   void _handleEmailsDownloadRequest(EmailsDownload download) async{
     _downloadedEmails = await RestApiClient.getEmailsList(download.mailBox);  //.catchError(_onError);  Todo handle errors in bloc .
+    _persistDownloadedEmailsInToDB(_downloadedEmails);
     _downloadedEmails.first.isNew = true; //Todo:  We currently fake it to be able to adjust the UI. Need to implement later into the repository.
     _emailsList.add(_downloadedEmails);
+  }
+  //TODO: Refactor this into repository pattern.
+  void _persistDownloadedEmailsInToDB(List<Email> _emailsToSave) {
+      var dbHelper = DBHelper();
+    
+      for(Email email in _emailsToSave) {
+        dbHelper.saveEmail(email);
+      }
   }
 }

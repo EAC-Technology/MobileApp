@@ -22,9 +22,12 @@ class DBHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    await db.execute("CREATE TABLE Emails(id INTEGER PRIMARY KEY, subject TEXT, INTEGER priority, renderedvdomxml TEXT,fromname TEXT, recipients Text, preview Text, timestamp INTEGER, labels TEXT, fromemail Text, isnew BOOLEAN)");
-    await db.execute("CREATE TABLE Labels(id INTEGER PRIMARY KEY, emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
-    await db.execute("CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
+    await db.execute(
+        "CREATE TABLE Emails(id INTEGER PRIMARY KEY, subject TEXT,priority INTEGER, renderedvdomxml TEXT,fromname TEXT, preview Text, timestamp INTEGER, fromemail Text, isnew BOOLEAN)");
+    await db.execute(
+        "CREATE TABLE Labels(id INTEGER PRIMARY KEY, emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
+    await db.execute(
+        "CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
   }
 
   Future<List<Email>> getEmails() async {
@@ -37,7 +40,7 @@ class DBHelper {
           fromEmail: record['fromemail'],
           fromName: record['fromame'],
           id: record['id'],
-          labels: record['labels'], 
+          labels: record['labels'],
           preview: record['preview'],
           priority: record['priority'],
           recipients: record['recipients'],
@@ -50,27 +53,51 @@ class DBHelper {
     return emails;
   }
 
-  void saveEmployee(Email email) async {
+  void saveEmail(Email email) async {
     var dbClient = await db;
-    await dbClient.transaction((txn) async {
-      return await txn.rawInsert('');
-      // 'INSERT INTO Employee(firstname, lastname, mobileno, emailid ) VALUES(' +
-      //     '\'' +
-      //     email.xxxx +
-      //     '\'' +
-      //     ',' +
-      //     '\'' +
-      //     email.xxx +
-      //     '\'' +
-      //     ',' +
-      //     '\'' +
-      //     email.xxx +
-      //     '\'' +
-      //     ',' +
-      //     '\'' +
-      //     email.xxxx +
-      //     '\'' +
-      //     ')');
+    await dbClient.transaction((transaction) async {
+        //IDoing UPSERT according to https://www.sqlite.org/lang_UPSERT.html
+        await transaction.execute(
+          "INSERT INTO 'Emails' ('id','subject','priority','renderedvdomxml','fromname', 'preview', 'timestamp', 'fromemail' , 'isnew') "
+          + " VALUES(?,?,?,?,?,?,?,?,?)" 
+          + " ON CONFLICT(id) DO" 
+          + " UPDATE SET subject=excluded.subject, priority = excluded.priority, renderedvdomxml = excluded.renderedvdomxml, fromname = excluded.fromname, preview = excluded.preview, timestamp = excluded.timestamp, fromemail = excluded.fromemail, isnew = excluded.isnew"
+          ,
+          [
+            email.id,
+            "Changed subject", //email.subject,
+            email.priority,
+            email.renderedVdomxml,
+            email.fromName,
+            email.preview,
+            email.timeStamp,
+            email.fromEmail,
+            email.isNew
+          ]);
+
+          //Delete labels
+          //await transaction.execute("DELETE FROM 'Labels' WHERE emailid = ?", [email.id]);
+
+          //Insert up-to-date labels 
+    }).catchError((error){
+      print('------------------------------------->');
+      print('------------------------------------->');
+      print('------------------------------------->');
+      print('------------------------------------->');
+      print('------------------------------------->');
+      print(error);
+      print('------------------------------------->');
     });
   }
 }
+
+//todo: save labels.
+//todo save recipients/
+//todo: error logging on db errors.
+//todo : check escaping problems as we do raw sql statement building - if the email text has ' characters.
+
+/*
+await db.execute("CREATE TABLE Emails(id,subject,priority,renderedvdomxml,fromname, recipients, preview, timestamp, labels, fromemail , isnew)");
+    await db.execute("CREATE TABLE Labels(id INTEGER PRIMARY KEY, emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
+    await db.execute("CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
+ */
