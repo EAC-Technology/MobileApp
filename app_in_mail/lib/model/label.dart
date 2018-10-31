@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 class Label {
   final String name;
-  final Color color;
-  final Color textColor;
-
+  
+  final String colorHex;
+  final String textColorHex;
+  
+  Color get color =>  Color(int.parse("0x$colorHex")).withOpacity(1.0).withAlpha(255);
+  Color get textColor =>  Color(int.parse("0x$textColorHex")).withOpacity(1.0).withAlpha(255);
 
   Label(
       {this.name,
-      this.color,
-      this.textColor,
+      this.colorHex,
+      this.textColorHex,
   });
 
   factory Label.fromJson(Map<dynamic, dynamic> json) {
     final map = json;
-    String hexStringColor = map['color'];
-    String hexStringTextColor = map['text_color'];
-    Color color =  Color(int.parse("0x$hexStringColor")).withOpacity(1.0).withAlpha(255);
-    Color textColor = Color(int.parse("0x$hexStringTextColor")).withOpacity(1.0).withAlpha(255);
-
+    String colorHex = map['color'];
+    String textColorHex = map['text_color'];
+    
     return Label(
       name: map['name'],
-      color: color,
-      textColor :textColor,
+      colorHex: colorHex,
+      textColorHex :textColorHex,
     );
   }
 }

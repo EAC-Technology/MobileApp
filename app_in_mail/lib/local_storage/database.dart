@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:app_in_mail/model/email.dart';
+import 'package:app_in_mail/model/label.dart';
+import 'package:app_in_mail/utils/logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,9 +27,9 @@ class DBHelper {
     await db.execute(
         "CREATE TABLE Emails(id INTEGER PRIMARY KEY, subject TEXT,priority INTEGER, renderedvdomxml TEXT,fromname TEXT, preview Text, timestamp INTEGER, fromemail Text, isnew BOOLEAN)");
     await db.execute(
-        "CREATE TABLE Labels(id INTEGER PRIMARY KEY, emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
+        "CREATE TABLE Labels(emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
     await db.execute(
-        "CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
+        "CREATE TABLE Recipients(emailid INTEGER, name TEXT)");
   }
 
   Future<List<Email>> getEmails() async {
@@ -56,13 +58,12 @@ class DBHelper {
   void saveEmail(Email email) async {
     var dbClient = await db;
     await dbClient.transaction((transaction) async {
-        //IDoing UPSERT according to https://www.sqlite.org/lang_UPSERT.html
-        await transaction.execute(
-          "INSERT INTO 'Emails' ('id','subject','priority','renderedvdomxml','fromname', 'preview', 'timestamp', 'fromemail' , 'isnew') "
-          + " VALUES(?,?,?,?,?,?,?,?,?)" 
-          + " ON CONFLICT(id) DO" 
-          + " UPDATE SET subject=excluded.subject, priority = excluded.priority, renderedvdomxml = excluded.renderedvdomxml, fromname = excluded.fromname, preview = excluded.preview, timestamp = excluded.timestamp, fromemail = excluded.fromemail, isnew = excluded.isnew"
-          ,
+      //Doing UPSERT according to https://www.sqlite.org/lang_UPSERT.html
+      await transaction.execute(
+          "INSERT INTO 'Emails' ('id','subject','priority','renderedvdomxml','fromname', 'preview', 'timestamp', 'fromemail' , 'isnew') " +
+              " VALUES(?,?,?,?,?,?,?,?,?)" +
+              " ON CONFLICT(id) DO" +
+              " UPDATE SET subject=excluded.subject, priority = excluded.priority, renderedvdomxml = excluded.renderedvdomxml, fromname = excluded.fromname, preview = excluded.preview, timestamp = excluded.timestamp, fromemail = excluded.fromemail, isnew = excluded.isnew",
           [
             email.id,
             email.subject,
@@ -75,29 +76,41 @@ class DBHelper {
             email.isNew
           ]);
 
-          //Delete labels
-          //await transaction.execute("DELETE FROM 'Labels' WHERE emailid = ?", [email.id]);
+      //Delete labels
+      await transaction
+          .execute("DELETE FROM 'Labels' WHERE emailid = ?", [email.id]);
+      //Insert up-to-date labels
+      for (Label label in email.labels) {
+        await transaction.execute(
+            "INSERT INTO 'Labels' (emailid, text, colorhex, textcolorhex)" +
+                " VALUES(?,?,?,?)",
+            [
+              email.id,
+              label.name,
+              label.colorHex,
+              label.textColorHex,
+            ]);
+      }
 
-          //Insert up-to-date labels 
-    }).catchError((error){
-      print('------------------------------------->');
-      print('------------------------------------->');
-      print('------------------------------------->');
-      print('------------------------------------->');
-      print('------------------------------------->');
-      print(error);
-      print('------------------------------------->');
+      //Delete recepients 
+      await transaction
+          .execute("DELETE FROM 'Recipients' WHERE emailid = ?", [email.id]);
+
+      //Insert up-to-date recipients
+      for (String recipient in email.recipients) {
+        await transaction.execute(
+            "INSERT INTO 'Recipients' (emailid, name)" +
+                " VALUES(?,?)",
+            [
+              email.id,
+              recipient
+            ]);
+      }
+    }).catchError((error) {
+      Log.e(error.toString());
     });
   }
 }
 
-//todo: save labels.
+//todo: need to add indices.
 //todo save recipients/
-//todo: error logging on db errors.
-//todo : check escaping problems as we do raw sql statement building - if the email text has ' characters.
-
-/*
-await db.execute("CREATE TABLE Emails(id,subject,priority,renderedvdomxml,fromname, recipients, preview, timestamp, labels, fromemail , isnew)");
-    await db.execute("CREATE TABLE Labels(id INTEGER PRIMARY KEY, emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
-    await db.execute("CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
- */
