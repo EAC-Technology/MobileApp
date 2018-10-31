@@ -118,6 +118,3 @@ class DBHelper {
     });
   }
 }
-
-//todo: need to add indices.
-//todo save recipients/
