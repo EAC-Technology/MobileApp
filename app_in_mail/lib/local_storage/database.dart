@@ -22,9 +22,9 @@ class DBHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    await db.execute(
-        "CREATE TABLE Emails(id INTEGER PRIMARY KEY, subject TEXT, INTEGER priority, renderedvdomxml TEXT,fromname TEXT, recepients Text, preview Text, timestamp INTEGER, labels TEXT, fromemail Text, isnew BOOLEAN)");
-    print("Created tables");
+    await db.execute("CREATE TABLE Emails(id INTEGER PRIMARY KEY, subject TEXT, INTEGER priority, renderedvdomxml TEXT,fromname TEXT, recipients Text, preview Text, timestamp INTEGER, labels TEXT, fromemail Text, isnew BOOLEAN)");
+    await db.execute("CREATE TABLE Labels(id INTEGER PRIMARY KEY, emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
+    await db.execute("CREATE TABLE Recipients(id INTEGER PRIMARY KEY, emailid INTEGER, name TEXT)");
   }
 
   // Retrieving emails from Employee Table
@@ -38,10 +38,10 @@ class DBHelper {
           fromEmail: record['fromemail'],
           fromName: record['fromame'],
           id: record['id'],
-          labels: record['labels'], //todo parse comma separated labels here
+          labels: record['labels'], 
           preview: record['preview'],
           priority: record['priority'],
-          recipients: record['reciients'],
+          recipients: record['recipients'],
           renderedVdomxml: record['renderedvdomxml'],
           subject: record['subject'],
           timeStamp: record['timestamp']));
