@@ -30,6 +30,13 @@ class DBHelper {
         "CREATE TABLE Labels(emailid INTEGER, text TEXT, colorhex Text, textcolorhex)");
     await db.execute(
         "CREATE TABLE Recipients(emailid INTEGER, name TEXT)");
+    
+    await db.execute(
+        "CREATE INDEX email_ids ON Emails (id)");
+    await db.execute(
+        "CREATE INDEX label_emailids ON Labels (emailid)");
+    await db.execute(
+        "CREATE INDEX recipient_emailids ON Recipients (emailid)");
   }
 
   Future<List<Email>> getEmails() async {
