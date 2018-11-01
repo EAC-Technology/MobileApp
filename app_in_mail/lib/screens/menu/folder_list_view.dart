@@ -1,9 +1,11 @@
 import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/model/label.dart';
 import 'package:app_in_mail/model/mailbox.dart';
 import 'package:app_in_mail/screens/home/homePage.dart';
 import 'package:app_in_mail/screens/menu/folder_item_view.dart';
+import 'package:app_in_mail/screens/menu/menu_filter_item.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -66,18 +68,41 @@ class _FolderListViewState extends State<FolderListView> {
           }),
         ),
       ),
-      _getfooter(),
+      _buildFooter(),
+      _buildFilteringList(),
     ]);
   }
 
-  SliverToBoxAdapter _getfooter() {
+  Widget _buildFilteringList() {
+    var testLabels = [
+      Label(colorHex: '67D0F1', name: 'EAC', textColorHex: 'FFFFFF'),
+      Label(colorHex: 'EF3671', name: 'Urgent', textColorHex: 'FFFFFF'),
+      Label(colorHex: 'AA4455', name: 'Social', textColorHex: 'FFFFFF')
+    ];
+    return SliverList(
+      delegate: new SliverChildListDelegate(
+        new List<Widget>.generate(3, (int index) {
+          return MenuFilterItem(
+            label: testLabels[index],
+            onTap: () {},
+          );
+        }),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildFooter() {
     if (this.isInEditMode) {
       return SliverToBoxAdapter(
-         child: MenuItemView(
-          onTap:null,
+        child: MenuItemView(
+          onTap: null,
           textColor: AppColors.accentColor,
           title: Localization.getString(Strings.add),
-          icon: Icon(Icons.add, color: AppColors.accentColor, size: 30,),
+          icon: Icon(
+            Icons.add,
+            color: AppColors.accentColor,
+            size: 30,
+          ),
         ),
       );
     } else {
