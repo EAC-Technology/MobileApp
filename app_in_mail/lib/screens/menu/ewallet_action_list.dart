@@ -1,7 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
-import 'package:app_in_mail/screens/e_wallet/e-wallet_screen.dart';
+import 'package:app_in_mail/screens/e_wallet/e_wallet_screen.dart';
 import 'package:app_in_mail/screens/e_wallet/upgrade_screen.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/utils/localization.dart';

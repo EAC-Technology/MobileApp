@@ -1,11 +1,11 @@
 import 'package:app_in_mail/blocs/emails_bloc.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
-import 'package:app_in_mail/screens/login/loginScreen.dart';
+import 'package:app_in_mail/screens/home/email_cell.dart';
+import 'package:app_in_mail/screens/login/login_screen.dart';
+import 'package:app_in_mail/utils/alert_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:app_in_mail/screens/home/email_details.dart';
-import 'package:app_in_mail/screens/home/emailCell.dart';
-import 'package:app_in_mail/utils/alertHelper.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 

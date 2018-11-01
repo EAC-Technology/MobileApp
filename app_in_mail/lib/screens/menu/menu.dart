@@ -1,7 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
-import 'package:app_in_mail/screens/login/loginScreen.dart';
+import 'package:app_in_mail/screens/login/login_screen.dart';
 import 'package:app_in_mail/screens/menu/ewallet_action_list.dart';
 import 'package:app_in_mail/screens/menu/folder_list_view.dart';
 import 'package:app_in_mail/screens/menu/info_action_list.dart';

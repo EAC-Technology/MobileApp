@@ -3,7 +3,7 @@ import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/custom_widgets/flat_ripple_button.dart';
-import 'package:app_in_mail/screens/home/homePage.dart';
+import 'package:app_in_mail/screens/home/home_page.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 

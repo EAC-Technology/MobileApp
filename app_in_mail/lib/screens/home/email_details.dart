@@ -3,7 +3,7 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/custom_widgets/collapsible_header_container.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
-import 'package:app_in_mail/utils/alertHelper.dart';
+import 'package:app_in_mail/utils/alert_helper.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';

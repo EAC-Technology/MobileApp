@@ -1,6 +1,6 @@
 import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:app_in_mail/screens/login/loginScreen.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 class SideDrawer extends StatefulWidget {

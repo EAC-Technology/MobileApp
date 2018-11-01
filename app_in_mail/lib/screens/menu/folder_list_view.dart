@@ -3,7 +3,7 @@ import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/label.dart';
 import 'package:app_in_mail/model/mailbox.dart';
-import 'package:app_in_mail/screens/home/homePage.dart';
+import 'package:app_in_mail/screens/home/home_page.dart';
 import 'package:app_in_mail/screens/menu/folder_item_view.dart';
 import 'package:app_in_mail/screens/menu/menu_filter_item.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';

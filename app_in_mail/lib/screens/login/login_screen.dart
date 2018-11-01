@@ -3,13 +3,14 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/custom_widgets/appinmail_textfield.dart';
 import 'package:app_in_mail/custom_widgets/flat_ripple_button.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/login/locale_selector.dart';
 import 'package:app_in_mail/screens/welcome_page.dart';
+import 'package:app_in_mail/utils/alert_helper.dart';
 import 'package:app_in_mail/utils/config.dart';
 import 'package:app_in_mail/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:app_in_mail/utils/alertHelper.dart';
-import 'package:app_in_mail/screens/login/localeSelector.dart';
+
 import 'package:app_in_mail/utils/localization.dart';
 
 final tag = 'LoginScreen';
