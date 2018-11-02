@@ -39,7 +39,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.depositEur),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icDepositEur,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -52,7 +52,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.exchangeEurToAnt),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icExchangeEur,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -65,7 +65,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.transfer),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icTransfer,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -78,7 +78,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.withdraw),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icWithfraw,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -91,7 +91,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.activity),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icActivity,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),

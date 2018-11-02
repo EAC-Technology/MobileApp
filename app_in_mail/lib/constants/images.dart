@@ -27,4 +27,11 @@ class Img{
   static final icFilter = 'assets/ic_filter.svg';
   static final icLabel = 'assets/ic_label.svg';
   static final icSend = 'assets/ic_send.svg';
+  static final icDepositEur = 'assets/ic_deposit_eur.svg';
+  static final icExchangeEur = 'assets/ic_exchange_eur.svg';
+  static final icTransfer = 'assets/ic_transfer.svg';
+  static final icWithfraw = 'assets/ic_withdraw.svg';
+  static final icActivity = 'assets/ic_activity.svg';
+
+
 }
