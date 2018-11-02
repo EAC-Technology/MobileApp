@@ -30,7 +30,9 @@ class _ComposeEmailScreenState extends State<ComposeEmailScreen> {
           size: 30,
         ),
         color: AppColors.titleTextColor,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
       ),
       actions: <Widget>[
         IconButton(
