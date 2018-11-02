@@ -40,7 +40,7 @@ class _EwalletScreenState extends State<EwalletScreen> {
       case EwalletScreenMode.ant:
         return AntScreen();
       case EwalletScreenMode.chart:
-        return ChartScreen();
+        return ChartScreen.withSampleData();
       case EwalletScreenMode.euro:
         return EuroScreen();
       case EwalletScreenMode.exchange:
