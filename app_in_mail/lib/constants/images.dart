@@ -32,6 +32,5 @@ class Img{
   static final icTransfer = 'assets/ic_transfer.svg';
   static final icWithfraw = 'assets/ic_withdraw.svg';
   static final icActivity = 'assets/ic_activity.svg';
-
-
+  static final icBuyAnt = 'assets/ic_buy_ant.svg';
 }

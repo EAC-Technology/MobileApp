@@ -66,7 +66,7 @@ class _EuroScreenState extends State<EuroScreen> {
                 title: Localization.getString(Strings.transfer),
                 icon: SvgPicture.asset(
                   Img.icTransfer,
-                  width: 22.0,
+                  width: 25.0,
                   color: AppColors.accentColor,
                 ),
               ),

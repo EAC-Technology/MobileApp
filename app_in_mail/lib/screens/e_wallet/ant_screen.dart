@@ -39,7 +39,7 @@ class _AntScreenState extends State<AntScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.buyAnt),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icBuyAnt,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -52,7 +52,7 @@ class _AntScreenState extends State<AntScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.exchangeAntToEur),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icExchangeEur,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -65,7 +65,7 @@ class _AntScreenState extends State<AntScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.transfer),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icTransfer,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
@@ -78,7 +78,7 @@ class _AntScreenState extends State<AntScreen> {
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.activity),
                 icon: SvgPicture.asset(
-                  Img.icAnt,
+                  Img.icActivity,
                   width: 22.0,
                   color: AppColors.accentColor,
                 ),
