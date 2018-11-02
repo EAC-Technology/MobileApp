@@ -58,4 +58,7 @@ final localizedStringsFr = {
   Strings.withdraw: 'Withdraw_FR',
   Strings.add: 'Add_FR',
   Strings.compose: 'Compose_FR',
+  Strings.to: 'To_FR',
+  Strings.subject: 'Subject_FR',
+  Strings.message: 'Message_FR',
 };

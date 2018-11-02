@@ -1,5 +1,6 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/screens/home/compose_email_screen.dart';
 import 'package:app_in_mail/screens/home/email_type_cell.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,16 @@ class _EmailTypesListScreenState extends State<EmailTypesListScreen> {
     );
   }
 
+  void _navigateToComposeScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return ComposeEmailScreen();
+        },
+      ),
+    );
+  }
+
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
@@ -47,27 +58,35 @@ class _EmailTypesListScreenState extends State<EmailTypesListScreen> {
             children: <Widget>[
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
               EmailTypeCell(
                 title: 'Simple Email',
+                onTap:this._navigateToComposeScreen,
               ),
            
             ],

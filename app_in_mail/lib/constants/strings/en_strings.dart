@@ -59,4 +59,7 @@ final localizedStringsEn = {
   Strings.withdraw: 'Withdraw',
   Strings.add: 'Add',
   Strings.compose: 'Compose',
+  Strings.to: 'To',
+  Strings.subject: 'Subject',
+  Strings.message: 'Message',
 };

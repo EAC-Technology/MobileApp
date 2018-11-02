@@ -26,4 +26,5 @@ class Img{
   static final icLogout = 'assets/ic_logout.svg';
   static final icFilter = 'assets/ic_filter.svg';
   static final icLabel = 'assets/ic_label.svg';
+  static final icSend = 'assets/ic_send.svg';
 }

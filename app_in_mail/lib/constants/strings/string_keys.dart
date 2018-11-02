@@ -58,4 +58,7 @@ class Strings{
   static final withdraw = 'withdraw';
   static final add = 'add';
   static final compose = 'compose';
+  static final to = 'to';
+  static final subject = 'subject';
+  static final message = 'message';
 }
