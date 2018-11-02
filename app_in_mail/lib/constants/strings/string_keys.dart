@@ -57,4 +57,5 @@ class Strings{
   static final exchangeEurToAnt = 'exchangeEurToAnt';
   static final withdraw = 'withdraw';
   static final add = 'add';
+  static final compose = 'compose';
 }

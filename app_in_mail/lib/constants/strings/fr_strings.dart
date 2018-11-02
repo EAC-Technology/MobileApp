@@ -57,4 +57,5 @@ final localizedStringsFr = {
   Strings.exchangeEurToAnt: 'Exchange EUR to @NT_FR',
   Strings.withdraw: 'Withdraw_FR',
   Strings.add: 'Add_FR',
+  Strings.compose: 'Compose_FR',
 };

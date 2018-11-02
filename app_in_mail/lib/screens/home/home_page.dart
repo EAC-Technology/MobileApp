@@ -5,6 +5,7 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/home/email_list.dart';
+import 'package:app_in_mail/screens/home/email_types_list.dart';
 import 'package:app_in_mail/screens/login/login_screen.dart';
 import 'package:app_in_mail/screens/menu/menu.dart';
 import 'package:app_in_mail/screens/menu/side_drawer.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   //todo change the SideDrawer to single page
-  @override 
+  @override
   Widget build(BuildContext context) {
     _appInMailBloc = AppInMailBlocProvider.of(context);
 
@@ -44,14 +45,19 @@ class _HomePageState extends State<HomePage> {
         drawer: SideDrawer(),
         appBar: !RestApiClient.needsLogin() ? buildAppBar() : null,
         floatingActionButton: FloatingActionButton(
-          
           shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(
             const Radius.circular(10.0),
           )),
-          child:  Icon(Icons.add, size: 40.0,),
+          child: Icon(
+            Icons.add,
+            size: 40.0,
+          ),
           onPressed: () {
-            //todo: Implement action for add new email button.
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute<void>(builder: (BuildContext context) {
+              return EmailTypesListScreen();
+            }));
           },
         ),
         body: CollapsibleHeaderContainer(
@@ -111,11 +117,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showMenu() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute<void>(
-                 builder: (BuildContext context) {
-                    return  Menu();
-                }
-    ));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Menu();
+    }));
   }
 
   AppBar buildAppBar() {
@@ -137,7 +142,8 @@ class _HomePageState extends State<HomePage> {
                 width: 22.0,
                 height: 18.0,
               ),
-              onPressed: () => _showMenu()); //Scaffold.of(context).openDrawer());
+              onPressed: () =>
+                  _showMenu()); //Scaffold.of(context).openDrawer());
         },
       ),
       actions: <Widget>[

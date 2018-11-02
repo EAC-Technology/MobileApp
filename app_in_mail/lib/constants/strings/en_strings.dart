@@ -58,4 +58,5 @@ final localizedStringsEn = {
   Strings.exchangeEurToAnt: 'Exchange EUR to @NT',
   Strings.withdraw: 'Withdraw',
   Strings.add: 'Add',
+  Strings.compose: 'Compose',
 };
