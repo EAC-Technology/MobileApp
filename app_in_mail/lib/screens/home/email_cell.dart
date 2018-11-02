@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class EmailCell extends ListTile {
-  EmailCell({Key key, this.email}) : super(key: key);
-
+  EmailCell({Key key, this.email, this.onPictureTap, this.isSelected = false})
+      : super(key: key);
+  final Function onPictureTap;
   final Email email;
+  final bool isSelected;
 
   Widget _buildLabelsList() {
     return Container(
@@ -21,7 +23,9 @@ class EmailCell extends ListTile {
               return Row(
                 children: <Widget>[
                   _buildLabelCell(index),
-                  Container(width: 5,) //space between items
+                  Container(
+                    width: 5,
+                  ) //space between items
                 ],
               );
             }
@@ -55,10 +59,29 @@ class EmailCell extends ListTile {
         Container(height: 40.0), //spacing
         ClipRRect(
             borderRadius: BorderRadius.all(const Radius.circular(7.0)),
-            child: Image.asset(
-              'assets/avatar.png',
-              width: 43.0,
-              height: 43.0,
+            child: GestureDetector(
+              onTap: this.onPictureTap,
+              child: Stack(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/avatar.png',
+                    width: 43.0,
+                    height: 43.0,
+                  ),
+                  this.isSelected
+                      ? Container(
+                          color: AppColors.darkBackground.withAlpha(200),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          width: 43,
+                          height: 43,
+                        )
+                      : Container()
+                ],
+              ),
             )),
         Container(width: 10.0), //horizontal spacer.
         Expanded(
@@ -95,8 +118,8 @@ class EmailCell extends ListTile {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontWeight: email.isNew
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+                                ? FontWeight.bold
+                                : FontWeight.normal,
                             fontSize: 14.0,
                             color: AppColors.emailSeenTextColor),
                       ),

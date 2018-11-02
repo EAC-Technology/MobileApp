@@ -22,6 +22,7 @@ class EmailList extends StatefulWidget {
 
 class EmailListState extends State<EmailList> {
   String _mailBox;
+  var selectedEmails = List<Email>();
   @override
   void initState() {
     super.initState();
@@ -74,10 +75,25 @@ class EmailListState extends State<EmailList> {
         _navigateToEmail(email);
       },
       child: Column(children: <Widget>[
-        EmailCell(email: email),
+        EmailCell(
+          isSelected: this.selectedEmails.contains(email),
+          email: email,
+          onPictureTap: () => _toggleSelection(email),
+        ),
         Divider(),
       ]),
     );
+  }
+
+  void _toggleSelection(Email email) {
+    var isSelected = this.selectedEmails.contains(email);
+    setState(() {
+      if (isSelected) {
+        this.selectedEmails.remove(email);
+      } else {
+        this.selectedEmails.add(email);
+      }
+    });
   }
 
   void _navigateToEmail(Email email) {
