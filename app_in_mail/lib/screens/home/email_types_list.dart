@@ -22,6 +22,19 @@ class _EmailTypesListScreenState extends State<EmailTypesListScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 22))),
       body: _buildBody(),
+      floatingActionButton: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(
+            const Radius.circular(10.0),
+          )),
+          child: Icon(
+            Icons.clear,
+            size: 40.0,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
     );
   }
 

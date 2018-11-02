@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             size: 40.0,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
                 MaterialPageRoute<void>(builder: (BuildContext context) {
               return EmailTypesListScreen();
             }));
