@@ -104,8 +104,6 @@ class _ChartScreenState extends State<ChartScreen> {
               value: slliderValue,
             ),
             data: Theme.of(context).sliderTheme.copyWith(
-                  inactiveTickMarkColor: Colors.black,
-                  activeTickMarkColor: Colors.black,
                   thumbShape: _CustomThumbShape(),
                   inactiveTrackColor: AppColors.accentColor,
                 ),

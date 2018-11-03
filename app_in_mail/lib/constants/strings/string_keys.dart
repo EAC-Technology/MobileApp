@@ -61,11 +61,13 @@ class Strings{
   static final to = 'to';
   static final subject = 'subject';
   static final message = 'message';
-  
   static final twelveHours = 'twelveHours';
   static final twentyFourHours =  'twentyFourHours';
   static final sevenDays = 'sevenDays';
   static final oneMonth =  'oneMonth';
   static final sixMonths =  'sixMonths';
   static final oneYear =  'oneYear';
+  static final antMktCapp =  'antMktCapp';
+  static final eurReserve =  'eurReserve';
+  static final antSupply =  'antSupply';
 }

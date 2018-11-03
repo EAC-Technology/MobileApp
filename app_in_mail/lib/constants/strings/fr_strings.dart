@@ -61,11 +61,13 @@ final localizedStringsFr = {
   Strings.to: 'To_FR',
   Strings.subject: 'Subject_FR',
   Strings.message: 'Message_FR',
-
   Strings.twelveHours: '12 Hours_FR',
   Strings.twentyFourHours: '24 Hours_FR',
   Strings.sevenDays: '7 Days_FR',
   Strings.oneMonth: '1M_FR',
   Strings.sixMonths: '6M_FR',
   Strings.oneYear: 'Year_FR',
+  Strings.antMktCapp: '@NT Mkt. Cap._FR',
+  Strings.eurReserve: 'EUR Reserve_FR',
+  Strings.antSupply: '@NT Supply_FR',
 };
