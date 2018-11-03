@@ -1,4 +1,6 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/utils/localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -38,7 +40,45 @@ class ChartScreen extends StatefulWidget {
 }
 
 class _ChartScreenState extends State<ChartScreen> {
-  double slliderValue = 1;
+  final sliderDiscreteValues = [
+    Localization.getString(Strings.twelveHours),
+    Localization.getString(Strings.twentyFourHours),
+    Localization.getString(Strings.sevenDays),
+    Localization.getString(Strings.oneMonth),
+    Localization.getString(Strings.sixMonths),
+    Localization.getString(Strings.oneYear),
+  ];
+
+  int sliderValue = 1;
+
+  Widget _buildSliderDiscreteValueLabel(int index) {
+    Color textColor =
+        index == sliderValue ? AppColors.accentColor : AppColors.titleTextColor;
+    return Expanded(
+      child: Container(
+        child: Center(
+            child: Text(
+          sliderDiscreteValues[index],
+          style: TextStyle(color: textColor),
+        )),
+        height: 40,
+      ),
+    );
+  }
+
+  Widget _buildSliderLabels() {
+    List<Widget> labels = [];
+
+    for (var i = 0; i < sliderDiscreteValues.length; i++) {
+      labels.add(_buildSliderDiscreteValueLabel(i));
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: labels,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,60 +88,22 @@ class _ChartScreenState extends State<ChartScreen> {
         ),
         _buildChart(),
         Padding(
-          padding: const EdgeInsets.only(left: 1, right: 1),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  child: Center(child: Text('12 Hours')),
-                  height: 40,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Center(child: Text('24 Hours')),
-                  height: 40,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Center(child: Text('7 days')),
-                  height: 40,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Center(child: Text('1M')),
-                  height: 40,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Center(child: Text('6M')),
-                  height: 40,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Center(child: Text('Year')),
-                  height: 40,
-                ),
-              ),
-            ],
-          ),
-        ),
+            padding: const EdgeInsets.only(left: 1, right: 1),
+            child: _buildSliderLabels()),
         Padding(
           padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
           child: SliderTheme(
             child: Slider(
+              min: 0,
+              max: 5,
               divisions: 5,
               onChanged: (double value) {
                 setState(() {
-                  slliderValue = value;
+                  sliderValue = value.toInt();
+                  print(value);
                 });
               },
-              value: slliderValue,
+              value: sliderValue.toDouble(),
             ),
             data: Theme.of(context).sliderTheme.copyWith(
                   thumbShape: _CustomThumbShape(),
