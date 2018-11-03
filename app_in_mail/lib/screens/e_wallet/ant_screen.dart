@@ -22,11 +22,17 @@ class _AntScreenState extends State<AntScreen> {
           padding: const EdgeInsets.only(top: 10, bottom: 20),
           child: UpgradePromptBox(),
         ),
-        CurrencyCard(color: AppColors.accentColor, shadowColor: Colors.pink[200], text: '@ 23.375', textColor: Colors.white, watermark:SvgPicture.asset(
-              Img.icAnt,
-              height: 180,
-              color: Color.fromARGB(15, 83, 86, 120),
-            ) ,),
+        CurrencyCard(
+          color: AppColors.accentColor,
+          shadowColor: Colors.pink[200],
+          text: '@ 23.375',
+          textColor: Colors.white,
+          watermark: SvgPicture.asset(
+            Img.icAnt,
+            height: 180,
+            color: Color.fromARGB(15, 83, 86, 120),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 70, left: 50),
           child: Column(

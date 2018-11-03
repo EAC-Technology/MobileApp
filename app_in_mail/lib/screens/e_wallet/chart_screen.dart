@@ -1,8 +1,10 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ChartScreen extends StatefulWidget {
   final List<charts.Series> seriesList;
@@ -79,49 +81,80 @@ class _ChartScreenState extends State<ChartScreen> {
     );
   }
 
+  Widget _buildHeader() {
+    return Padding(
+      padding: const EdgeInsets.only(top:20.0),
+      child: Container(
+            height: 55,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              SvgPicture.asset(
+              Img.icAnt,
+              height: 30,
+              color: AppColors.titleTextColor,
+            ),
+            Text('/', style: TextStyle(color: AppColors.titleTextColor, fontSize: 30),), 
+            SvgPicture.asset(
+              Img.icEuro,
+              height: 30,
+              color: AppColors.titleTextColor,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left:10, right: 10),
+              child: Text('498.54', style: TextStyle(color: AppColors.titleTextColor, fontSize: 38, fontWeight: FontWeight.bold),),
+            ), 
+
+            ],),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          height: 60,
-        ),
+        _buildHeader(),
         _buildChart(),
-        Padding(
-            padding: const EdgeInsets.only(left: 1, right: 1),
-            child: _buildSliderLabels()),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-          child: SliderTheme(
-            child: Slider(
-              min: 0,
-              max: 5,
-              divisions: 5,
-              onChanged: (double value) {
-                setState(() {
-                  sliderValue = value.toInt();
-                  print(value);
-                });
-              },
-              value: sliderValue.toDouble(),
-            ),
-            data: Theme.of(context).sliderTheme.copyWith(
-                  thumbShape: _CustomThumbShape(),
-                  inactiveTrackColor: AppColors.accentColor,
-                ),
-          ),
-        ),
+        _buildSliderLabels(),
+        _buildSlider(),
       ],
     );
   }
 
+  Padding _buildSlider() {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+        child: SliderTheme(
+          child: Slider(
+            min: 0,
+            max: 5,
+            divisions: 5,
+            onChanged: (double value) {
+              setState(() {
+                sliderValue = value.toInt();
+              });
+            },
+            value: sliderValue.toDouble(),
+          ),
+          data: Theme.of(context).sliderTheme.copyWith(
+                thumbShape: _CustomThumbShape(),
+                inactiveTrackColor: AppColors.accentColor,
+              ),
+        ),
+      );
+  }
+
   Widget _buildChart() {
-    return Container(
-      height: 300,
-      child: charts.TimeSeriesChart(
-        widget.seriesList,
-        animate: true,
-        dateTimeFactory: const charts.LocalDateTimeFactory(),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 300,
+        child: charts.TimeSeriesChart(
+          widget.seriesList,
+          animate: true,
+          dateTimeFactory: const charts.LocalDateTimeFactory(),
+        ),
       ),
     );
   }
