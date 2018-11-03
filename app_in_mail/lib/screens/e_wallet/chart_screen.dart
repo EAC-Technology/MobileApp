@@ -1,7 +1,6 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class ChartScreen extends StatefulWidget {
   final List<charts.Series> seriesList;
@@ -48,14 +47,55 @@ class _ChartScreenState extends State<ChartScreen> {
           height: 60,
         ),
         _buildChart(),
-        Container(
-          height: 100,
+        Padding(
+          padding: const EdgeInsets.only(left: 1, right: 1),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  child: Center(child: Text('12 Hours')),
+                  height: 40,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(child: Text('24 Hours')),
+                  height: 40,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(child: Text('7 days')),
+                  height: 40,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(child: Text('1M')),
+                  height: 40,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(child: Text('6M')),
+                  height: 40,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(child: Text('Year')),
+                  height: 40,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
           child: SliderTheme(
             child: Slider(
-              label: '23 hours', // slliderValue.toString(),
-              divisions: 6,
-              min: 0,
-              max: 6,
+              divisions: 5,
               onChanged: (double value) {
                 setState(() {
                   slliderValue = value;
@@ -64,10 +104,10 @@ class _ChartScreenState extends State<ChartScreen> {
               value: slliderValue,
             ),
             data: Theme.of(context).sliderTheme.copyWith(
+                  inactiveTickMarkColor: Colors.black,
+                  activeTickMarkColor: Colors.black,
                   thumbShape: _CustomThumbShape(),
                   inactiveTrackColor: AppColors.accentColor,
-                  //thumbShape: _CustomThumbShape(),
-                  //valueIndicatorShape: _CustomValueIndicatorShape(),
                 ),
           ),
         ),
@@ -127,12 +167,12 @@ class _CustomThumbShape extends SliderComponentShape {
     final Canvas canvas = context.canvas;
     final thumbSide = 35;
     final borderRadius = 8.0;
-    
+
     final RRect borderRect = RRect.fromLTRBAndCorners(
-      thumbCenter.dx - thumbSide /2,
+      thumbCenter.dx - thumbSide / 2,
       thumbCenter.dy - thumbSide / 2,
-      thumbCenter.dx + thumbSide /2,
-      thumbCenter.dy + thumbSide /2,
+      thumbCenter.dx + thumbSide / 2,
+      thumbCenter.dy + thumbSide / 2,
       bottomLeft: Radius.circular(borderRadius),
       bottomRight: Radius.circular(borderRadius),
       topLeft: Radius.circular(borderRadius),
@@ -143,18 +183,14 @@ class _CustomThumbShape extends SliderComponentShape {
     shadowPath.addRRect(borderRect);
     canvas.drawShadow(shadowPath, Colors.grey[100], 10, false);
 
-    Paint backgroundPaint =  Paint()
+    Paint backgroundPaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
     canvas.drawRRect(borderRect, backgroundPaint);
 
-
-    Paint foregroundPaint =  Paint()
+    Paint foregroundPaint = Paint()
       ..color = AppColors.accentColor
       ..style = PaintingStyle.fill;
     canvas.drawCircle(thumbCenter, 8, foregroundPaint);
-    
-   
-    
   }
 }
