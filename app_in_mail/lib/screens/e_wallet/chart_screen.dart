@@ -1,6 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/screens/e_wallet/labeled_value_box.dart';
 import 'package:app_in_mail/screens/e_wallet/percentage_indicator.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -76,82 +77,129 @@ class _ChartScreenState extends State<ChartScreen> {
       labels.add(_buildSliderDiscreteValueLabel(i));
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: labels,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 15, 8, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: labels,
+      ),
     );
   }
 
   Widget _buildHeader() {
     return Padding(
-      padding: const EdgeInsets.only(top:20.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: Container(
-            height: 60,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-              SvgPicture.asset(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SvgPicture.asset(
               Img.icAnt,
               height: 30,
               color: AppColors.titleTextColor,
             ),
-            Text('/', style: TextStyle(color: AppColors.titleTextColor, fontSize: 30),), 
+            Text(
+              '/',
+              style: TextStyle(color: AppColors.titleTextColor, fontSize: 30),
+            ),
             SvgPicture.asset(
               Img.icEuro,
               height: 30,
               color: AppColors.titleTextColor,
             ),
             Padding(
-              padding: const EdgeInsets.only(left:10, right: 10),
-              child: Text('498.54', style: TextStyle(color: AppColors.titleTextColor, fontSize: 38, fontWeight: FontWeight.bold),),
-            ), 
-            PercentageIndicator(percentValue: 9.75,),
-
-            ],),
-          ),
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Text(
+                '498.54',
+                style: TextStyle(
+                    color: AppColors.titleTextColor,
+                    fontSize: 38,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            PercentageIndicator(
+              percentValue: 9.75,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _buildHeader(),
-        _buildChart(),
-        _buildSliderLabels(),
-        _buildSlider(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          _buildHeader(),
+          _buildChart(),
+          _buildSliderLabels(),
+          _buildSlider(),
+          _buildFooter(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooter() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              LabeledValueBox(
+                title: Localization.getString(Strings.antMktCapp),
+                value: '€ 3 107 208',
+              ),
+              LabeledValueBox(
+                title: Localization.getString(Strings.eurReserve),
+                value: '€ 310 720.76',
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              LabeledValueBox(
+                title: Localization.getString(Strings.antSupply),
+                value: '€ 1 122 967.76',
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 
   Padding _buildSlider() {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-        child: SliderTheme(
-          child: Slider(
-            min: 0,
-            max: 5,
-            divisions: 5,
-            onChanged: (double value) {
-              setState(() {
-                sliderValue = value.toInt();
-              });
-            },
-            value: sliderValue.toDouble(),
-          ),
-          data: Theme.of(context).sliderTheme.copyWith(
-                thumbShape: _CustomThumbShape(),
-                inactiveTrackColor: AppColors.accentColor,
-              ),
+      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+      child: SliderTheme(
+        child: Slider(
+          min: 0,
+          max: 5,
+          divisions: 5,
+          onChanged: (double value) {
+            setState(() {
+              sliderValue = value.toInt();
+            });
+          },
+          value: sliderValue.toDouble(),
         ),
-      );
+        data: Theme.of(context).sliderTheme.copyWith(
+              thumbShape: _CustomThumbShape(),
+              inactiveTrackColor: AppColors.accentColor,
+            ),
+      ),
+    );
   }
 
   Widget _buildChart() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 300,
+        height: 360,
         child: charts.TimeSeriesChart(
           widget.seriesList,
           animate: true,
