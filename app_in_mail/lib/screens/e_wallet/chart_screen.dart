@@ -1,6 +1,7 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/screens/e_wallet/percentage_indicator.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class _ChartScreenState extends State<ChartScreen> {
     return Padding(
       padding: const EdgeInsets.only(top:20.0),
       child: Container(
-            height: 55,
+            height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -104,6 +105,7 @@ class _ChartScreenState extends State<ChartScreen> {
               padding: const EdgeInsets.only(left:10, right: 10),
               child: Text('498.54', style: TextStyle(color: AppColors.titleTextColor, fontSize: 38, fontWeight: FontWeight.bold),),
             ), 
+            PercentageIndicator(percentValue: 9.75,),
 
             ],),
           ),
