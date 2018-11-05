@@ -40,6 +40,47 @@ class RestApiClient {
     return result;
   }
 
+  static Future<bool> testAntAPI(String email, String password) async { 
+
+    //https://admin.appinmail.io/restapi.py?objid=9d29fd1a-ae9b-4b92-8c2f-72c15d18dcf6&action_name=remote_login&xml_data=
+    final md5Password = generateMd5(password);
+    final antLoginBaseUrl = 'https://admin.appinmail.io';
+    final antObjId = '9d29fd1a-ae9b-4b92-8c2f-72c15d18dcf6';
+    final path = '/restapi.py';
+    final action = 'remote_login';
+    final rawXmlData = '{' +
+      '"user_email":"' + email +
+      '","user_login":"' + email +
+      '","password":"' + password +
+      '","password_md5":"' +  md5Password +
+      '"}';
+
+
+
+
+    // final rawXmlData = '{ "login": "' +
+    //     email +
+    //     '","password": "' +
+    //     password +
+    //     '"}'; 
+    final urlEncodedXmlData = Uri.encodeFull(rawXmlData);
+    final dataURL = antLoginBaseUrl +
+        path +
+        "?" 
+        "objid=" +
+        antObjId +
+        '&action_name=' +
+        action +
+        '&xml_data=' +
+        urlEncodedXmlData;
+
+    var result = await getResponse(dataURL);
+    final user = User.fromJson(result);
+    signedInUser = user;
+    
+   return true; 
+  }
+
   static Future<User> signIn(String email, String password) async {
     if ( dedicatedInstanceBaseUrl == null) {
       return null;
