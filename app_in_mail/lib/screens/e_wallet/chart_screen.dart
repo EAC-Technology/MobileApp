@@ -109,7 +109,7 @@ class _ChartScreenState extends State<ChartScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Text(
-                '498.54',
+                dataModel.resultingAntPrice.toString(),
                 style: TextStyle(
                     color: AppColors.titleTextColor,
                     fontSize: 38,
@@ -117,7 +117,7 @@ class _ChartScreenState extends State<ChartScreen> {
               ),
             ),
             PercentageIndicator(
-              percentValue: 9.75,
+              percentValue: dataModel.percent,
             ),
           ],
         ),
