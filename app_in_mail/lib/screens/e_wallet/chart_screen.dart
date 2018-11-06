@@ -41,10 +41,10 @@ class _ChartScreenState extends State<ChartScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => _loadData(MarketDataPeriods.oneMonth));
+        .addPostFrameCallback((_) => _loadData(MarketDataPeriods.values[sliderValue]));
   }
 
-  int sliderValue = 1;
+  int sliderValue = 4; 
 
   Widget _buildSliderDiscreteValueLabel(int index) {
     Color textColor =
