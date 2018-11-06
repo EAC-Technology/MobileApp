@@ -11,35 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChartScreen extends StatefulWidget {
-  final List<charts.Series> seriesList;
-
-  ChartScreen(this.seriesList);
-
-  static List<charts.Series<TimeSeriesValues, DateTime>> _createSampleData() {
-    final data = [
-      new TimeSeriesValues(new DateTime(2017, 9, 19), 5),
-      new TimeSeriesValues(new DateTime(2017, 9, 26), 25),
-      new TimeSeriesValues(new DateTime(2017, 10, 3), 100),
-      new TimeSeriesValues(new DateTime(2017, 10, 10), 75),
-    ];
-
-    return [
-      new charts.Series<TimeSeriesValues, DateTime>(
-        id: 'Values',
-        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
-        domainFn: (TimeSeriesValues sales, _) => sales.time,
-        measureFn: (TimeSeriesValues sales, _) => sales.values,
-        data: data,
-      )
-    ];
-  }
-
-  factory ChartScreen.withSampleData() {
-    return new ChartScreen(
-      _createSampleData(),
-    );
-  }
-
   @override
   _ChartScreenState createState() => _ChartScreenState();
 }
@@ -61,6 +32,18 @@ class _ChartScreenState extends State<ChartScreen> {
     setState(() {
           this.dataModel = dataModel;
         });
+  }
+
+   List<charts.Series<AntValueInTime, DateTime>> _getChartSeries() {
+    return [
+      new charts.Series<AntValueInTime, DateTime>(
+        id: 'Values',
+        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
+        domainFn: (AntValueInTime rate, _) => rate.date,
+        measureFn: (AntValueInTime rate, _) => rate.value,
+        data: dataModel.chartData.items,
+      )
+    ];
   }
 
   void initState() {
@@ -216,21 +199,13 @@ class _ChartScreenState extends State<ChartScreen> {
       child: Container(
         height: 360,
         child: charts.TimeSeriesChart(
-          widget.seriesList,
+          _getChartSeries(),
           animate: true,
           dateTimeFactory: const charts.LocalDateTimeFactory(),
         ),
       ),
     );
   }
-}
-
-/// Sample time series data type.
-class TimeSeriesValues {
-  final DateTime time;
-  final int values;
-
-  TimeSeriesValues(this.time, this.values);
 }
 
 class _CustomThumbShape extends SliderComponentShape {

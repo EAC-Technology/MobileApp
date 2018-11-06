@@ -25,8 +25,6 @@ class RestApiClient {
   ///parameters - user email and password in plain text.
   static Future<String> awakeServerRuntime(
       String email, String password) async {
-    //Note to Nicolas : You may reconsider sending username and password in the url query as this is not quite a good practice.
-
     final passwordMD5Hash = generateMd5(password);
     final path = '/api/v1/experimental/promail/prepare_user_runtime';
     final dataURL = adminBaseUrl +
@@ -44,8 +42,9 @@ class RestApiClient {
   }
 
   static Future<AntMarketDataModel> getMarketData() async {
+    //"12HOURS", "24HOURS", "7DAYS", "2WEEKS", "1MONTH", "6MONTH", "1YEAR"
     var chartDataUrl =
-        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=24HOURS';
+        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=6MONTH';
     var result = await getResponse(chartDataUrl);
     AntMarketDataModel dataModel = AntMarketDataModel.fromJson(json.decode(result) as List);
 

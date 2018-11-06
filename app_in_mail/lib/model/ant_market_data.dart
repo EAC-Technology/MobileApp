@@ -59,7 +59,16 @@ class ChartData {
 
     for(String key in json.keys) {
       DateTime date = DateTime.fromMillisecondsSinceEpoch((double.parse(key) * 1000).round());
-      double value = double.parse(json[key]);
+      double value;
+      
+      
+      //THE API is strange - sometimes we get strings there , sometimes numbers thus the smell bellow.
+      if (json[key] is double) {
+          value = json[key];
+      } else {
+        value = double.parse(json[key]);
+      }
+      
       items.add(AntValueInTime(date: date, value: value));
     }
 
