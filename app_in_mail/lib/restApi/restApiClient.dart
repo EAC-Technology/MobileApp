@@ -1,3 +1,4 @@
+import 'package:app_in_mail/model/ant_market_data.dart';
 import 'package:app_in_mail/model/email_user.dart';
 import 'package:app_in_mail/model/ewallet_user.dart';
 import 'package:http/http.dart' as http;
@@ -59,8 +60,12 @@ class RestApiClient {
             '&amount=10';
 
     var chartDataUrl =
-        'https://walletdev.appinmail.io/api/v2/exchanger_data?token=' +
-            accessToken;
+        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=24HOURS';
+    var result = await getResponse(chartDataUrl);
+    var resultList = json.decode(result) as List;
+    AntMarketDataModel chartDataModel = AntMarketDataModel.fromJson(resultList);
+
+    print(result);
     //final user = User.fromJson(result);
     //Wallet operations ===============================================>
 
