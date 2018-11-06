@@ -64,7 +64,7 @@ final localizedStringsFr = {
   Strings.twelveHours: '12 h_FR',
   Strings.twentyFourHours: '24 h_FR',
   Strings.sevenDays: '7 Days_FR',
-  Strings.twoWeeks: '2 weeks_FR',
+  Strings.twoWeeks: '2 Weeks_FR',
   Strings.oneMonth: '1M_FR',
   Strings.sixMonths: '6M_FR',
   Strings.oneYear: 'Year_FR',

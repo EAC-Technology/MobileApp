@@ -17,32 +17,31 @@ class ChartScreen extends StatefulWidget {
 }
 
 class _ChartScreenState extends State<ChartScreen> {
-  
-
   AntMarketDataModel dataModel = AntMarketDataModel();
 
   void _loadData(String periodParameter) async {
     var dataModel = await RestApiClient.getMarketData(periodParameter);
     setState(() {
-          this.dataModel = dataModel;
-        });
+      this.dataModel = dataModel;
+    });
   }
 
-   List<charts.Series<AntValueInTime, DateTime>> _getChartSeries() {
+  List<charts.Series<AntValueInTime, DateTime>> _getChartSeries() {
     return [
       new charts.Series<AntValueInTime, DateTime>(
         id: 'Values',
         colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
         domainFn: (AntValueInTime rate, _) => rate.date,
         measureFn: (AntValueInTime rate, _) => rate.value,
-        data: dataModel.chartData.items,
+        data: dataModel.chartData == null? List<AntValueInTime>() :dataModel.chartData.items,
       )
     ];
   }
 
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadData(MarketDataPeriods.oneMonth));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _loadData(MarketDataPeriods.oneMonth));
   }
 
   int sliderValue = 1;
@@ -103,7 +102,9 @@ class _ChartScreenState extends State<ChartScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Text(
-                dataModel.resultingAntPrice.toString(),
+                dataModel.resultingAntPrice == null
+                    ? ''
+                    : dataModel.resultingAntPrice.toString(),
                 style: TextStyle(
                     color: AppColors.titleTextColor,
                     fontSize: 38,
@@ -111,7 +112,7 @@ class _ChartScreenState extends State<ChartScreen> {
               ),
             ),
             PercentageIndicator(
-              percentValue: dataModel.percent,
+              percentValue: dataModel.percent ?? 0,
             ),
           ],
         ),
@@ -143,11 +144,15 @@ class _ChartScreenState extends State<ChartScreen> {
             children: <Widget>[
               LabeledValueBox(
                 title: Localization.getString(Strings.antMktCapp),
-                value: '€ ' + this.dataModel.antMarketCap.toString(),
+                value: dataModel.antMarketCap == null
+                    ? ''
+                    : '€ ' + this.dataModel.antMarketCap.toString(),
               ),
               LabeledValueBox(
                 title: Localization.getString(Strings.agtSupply),
-                value: this.dataModel.agtSupply.toString(),
+                value: this.dataModel.agtSupply == null
+                    ? ''
+                    : this.dataModel.agtSupply.toString(),
               ),
             ],
           ),
@@ -155,7 +160,9 @@ class _ChartScreenState extends State<ChartScreen> {
             children: <Widget>[
               LabeledValueBox(
                 title: Localization.getString(Strings.antSupply),
-                value: '€ ' + this.dataModel.antSupply.toString(),
+                value: this.dataModel.antSupply == null
+                    ? ''
+                    : '€ ' + this.dataModel.antSupply.toString(),
               ),
             ],
           )
@@ -170,8 +177,8 @@ class _ChartScreenState extends State<ChartScreen> {
       child: SliderTheme(
         child: Slider(
           min: 0,
-          max: (MarketDataPeriods.values.length -1).toDouble(),
-          divisions: MarketDataPeriods.values.length -1,
+          max: (MarketDataPeriods.values.length - 1).toDouble(),
+          divisions: MarketDataPeriods.values.length - 1,
           onChanged: (double value) {
             setState(() {
               sliderValue = value.toInt();
