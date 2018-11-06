@@ -13,6 +13,18 @@ class Profile {
       this.phone,
       this.birthday,
       this.nationality});
+
+      factory Profile.fromJson(Map<dynamic, dynamic> json) {
+        final map = json;
+        return Profile(
+          firstName: map['xxxx'],
+          lastName:  map['xxxx'],
+          country:  map['xxxx'],
+          phone:  map['xxxx'],
+          birthday:  map['xxxx'],
+          nationality:  map['xxxx'],
+        );
+      }
 }
 
 class EwalletlUser {
