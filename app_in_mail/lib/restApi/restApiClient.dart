@@ -1,9 +1,9 @@
+import 'package:app_in_mail/model/email_user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
-import 'package:app_in_mail/model/user.dart';
 import 'package:app_in_mail/model/email.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
@@ -13,7 +13,7 @@ class RestApiClient {
   static String dedicatedInstanceBaseUrl;
   static final appId = '7f459762-e1ba-42d3-a0e1-e74beda2eb85';
   static final objId = '5073ff75-da99-44fb-a5d7-e44e5ab28598';
-  static User signedInUser;
+  static EmailUser signedInUser;
   static String _userName;
   static String _password;
 
@@ -42,7 +42,7 @@ class RestApiClient {
 
   static Future<bool> testAntAPI(String email, String password) async { 
 
-    //https://admin.appinmail.io/restapi.py?objid=9d29fd1a-ae9b-4b92-8c2f-72c15d18dcf6&action_name=remote_login&xml_data=
+    //Login ===============================================
     final md5Password = generateMd5(password);
     final antLoginBaseUrl = 'https://admin.appinmail.io';
     final antObjId = '9d29fd1a-ae9b-4b92-8c2f-72c15d18dcf6';
@@ -54,15 +54,6 @@ class RestApiClient {
       '","password":"' + password +
       '","password_md5":"' +  md5Password +
       '"}';
-
-
-
-
-    // final rawXmlData = '{ "login": "' +
-    //     email +
-    //     '","password": "' +
-    //     password +
-    //     '"}'; 
     final urlEncodedXmlData = Uri.encodeFull(rawXmlData);
     final dataURL = antLoginBaseUrl +
         path +
@@ -75,13 +66,39 @@ class RestApiClient {
         urlEncodedXmlData;
 
     var result = await getResponse(dataURL);
-    final user = User.fromJson(result);
-    signedInUser = user;
+    String accessToken = result['access_token'];
+    print(accessToken);
+
+    //this one is verified and working
+    var antPricePreauthURL = 'https://walletdev.appinmail.io/api/v2/antprice?token=' + accessToken + '&amount=10';
+    //this one is verified and working
+    var eurPricePreauthURL = 'https://walletdev.appinmail.io/api/v2/eurprice?token=' + accessToken + '&amount=10';
+
+    var chartDataUrl = 'https://walletdev.appinmail.io/api/v2/exchanger_data?token=' + accessToken ;
+    //final user = User.fromJson(result);
+    //Wallet operations ===============================================>
+
+
+    // var preauthURL = 'https://walletdev.appinmail.io/api/v2/preauth';
+
+    // final preauthDataURL = preauthURL +
+    //     path +
+    //     "?" +
+    //     'appid=' +
+    //     appId +
+    //     "&objid=" +
+    //     objId +
+    //     '&action_name=' +
+    //     action +
+    //     '&xml_data=' +
+    //     urlEncodedXmlData +
+    //     '&sid=' +
+    //     sid;
     
    return true; 
   }
 
-  static Future<User> signIn(String email, String password) async {
+  static Future<EmailUser> signIntoEmail(String email, String password) async {
     if ( dedicatedInstanceBaseUrl == null) {
       return null;
     }
@@ -106,7 +123,7 @@ class RestApiClient {
         urlEncodedXmlData;
 
     var result = await getResponse(dataURL);
-    final user = User.fromJson(result);
+    final user = EmailUser.fromJson(result);
     signedInUser = user;
     return user;
   }
