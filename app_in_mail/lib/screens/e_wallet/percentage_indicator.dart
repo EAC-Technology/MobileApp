@@ -6,9 +6,9 @@ class PercentageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = percentValue > 0 ? Colors.green : Colors.red;
+    var color = percentValue >= 0 ? Colors.green : Colors.red;
 
-    var icon = percentValue > 0 ? Icons.arrow_drop_up: Icons.arrow_drop_down;
+    var icon = percentValue >= 0 ? Icons.arrow_drop_up: Icons.arrow_drop_down;
 
     return Container(
       height: 80,
