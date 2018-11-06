@@ -68,6 +68,6 @@ final localizedStringsFr = {
   Strings.sixMonths: '6M_FR',
   Strings.oneYear: 'Year_FR',
   Strings.antMktCapp: '@NT Mkt. Cap._FR',
-  Strings.eurReserve: 'EUR Reserve_FR',
+  Strings.agtSupply: 'AGT Supply_FR',
   Strings.antSupply: '@NT Supply_FR',
 };

@@ -68,6 +68,6 @@ class Strings{
   static final sixMonths =  'sixMonths';
   static final oneYear =  'oneYear';
   static final antMktCapp =  'antMktCapp';
-  static final eurReserve =  'eurReserve';
+  static final agtSupply =  'agtSupply';
   static final antSupply =  'antSupply';
 }

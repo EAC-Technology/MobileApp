@@ -292,3 +292,14 @@ class RestApiClient {
     return hex.encode(digest.bytes);
   }
 }
+
+
+class MarketDataPeriod{} {
+  static String twelveHours = '12HOURS';
+  static String twentyFourHours = '24HOURS';
+  static String sevenDays = '7DAYS';
+  static String twoWeeks = '2WEEKS';
+  static String oneMonth = '1MONTH';
+  static String sixMonths = '6MONTH';
+  static String 1YEAR = '1YEAR';
+}

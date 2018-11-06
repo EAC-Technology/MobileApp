@@ -152,8 +152,8 @@ class _ChartScreenState extends State<ChartScreen> {
                 value: '€ ' + this.dataModel.antMarketCap.toString(),
               ),
               LabeledValueBox(
-                title: Localization.getString(Strings.eurReserve),
-                value: 'No data in API!'// The api response at https://walletdev.appinmail.io/api/v2/exchanger_data?range=7DAYS ahs AgtSupply, but not Eur reserve.
+                title: Localization.getString(Strings.agtSupply),
+                value: this.dataModel.agtSupply.toString(),
               ),
             ],
           ),
