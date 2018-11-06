@@ -43,6 +43,15 @@ class RestApiClient {
     return result;
   }
 
+  static Future<AntMarketDataModel> getMarketData() async {
+    var chartDataUrl =
+        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=24HOURS';
+    var result = await getResponse(chartDataUrl);
+    AntMarketDataModel dataModel = AntMarketDataModel.fromJson(json.decode(result) as List);
+
+    return dataModel;
+  }
+
   static Future<bool> testAntAPI(String email, String password) async {
 
     var eWalletUser = await signIntoEwallet(email, password);
@@ -59,13 +68,9 @@ class RestApiClient {
             accessToken +
             '&amount=10';
 
-    var chartDataUrl =
-        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=24HOURS';
-    var result = await getResponse(chartDataUrl);
-    var resultList = json.decode(result) as List;
-    AntMarketDataModel chartDataModel = AntMarketDataModel.fromJson(resultList);
+    
 
-    print(result);
+    //print(result);
     //final user = User.fromJson(result);
     //Wallet operations ===============================================>
 

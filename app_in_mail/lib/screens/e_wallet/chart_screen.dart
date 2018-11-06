@@ -1,6 +1,8 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/model/ant_market_data.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/e_wallet/labeled_value_box.dart';
 import 'package:app_in_mail/screens/e_wallet/percentage_indicator.dart';
 import 'package:app_in_mail/utils/localization.dart';
@@ -32,7 +34,6 @@ class ChartScreen extends StatefulWidget {
     ];
   }
 
-  ///TODO:  Remove mocked data , when  we implement the bloc for the real data.
   factory ChartScreen.withSampleData() {
     return new ChartScreen(
       _createSampleData(),
@@ -52,6 +53,20 @@ class _ChartScreenState extends State<ChartScreen> {
     Localization.getString(Strings.sixMonths),
     Localization.getString(Strings.oneYear),
   ];
+
+  AntMarketDataModel dataModel = AntMarketDataModel();
+
+  void _loadData() async {
+    var dataModel = await RestApiClient.getMarketData();
+    setState(() {
+          this.dataModel = dataModel;
+        });
+  }
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
+  }
 
   int sliderValue = 1;
 
@@ -151,11 +166,11 @@ class _ChartScreenState extends State<ChartScreen> {
             children: <Widget>[
               LabeledValueBox(
                 title: Localization.getString(Strings.antMktCapp),
-                value: '€ 3 107 208',
+                value: '€ ' + this.dataModel.antMarketCap.toString(),
               ),
               LabeledValueBox(
                 title: Localization.getString(Strings.eurReserve),
-                value: '€ 310 720.76',
+                value: 'No data in API!'// The api response at https://walletdev.appinmail.io/api/v2/exchanger_data?range=7DAYS ahs AgtSupply, but not Eur reserve.
               ),
             ],
           ),
@@ -163,7 +178,7 @@ class _ChartScreenState extends State<ChartScreen> {
             children: <Widget>[
               LabeledValueBox(
                 title: Localization.getString(Strings.antSupply),
-                value: '€ 1 122 967.76',
+                value: '€ ' + this.dataModel.antSupply.toString(),
               ),
             ],
           )

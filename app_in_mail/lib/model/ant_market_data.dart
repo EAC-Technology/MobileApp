@@ -1,12 +1,8 @@
-import 'package:convert/convert.dart';
-
 class AntValueInTime{
   double value;
   DateTime date;
   AntValueInTime({this.date, this.value});
 }
-
-
 
 class AntMarketDataModel {
   final String rangeTitle;
