@@ -260,7 +260,7 @@ class RestApiClient {
     }
     var responseArray = json.decode(response.body) as List;
     final result = responseArray[1];
-    print(response.body);
+    //print(response.body);
     if (responseArray[0] == 'error') {
       dedicatedInstanceBaseUrl = null;
       if (result.toString().toLowerCase().contains("auth error")) {

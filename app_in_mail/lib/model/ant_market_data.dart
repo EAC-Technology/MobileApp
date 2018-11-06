@@ -1,21 +1,12 @@
 import 'package:convert/convert.dart';
 
-// class AntValueInTime{
-//   double value;
-//   DateTime date;
+class AntValueInTime{
+  double value;
+  DateTime date;
+  AntValueInTime({this.date, this.value});
+}
 
-//   AntValueInTime({this.date, this.value};
 
-//   factory EmailAntValueInTime.fromJson(Map<dynamic, dynamic> json) {
-//     final map = json;
-//     return AntValueInTime(
-//         value: map['email'],
-//         guid: map['guid'],
-//         firstName: map['first_name'],
-//         lastName: map['last_name'],
-//         sessionId: map['sid']);
-//   }
-// }
 
 class AntMarketDataModel {
   final String rangeTitle;
@@ -28,20 +19,22 @@ class AntMarketDataModel {
   final DateTime minDate;
   final DateTime maxDate;
 
+  final ChartData chartData;
 
   AntMarketDataModel(
-      {this.rangeTitle,
+      {this.chartData,
+      this.rangeTitle,
       this.percent,
       this.resultingAntPrice,
       this.agtSupply,
       this.antMarketCap,
       this.antSupply,
       this.minDate,
-      this.maxDate
+      this.maxDate,
       });
 
   factory AntMarketDataModel.fromJson(List<dynamic> json) {
-    Map valuesOverTime = json[0];
+    Map chartDataJson = json[0];
     Map datesRange = json[1];
     Map map = json[2];
 
@@ -55,7 +48,27 @@ class AntMarketDataModel {
         antSupply: double.parse(map['AntSupply']),
         minDate: DateTime.fromMillisecondsSinceEpoch(((datesRange['min'] as double) * 1000).round()),
         maxDate: DateTime.fromMillisecondsSinceEpoch(((datesRange['max'] as double) * 1000).round()),
-
+        chartData: ChartData.fromJson(chartDataJson),
         );
+  }
+}
+
+class ChartData {
+  final List<AntValueInTime> items;
+
+  ChartData({this.items});
+
+  factory ChartData.fromJson(Map<String, dynamic> json) {
+    var items = List<AntValueInTime>();
+
+    for(String key in json.keys) {
+      DateTime date = DateTime.fromMillisecondsSinceEpoch((double.parse(key) * 1000).round());
+      double value = double.parse(json[key]);
+      items.add(AntValueInTime(date: date, value: value));
+    }
+
+    items.sort((left, right) => left.date.compareTo(right.date));
+
+    return ChartData(items: items);
   }
 }
