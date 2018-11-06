@@ -17,17 +17,17 @@ class Profile {
       factory Profile.fromJson(Map<dynamic, dynamic> json) {
         final map = json;
         return Profile(
-          firstName: map['xxxx'],
-          lastName:  map['xxxx'],
-          country:  map['xxxx'],
-          phone:  map['xxxx'],
-          birthday:  map['xxxx'],
-          nationality:  map['xxxx'],
+          firstName: map['first_name'],
+          lastName:  map['last_name'],
+          country:  map['country'],
+          phone:  map['phone'],
+          birthday:  map['birthday'],
+          nationality:  map['nationality'],
         );
       }
 }
 
-class EwalletlUser {
+class EwalletUser {
   final Profile profile;
   final String firstName;
   final String lastName;
@@ -43,7 +43,7 @@ class EwalletlUser {
   final String guid;
   final String shortLogin;
 
-  EwalletlUser(
+  EwalletUser(
       {this.profile,
       this.firstName,
       this.lastName,
@@ -59,10 +59,10 @@ class EwalletlUser {
       this.guid,
       this.shortLogin});
 
-  factory EwalletlUser.fromJson(Map<dynamic, dynamic> json) {
+  factory EwalletUser.fromJson(Map<dynamic, dynamic> json) {
     final map = json;
-    return EwalletlUser(
-        profile: map['profile'],
+    return EwalletUser(
+        profile:  Profile.fromJson(map['profile']),
         firstName: map['first_name'],
         lastName: map['last_name'],
         pisId: map['pis_id'],
@@ -73,8 +73,8 @@ class EwalletlUser {
         birthday: map['birthday'],
         isLifeTimeMember: map['is_lifetime_member'],
         nationality: map['nationality'],
-        login: map['guid'],
-        guid: map['linked_accounts'],
+        login: map['login'],
+        guid: map['guid'],
         shortLogin: map['short_login']);
   }
 }

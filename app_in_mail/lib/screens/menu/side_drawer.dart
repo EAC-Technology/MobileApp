@@ -19,7 +19,7 @@ class SideDrawerState extends State<SideDrawer> {
   void initState() {
     super.initState();
     _userName = "";
-    final user = RestApiClient.signedInUser;
+    final user = RestApiClient.signedInEmailUser;
     if (user != null) {
       _userName = user.firstName + " " + user.lastName;
     }
