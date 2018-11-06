@@ -64,6 +64,7 @@ class Strings{
   static final twelveHours = 'twelveHours';
   static final twentyFourHours =  'twentyFourHours';
   static final sevenDays = 'sevenDays';
+  static final twoWeeks = 'twoWeeks';
   static final oneMonth =  'oneMonth';
   static final sixMonths =  'sixMonths';
   static final oneYear =  'oneYear';

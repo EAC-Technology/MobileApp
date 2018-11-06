@@ -1,5 +1,6 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
+import 'package:app_in_mail/constants/market_data_period.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/ant_market_data.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
@@ -16,19 +17,12 @@ class ChartScreen extends StatefulWidget {
 }
 
 class _ChartScreenState extends State<ChartScreen> {
-  final sliderDiscreteValues = [
-    Localization.getString(Strings.twelveHours),
-    Localization.getString(Strings.twentyFourHours),
-    Localization.getString(Strings.sevenDays),
-    Localization.getString(Strings.oneMonth),
-    Localization.getString(Strings.sixMonths),
-    Localization.getString(Strings.oneYear),
-  ];
+  
 
   AntMarketDataModel dataModel = AntMarketDataModel();
 
-  void _loadData() async {
-    var dataModel = await RestApiClient.getMarketData();
+  void _loadData(String periodParameter) async {
+    var dataModel = await RestApiClient.getMarketData(periodParameter);
     setState(() {
           this.dataModel = dataModel;
         });
@@ -48,7 +42,7 @@ class _ChartScreenState extends State<ChartScreen> {
 
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadData(MarketDataPeriods.oneMonth));
   }
 
   int sliderValue = 1;
@@ -60,7 +54,7 @@ class _ChartScreenState extends State<ChartScreen> {
       child: Container(
         child: Center(
             child: Text(
-          sliderDiscreteValues[index],
+          MarketDataPeriods.displayValues[index],
           style: TextStyle(color: textColor),
         )),
         height: 40,
@@ -71,7 +65,7 @@ class _ChartScreenState extends State<ChartScreen> {
   Widget _buildSliderLabels() {
     List<Widget> labels = [];
 
-    for (var i = 0; i < sliderDiscreteValues.length; i++) {
+    for (var i = 0; i < MarketDataPeriods.displayValues.length; i++) {
       labels.add(_buildSliderDiscreteValueLabel(i));
     }
 
@@ -176,11 +170,12 @@ class _ChartScreenState extends State<ChartScreen> {
       child: SliderTheme(
         child: Slider(
           min: 0,
-          max: 5,
-          divisions: 5,
+          max: (MarketDataPeriods.values.length -1).toDouble(),
+          divisions: MarketDataPeriods.values.length -1,
           onChanged: (double value) {
             setState(() {
               sliderValue = value.toInt();
+              _loadData(MarketDataPeriods.values[sliderValue]);
             });
           },
           value: sliderValue.toDouble(),

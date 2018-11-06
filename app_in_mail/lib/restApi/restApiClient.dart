@@ -41,10 +41,9 @@ class RestApiClient {
     return result;
   }
 
-  static Future<AntMarketDataModel> getMarketData() async {
-    //"12HOURS", "24HOURS", "7DAYS", "2WEEKS", "1MONTH", "6MONTH", "1YEAR"
+  static Future<AntMarketDataModel> getMarketData(String periodParameter) async {
     var chartDataUrl =
-        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=6MONTH';
+        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=' + periodParameter;
     var result = await getResponse(chartDataUrl);
     AntMarketDataModel dataModel = AntMarketDataModel.fromJson(json.decode(result) as List);
 
@@ -291,15 +290,4 @@ class RestApiClient {
     var digest = md5.convert(content);
     return hex.encode(digest.bytes);
   }
-}
-
-
-class MarketDataPeriod{} {
-  static String twelveHours = '12HOURS';
-  static String twentyFourHours = '24HOURS';
-  static String sevenDays = '7DAYS';
-  static String twoWeeks = '2WEEKS';
-  static String oneMonth = '1MONTH';
-  static String sixMonths = '6MONTH';
-  static String 1YEAR = '1YEAR';
 }
