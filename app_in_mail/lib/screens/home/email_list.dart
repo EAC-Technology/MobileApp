@@ -96,11 +96,13 @@ class EmailListState extends State<EmailList> {
     });
   }
 
-  void _navigateToEmail(Email email) {
+  void _navigateToEmail(Email email) async{
+    var emailUrl = await RestApiClient.buildEmailMobileViewerPageURL(
+       _mailBoxes.first, email.id);
     Navigator.of(context).push(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          return EmailDetails(mailBox: _mailBox, email: email);
+          return EmailDetails(emailUrl: emailUrl);
         },
       ),
     );

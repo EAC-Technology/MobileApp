@@ -1,18 +1,14 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/custom_widgets/collapsible_header_container.dart';
-import 'package:app_in_mail/model/email.dart';
-import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/utils/alert_helper.dart';
 import 'package:app_in_mail/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class EmailDetails extends StatefulWidget {
-  EmailDetails({this.email, this.mailBox});
-
-  final Email email;
-  final String mailBox;
+  EmailDetails({this.emailUrl});
+  final String emailUrl;
 
   @override
   EmailDetailsState createState() => new EmailDetailsState();
@@ -20,45 +16,12 @@ class EmailDetails extends StatefulWidget {
 
 class EmailDetailsState extends State<EmailDetails> {
   bool _isActionsHeaderCollapsed = true;
-  FlutterWebviewPlugin webview;
   AppBar appBar = AppBar();
-  var _emailUrl = "";
   @override
   void initState() {
-    webview = FlutterWebviewPlugin();
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadEmail());
   }
 
-  void _loadEmail() async {
-    final mediaQuery = MediaQuery.of(context);
-    _emailUrl = await RestApiClient.buildEmailMobileViewerPageURL(
-        widget.mailBox, widget.email.id);
-    final verticalOffset =
-        mediaQuery.padding.top + appBar.preferredSize.height + 10;
-
-    webview.onStateChanged.listen(webStateChanged);
-    setState(() {
-      this._shouldDisplayProgressIndicator = true;
-    });
-
-    webview.launch(_emailUrl,
-        withJavascript: true,
-        withZoom: false,
-        rect: Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
-            mediaQuery.size.height - verticalOffset));
-    webview.hide();
-  }
-
-  void webStateChanged(WebViewStateChanged change) {
-    if (change.type.index == 2) {
-      //if we have finsihed loading.
-      setState(() {
-        this._shouldDisplayProgressIndicator = false;
-        webview.show();
-      });
-    }
-  }
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
@@ -80,7 +43,6 @@ class EmailDetailsState extends State<EmailDetails> {
     }
     var webViewRect = Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
             mediaQuery.size.height - verticalOffset);
-    webview.resize(webViewRect);
         
     return CollapsibleHeaderContainer(
         isHeaderCollapsed: this._isActionsHeaderCollapsed,
@@ -120,9 +82,9 @@ class EmailDetailsState extends State<EmailDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return new WebviewScaffold(
       appBar: _buildAppBar(),
-      body: _getBody(),
+       url:  widget.emailUrl,
     );
   }
 
@@ -130,7 +92,7 @@ class EmailDetailsState extends State<EmailDetails> {
     return new AppBar(
       backgroundColor: AppColors.toolbar,
       title: new Text(
-        widget.email.subject,
+        " ",//TODO: render subject here.
         style: TextStyle(
             color: AppColors.titleTextColor,
             fontSize: 20.0,
@@ -162,8 +124,6 @@ class EmailDetailsState extends State<EmailDetails> {
 
   @override
   void dispose() {
-    webview.close();
-    webview.dispose();
     super.dispose();
   }
 }
