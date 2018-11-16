@@ -10,6 +10,8 @@ import 'package:app_in_mail/utils/config.dart';
 import 'package:app_in_mail/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:app_in_mail/utils/localization.dart';
 
@@ -27,6 +29,16 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailTextController;
   TextEditingController _passwordTextController;
+  Future<SharedPreferences> _sharedPreferences =
+      SharedPreferences.getInstance();
+  Future<bool> _rememberMe;
+  bool rememberMe = false;
+
+  void _storeCredentials() {
+    final secureStorage = new FlutterSecureStorage();
+    secureStorage.write(key: 'username', value: _emailTextController.text);
+    secureStorage.write(key: 'password', value: _passwordTextController.text);
+  }
 
   void _onSignInPressed() async {
     final userName = _emailTextController.text;
@@ -38,15 +50,23 @@ class LoginScreenState extends State<LoginScreen> {
     var instanceUrl = await RestApiClient.awakeServerRuntime(userName, password)
         .catchError(_onError);
     print(instanceUrl);
-    var user =
-        await RestApiClient.signIntoEmail(userName, password).catchError(_onError);
+    var user = await RestApiClient.signIntoEmail(userName, password)
+        .catchError(_onError);
 
-       var result =  await RestApiClient.testAntAPI(userName, password).catchError(_onError);
+    var result =
+        await RestApiClient.testAntAPI(userName, password).catchError(_onError);
 //    setState(() {
 //      this._shouldDisplayProgressIndicator = false;
 //    });
 
     Log.d("Logged in user with session:" + user.sessionId, tag);
+
+    final SharedPreferences preferences = await _sharedPreferences;
+    bool rememberMe = preferences.getBool('rememberMe');
+
+    if (rememberMe) {
+      _storeCredentials();
+    }
 
     Navigator.of(context).pushReplacement(
       new MaterialPageRoute<void>(
@@ -78,11 +98,22 @@ class LoginScreenState extends State<LoginScreen> {
     _emailTextController = new TextEditingController(text: '');
     _passwordTextController = new TextEditingController(text: '');
 
-    assert(() {
-      _emailTextController.text = AppProperties.username;
-      _passwordTextController.text = AppProperties.password;
-      return true;
-    }());
+    _rememberMe = _sharedPreferences.then((SharedPreferences prefs) {
+      return (prefs.getBool('rememberMe') ?? false);
+    });
+
+    final secureStorage = new FlutterSecureStorage();
+    secureStorage.read(key: 'username').then((value) {
+      setState(() {
+        _emailTextController.text = value;
+      });
+    });
+
+    secureStorage.read(key: 'password').then((value) {
+      setState(() {
+        _passwordTextController.text = value;
+      });
+    });
 
     Localization.onLocaleChanged = () {
       if (!this.mounted) return;
@@ -139,6 +170,20 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _onRememberMeChanged(bool shallRememberCredentials) async {
+    final SharedPreferences preferences = await _sharedPreferences;
+    final secureStorage = new FlutterSecureStorage();
+
+    if (!shallRememberCredentials) {
+      secureStorage.delete(key: 'username');
+      secureStorage.delete(key: 'password');
+    }
+
+    setState(() {
+      preferences.setBool('rememberMe', shallRememberCredentials);
+    });
+  }
+
   Column _formSection() {
     return Column(
       children: <Widget>[
@@ -147,16 +192,42 @@ class LoginScreenState extends State<LoginScreen> {
             margin: EdgeInsets.only(
                 top: _textFieldMargin, bottom: _textFieldMargin),
             width: _textFieldWidth,
-            child: AppInMailTextField(controller: 
-                _emailTextController,   keyboardType: TextInputType.emailAddress)),
+            child: AppInMailTextField(
+                controller: _emailTextController,
+                keyboardType: TextInputType.emailAddress)),
         Text(Localization.getString(Strings.password)),
         Container(
             margin: EdgeInsets.only(top: _textFieldMargin),
             width: _textFieldWidth,
-            child: AppInMailTextField(controller:
-                _passwordTextController, keyboardType: TextInputType.emailAddress, obscureText: true)),
+            child: AppInMailTextField(
+                controller: _passwordTextController,
+                keyboardType: TextInputType.emailAddress,
+                obscureText: true)),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 280,
+            child: Row(
+              children: <Widget>[
+                Text('Remember me'),
+                FutureBuilder(
+                  future: _rememberMe,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                    return Switch(
+                      onChanged: (bool value) {
+                        this._onRememberMeChanged(value);
+                      },
+                      value: snapshot.data,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
         Container(
-          margin: EdgeInsets.only(top: 40.0),
+          margin: EdgeInsets.only(top: 10.0),
           width: 190.0,
           child: RaisedButton(
             child: Text(

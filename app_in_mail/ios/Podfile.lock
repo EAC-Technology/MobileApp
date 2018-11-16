@@ -1,11 +1,15 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_secure_storage (3.1.1):
+    - Flutter
   - flutter_webview_plugin (0.0.1):
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - path_provider (0.0.1):
+    - Flutter
+  - shared_preferences (0.0.1):
     - Flutter
   - sqflite (0.0.1):
     - Flutter
@@ -15,8 +19,10 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
 
@@ -27,10 +33,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: ".symlinks/flutter/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
   flutter_webview_plugin:
     :path: ".symlinks/plugins/flutter_webview_plugin/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   uni_links:
@@ -38,9 +48,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  flutter_secure_storage: cbb73e37aa0c66689fe63799a9619ac66849b8fa
   flutter_webview_plugin: 0b491d31c34ab5c86a71c9f1a57ac000dd1b75e9
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
+  shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
   sqflite: 801b6b0983f722fa29baf00d1476e4556ada6de4
   uni_links: 5ee5240df5cbffc52d9e7f8017a576b6a6bc5141
 

@@ -84,7 +84,8 @@ class EmailDetailsState extends State<EmailDetails> {
   Widget build(BuildContext context) {
     return new WebviewScaffold(
       appBar: _buildAppBar(),
-       url:  widget.emailUrl,
+      initialChild: _getProgressIndicator(),
+      url:  widget.emailUrl,
     );
   }
 
