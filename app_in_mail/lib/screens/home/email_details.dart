@@ -16,18 +16,64 @@ class EmailDetails extends StatefulWidget {
 
 class EmailDetailsState extends State<EmailDetails> {
   bool _isActionsHeaderCollapsed = true;
+  final webview = new FlutterWebviewPlugin();
   AppBar appBar = AppBar();
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadEmail());
   }
 
+  void _loadEmail() async {
+    final mediaQuery = MediaQuery.of(context);
+    final verticalOffset =
+        mediaQuery.padding.top + appBar.preferredSize.height + 10;
+     webview.onStateChanged.listen(webStateChanged);
+    setState(() {
+      this._shouldDisplayProgressIndicator = true;
+    });
+     webview.launch(widget.emailUrl,
+        withJavascript: true,
+        withZoom: false,
+        rect: Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
+            mediaQuery.size.height - verticalOffset));
+    webview.hide();
+  }
+
+   void webStateChanged(WebViewStateChanged change) {
+    if (change.type.index == 2) {
+      //if we have finsihed loading.
+      setState(() {
+        this._shouldDisplayProgressIndicator = false;
+        webview.show();
+      });
+    }
+  }
+
+  // void _loadEmail() {
+    
+  //   flutterWebviewPlugin.launch(
+  //     "http://www.google.com",
+  //     rect: new Rect.fromLTWH(
+  //       0.0,
+  //       0.0,
+  //       300,
+  //       600.0,
+  //     ),
+  //   );
+  // }
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    return Column(children: <Widget>[
-      Container(height: 150.0,  color: AppColors.accentColor,),
-    ],);
+    return Container();
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 150.0,
+          color: AppColors.accentColor,
+        ),
+      ],
+    );
   }
 
   Widget _getProgressIndicator() {
@@ -36,14 +82,15 @@ class EmailDetailsState extends State<EmailDetails> {
 
   Widget _getBody() {
     final mediaQuery = MediaQuery.of(context);
-    var verticalOffset = mediaQuery.padding.top + appBar.preferredSize.height + 10;
+    var verticalOffset =
+        mediaQuery.padding.top + appBar.preferredSize.height + 10;
 
     if (!_isActionsHeaderCollapsed) {
-        verticalOffset += 160;
+      verticalOffset += 160;
     }
     var webViewRect = Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
-            mediaQuery.size.height - verticalOffset);
-        
+        mediaQuery.size.height - verticalOffset);
+
     return CollapsibleHeaderContainer(
         isHeaderCollapsed: this._isActionsHeaderCollapsed,
         header: _buildEmailActionSheet(),
@@ -62,18 +109,42 @@ class EmailDetailsState extends State<EmailDetails> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(height: 20,),
-            GestureDetector(child: Text(Localization.getString(Strings.moveTo), style: TextStyle(color: AppColors.titleTextColor, fontSize: 16 ),), onTap: (){
-              AlertHelper.showSnackBar(context, "TBI");
-            },),
-            Container(height: 20,),
-            GestureDetector(child: Text(Localization.getString(Strings.markAsUnread), style: TextStyle(color: AppColors.titleTextColor, fontSize: 16 ),), onTap: (){
-              AlertHelper.showSnackBar(context, "TBI");
-            },),
-            Container(height: 20,),
-            GestureDetector(child: Text(Localization.getString(Strings.delete), style: TextStyle(color: AppColors.titleTextColor, fontSize: 16 ),), onTap: (){
-              AlertHelper.showSnackBar(context, "TBI");
-            },),
+            Container(
+              height: 20,
+            ),
+            GestureDetector(
+              child: Text(
+                Localization.getString(Strings.moveTo),
+                style: TextStyle(color: AppColors.titleTextColor, fontSize: 16),
+              ),
+              onTap: () {
+                AlertHelper.showSnackBar(context, "TBI");
+              },
+            ),
+            Container(
+              height: 20,
+            ),
+            GestureDetector(
+              child: Text(
+                Localization.getString(Strings.markAsUnread),
+                style: TextStyle(color: AppColors.titleTextColor, fontSize: 16),
+              ),
+              onTap: () {
+                AlertHelper.showSnackBar(context, "TBI");
+              },
+            ),
+            Container(
+              height: 20,
+            ),
+            GestureDetector(
+              child: Text(
+                Localization.getString(Strings.delete),
+                style: TextStyle(color: AppColors.titleTextColor, fontSize: 16),
+              ),
+              onTap: () {
+                AlertHelper.showSnackBar(context, "TBI");
+              },
+            ),
           ],
         )
       ],
@@ -82,10 +153,11 @@ class EmailDetailsState extends State<EmailDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return new WebviewScaffold(
+    return Scaffold(
       appBar: _buildAppBar(),
-      initialChild: _getProgressIndicator(),
-      url:  widget.emailUrl,
+      body: _shouldDisplayProgressIndicator
+          ? _getProgressIndicator()
+          : _getBody(),
     );
   }
 
@@ -93,7 +165,7 @@ class EmailDetailsState extends State<EmailDetails> {
     return new AppBar(
       backgroundColor: AppColors.toolbar,
       title: new Text(
-        " ",//TODO: render subject here.
+        " ", //TODO: render subject here.
         style: TextStyle(
             color: AppColors.titleTextColor,
             fontSize: 20.0,
@@ -109,8 +181,8 @@ class EmailDetailsState extends State<EmailDetails> {
           onPressed: () => Navigator.of(context).pop()),
       actions: <Widget>[
         IconButton(
-            icon:  Icon(
-              _isActionsHeaderCollapsed?Icons.more_horiz: Icons.clear,
+            icon: Icon(
+              _isActionsHeaderCollapsed ? Icons.more_horiz : Icons.clear,
               color: AppColors.titleTextColor,
               size: 28,
             ),
@@ -125,6 +197,7 @@ class EmailDetailsState extends State<EmailDetails> {
 
   @override
   void dispose() {
+    flutterWebviewPlugin.dispose()
     super.dispose();
   }
 }
