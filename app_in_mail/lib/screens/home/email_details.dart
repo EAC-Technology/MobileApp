@@ -14,20 +14,45 @@ class EmailDetails extends StatefulWidget {
   EmailDetailsState createState() => new EmailDetailsState();
 }
 
-class EmailDetailsState extends State<EmailDetails> {
+class EmailDetailsState extends State<EmailDetails>
+    with SingleTickerProviderStateMixin {
   bool _isActionsHeaderCollapsed = true;
   final webview = new FlutterWebviewPlugin();
+  Animation<double> animation;
+  AnimationController controller;
   AppBar appBar = AppBar();
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadEmail());
+
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    final CurvedAnimation curve =
+        CurvedAnimation(parent: controller, curve: Curves.linear);
+    animation = Tween(begin: 0.0, end: 160.0).animate(curve)
+      ..addListener(() {
+        webview.resize(_webviewRect());
+      });
+  }
+
+  Rect _webviewRect() {
+    final mediaQuery = MediaQuery.of(context);
+    var padding = 20.0;
+    final verticalOffset = mediaQuery.padding.top +
+        appBar.preferredSize.height +
+        40 +
+        animation.value;
+    var webViewRect = Rect.fromLTWH(
+        padding,
+        verticalOffset + padding,
+        mediaQuery.size.width - padding * 2,
+        mediaQuery.size.height - verticalOffset);
+    return webViewRect;
   }
 
   void _loadEmail() async {
-    final mediaQuery = MediaQuery.of(context);
-    final verticalOffset =
-        mediaQuery.padding.top + appBar.preferredSize.height + 10;
+    
     webview.onStateChanged.listen(webStateChanged);
     setState(() {
       this._shouldDisplayProgressIndicator = true;
@@ -35,8 +60,7 @@ class EmailDetailsState extends State<EmailDetails> {
     webview.launch(widget.emailUrl,
         withJavascript: true,
         withZoom: false,
-        rect: Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
-            mediaQuery.size.height - verticalOffset));
+        rect: _webviewRect());
     webview.hide();
   }
 
@@ -67,10 +91,7 @@ class EmailDetailsState extends State<EmailDetails> {
   Widget _getStandardBody() {
     return Column(
       children: <Widget>[
-        Container(
-          height: 150.0,
-          color: AppColors.accentColor,
-        ),
+        Container(),
       ],
     );
   }
@@ -88,9 +109,12 @@ class EmailDetailsState extends State<EmailDetails> {
       verticalOffset += 160;
     }
     var padding = 20.0;
-    var webViewRect = Rect.fromLTWH(padding, verticalOffset + padding , mediaQuery.size.width - padding * 2,
+    var webViewRect = Rect.fromLTWH(
+        padding,
+        verticalOffset + padding,
+        mediaQuery.size.width - padding * 2,
         mediaQuery.size.height - verticalOffset);
-    webview.resize(webViewRect);
+    //webview.resize(webViewRect);
 
     return CollapsibleHeaderContainer(
         isHeaderCollapsed: this._isActionsHeaderCollapsed,
@@ -179,7 +203,7 @@ class EmailDetailsState extends State<EmailDetails> {
             color: AppColors.titleTextColor,
             size: 32.0,
           ),
-          onPressed: (){
+          onPressed: () {
             webview.close();
             Navigator.of(context).pop();
           }),
@@ -193,6 +217,11 @@ class EmailDetailsState extends State<EmailDetails> {
             onPressed: () {
               setState(() {
                 _isActionsHeaderCollapsed = !_isActionsHeaderCollapsed;
+                if (_isActionsHeaderCollapsed) {
+                  controller.reverse();
+                } else {
+                  controller.forward();
+                }
               });
             }),
       ],

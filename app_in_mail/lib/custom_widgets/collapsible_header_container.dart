@@ -32,7 +32,7 @@ class _CollapsibleHeaderContainerState
                     blurRadius: 20.0)
               ],
             ),
-            curve: Curves.easeIn,
+            curve: Curves.linear,
             duration: Duration(milliseconds: 100),
             height: widget.isHeaderCollapsed ? 0 : widget.headerHeight,
             child: widget.isHeaderCollapsed ? Container() : widget.header),
