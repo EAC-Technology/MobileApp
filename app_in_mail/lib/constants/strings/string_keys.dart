@@ -71,4 +71,5 @@ class Strings{
   static final antMktCapp =  'antMktCapp';
   static final agtSupply =  'agtSupply';
   static final antSupply =  'antSupply';
+  static final rememberMe = 'rememberMe';
 }
