@@ -71,4 +71,5 @@ final localizedStringsFr = {
   Strings.antMktCapp: '@NT Mkt. Cap._FR',
   Strings.agtSupply: 'AGT Supply_FR',
   Strings.antSupply: '@NT Supply_FR',
+  Strings.rememberMe: 'Remember me_FR',
 };

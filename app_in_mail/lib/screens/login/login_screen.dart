@@ -209,7 +209,7 @@ class LoginScreenState extends State<LoginScreen> {
             width: 280,
             child: Row(
               children: <Widget>[
-                Text('Remember me'),
+                Text(Localization.getString(Strings.rememberMe)),
                 FutureBuilder(
                   future: _rememberMe,
                   builder:
