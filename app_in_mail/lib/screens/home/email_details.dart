@@ -28,11 +28,11 @@ class EmailDetailsState extends State<EmailDetails> {
     final mediaQuery = MediaQuery.of(context);
     final verticalOffset =
         mediaQuery.padding.top + appBar.preferredSize.height + 10;
-     webview.onStateChanged.listen(webStateChanged);
+    webview.onStateChanged.listen(webStateChanged);
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
-     webview.launch(widget.emailUrl,
+    webview.launch(widget.emailUrl,
         withJavascript: true,
         withZoom: false,
         rect: Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
@@ -40,7 +40,7 @@ class EmailDetailsState extends State<EmailDetails> {
     webview.hide();
   }
 
-   void webStateChanged(WebViewStateChanged change) {
+  void webStateChanged(WebViewStateChanged change) {
     if (change.type.index == 2) {
       //if we have finsihed loading.
       setState(() {
@@ -51,7 +51,7 @@ class EmailDetailsState extends State<EmailDetails> {
   }
 
   // void _loadEmail() {
-    
+
   //   flutterWebviewPlugin.launch(
   //     "http://www.google.com",
   //     rect: new Rect.fromLTWH(
@@ -65,7 +65,6 @@ class EmailDetailsState extends State<EmailDetails> {
 
   bool _shouldDisplayProgressIndicator = false;
   Widget _getStandardBody() {
-    return Container();
     return Column(
       children: <Widget>[
         Container(
@@ -83,13 +82,15 @@ class EmailDetailsState extends State<EmailDetails> {
   Widget _getBody() {
     final mediaQuery = MediaQuery.of(context);
     var verticalOffset =
-        mediaQuery.padding.top + appBar.preferredSize.height + 10;
+        mediaQuery.padding.top + appBar.preferredSize.height + 40;
 
     if (!_isActionsHeaderCollapsed) {
       verticalOffset += 160;
     }
-    var webViewRect = Rect.fromLTWH(10.0, verticalOffset, mediaQuery.size.width,
+    var padding = 20.0;
+    var webViewRect = Rect.fromLTWH(padding, verticalOffset + padding , mediaQuery.size.width - padding * 2,
         mediaQuery.size.height - verticalOffset);
+    webview.resize(webViewRect);
 
     return CollapsibleHeaderContainer(
         isHeaderCollapsed: this._isActionsHeaderCollapsed,
@@ -178,7 +179,10 @@ class EmailDetailsState extends State<EmailDetails> {
             color: AppColors.titleTextColor,
             size: 32.0,
           ),
-          onPressed: () => Navigator.of(context).pop()),
+          onPressed: (){
+            webview.close();
+            Navigator.of(context).pop();
+          }),
       actions: <Widget>[
         IconButton(
             icon: Icon(
@@ -197,7 +201,7 @@ class EmailDetailsState extends State<EmailDetails> {
 
   @override
   void dispose() {
-    flutterWebviewPlugin.dispose()
+    webview.dispose();
     super.dispose();
   }
 }
