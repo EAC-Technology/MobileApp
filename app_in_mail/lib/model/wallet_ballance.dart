@@ -11,8 +11,8 @@ class WalletBallance {
     return WalletBallance(
       eurId: (map['EUR'] as List)[0],
       eurBallance:(map['EUR'] as List)[1],
-      antId:(map['EUR'] as List)[0],
-      antBallance:(map['EUR'] as List)[1],      
+      antId:(map['ANT'] as List)[0],
+      antBallance:(map['ANT'] as List)[1],      
     );
   }
 }
