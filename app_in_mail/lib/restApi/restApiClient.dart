@@ -41,17 +41,19 @@ class RestApiClient {
     return result;
   }
 
-  static Future<AntMarketDataModel> getMarketData(String periodParameter) async {
+  static Future<AntMarketDataModel> getMarketData(
+      String periodParameter) async {
     var chartDataUrl =
-        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=' + periodParameter;
+        'https://walletdev.appinmail.io/api/v2/exchanger_data?range=' +
+            periodParameter;
     var result = await getResponse(chartDataUrl);
-    AntMarketDataModel dataModel = AntMarketDataModel.fromJson(json.decode(result) as List);
+    AntMarketDataModel dataModel =
+        AntMarketDataModel.fromJson(json.decode(result) as List);
 
     return dataModel;
   }
 
   static Future<bool> testAntAPI(String email, String password) async {
-
     var eWalletUser = await signIntoEwallet(email, password);
 
     String accessToken = eWalletUser.accessToken;
@@ -65,8 +67,6 @@ class RestApiClient {
         'https://walletdev.appinmail.io/api/v2/eurprice?token=' +
             accessToken +
             '&amount=10';
-
-    
 
     //print(result);
     //final user = User.fromJson(result);
@@ -118,7 +118,28 @@ class RestApiClient {
     var result = await getResponse(dataURL);
     final user = EmailUser.fromJson(result);
     signedInEmailUser = user;
+
+    await signIntoEwallet(email, password);
     return user;
+  }
+
+  static Future<String> getAntValueForEuro(String euro) async {
+    var dataURL = 'https://walletdev.appinmail.io/api/v2/antprice?token=' +
+        signedInEwalletUser.accessToken +
+        '&amount=' +
+        euro;
+    var result = await getResponse(dataURL);
+    return result;
+  }
+
+  static Future<String> getEuroValueForAnt(String ant) async {
+    var dataURL = 'https://walletdev.appinmail.io/api/v2/eurprice?token=' +
+        signedInEwalletUser.accessToken +
+        '&amount=' +
+        ant;
+    var result = await getResponse(dataURL);
+
+    return result;
   }
 
   static Future<EwalletUser> signIntoEwallet(

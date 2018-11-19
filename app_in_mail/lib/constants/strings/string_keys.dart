@@ -40,7 +40,7 @@ class Strings{
   static final language = 'language';
   static final save = 'save';
   static final thisFieldisRequired = 'requiredFied';
-  static final youHave = 'youHave';
+  static final youPay = 'youPay';
   static final youGet = 'youGet';
   static final exchangeEuroWith = 'exchangeEuroWith';
   static final upgradeAccount = 'upgradeAccount';

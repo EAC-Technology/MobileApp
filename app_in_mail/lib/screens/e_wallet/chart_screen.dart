@@ -38,6 +38,7 @@ class _ChartScreenState extends State<ChartScreen> {
     ];
   }
 
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance
