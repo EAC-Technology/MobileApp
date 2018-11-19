@@ -1,6 +1,8 @@
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
+import 'package:app_in_mail/model/wallet_ballance.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/e_wallet/currency_card.dart';
 import 'package:app_in_mail/screens/e_wallet/upgrade_prompt_box.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
@@ -14,6 +16,21 @@ class AntScreen extends StatefulWidget {
 }
 
 class _AntScreenState extends State<AntScreen> {
+
+  WalletBallance ballance;
+  void _loadData() async {
+    RestApiClient.getWalletBallance().then((ballance){
+      setState(() {
+              this.ballance = ballance;
+            });
+    });
+  }
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +42,8 @@ class _AntScreenState extends State<AntScreen> {
         CurrencyCard(
           color: AppColors.accentColor,
           shadowColor: Colors.pink[200],
-          text: '@ 23.375',
+          valueText: '@' + this.ballance.antBallance,
+          idText: this.ballance.antId,
           textColor: Colors.white,
           watermark: SvgPicture.asset(
             Img.icAnt,

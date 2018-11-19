@@ -53,8 +53,6 @@ class LoginScreenState extends State<LoginScreen> {
     var user = await RestApiClient.signIntoEmail(userName, password)
         .catchError(_onError);
 
-    var result =
-        await RestApiClient.testAntAPI(userName, password).catchError(_onError);
 //    setState(() {
 //      this._shouldDisplayProgressIndicator = false;
 //    });

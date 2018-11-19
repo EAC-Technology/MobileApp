@@ -25,8 +25,8 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
   }
 
   void _populateValues() {
-    _euroTextFieldController.text = "123456789";
-    _antTextFieldController.text = "111";
+    _euroTextFieldController.text = "";
+    _antTextFieldController.text = "100";
   }
 
   void _onAntChanged(String value) {

@@ -7,10 +7,11 @@ class CurrencyCard extends StatelessWidget {
   final Color textColor;
   final Color color;
   final Color shadowColor;
-  final String text;
+  final String valueText;
+  final String idText;
   final Widget watermark;
 
-  CurrencyCard({this.textColor, this.color, this.shadowColor, this.text, this.watermark});
+  CurrencyCard({this.textColor, this.color, this.shadowColor, this.valueText, this.watermark, this.idText});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +36,14 @@ class CurrencyCard extends StatelessWidget {
                   style: TextStyle(color: this.textColor),
                 ),
                 Text(
-                  this.text,
+                  this.valueText,
                   style: TextStyle(
                       color: this.textColor,
                       fontSize: 40,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'xxxx-xxxx-xxxxx-xxxx-xxxx-xxxx',
+                  this.idText,
                   style: TextStyle(color: this.textColor),
                 ),
               ],

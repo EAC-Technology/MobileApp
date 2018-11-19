@@ -1,6 +1,7 @@
 import 'package:app_in_mail/model/ant_market_data.dart';
 import 'package:app_in_mail/model/email_user.dart';
 import 'package:app_in_mail/model/ewallet_user.dart';
+import 'package:app_in_mail/model/wallet_ballance.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -53,44 +54,6 @@ class RestApiClient {
     return dataModel;
   }
 
-  static Future<bool> testAntAPI(String email, String password) async {
-    var eWalletUser = await signIntoEwallet(email, password);
-
-    String accessToken = eWalletUser.accessToken;
-    //this one is verified and working
-    var antPricePreauthURL =
-        'https://walletdev.appinmail.io/api/v2/antprice?token=' +
-            accessToken +
-            '&amount=10';
-    //this one is verified and working
-    var eurPricePreauthURL =
-        'https://walletdev.appinmail.io/api/v2/eurprice?token=' +
-            accessToken +
-            '&amount=10';
-
-    //print(result);
-    //final user = User.fromJson(result);
-    //Wallet operations ===============================================>
-
-    // var preauthURL = 'https://walletdev.appinmail.io/api/v2/preauth';
-
-    // final preauthDataURL = preauthURL +
-    //     path +
-    //     "?" +
-    //     'appid=' +
-    //     appId +
-    //     "&objid=" +
-    //     objId +
-    //     '&action_name=' +
-    //     action +
-    //     '&xml_data=' +
-    //     urlEncodedXmlData +
-    //     '&sid=' +
-    //     sid;
-
-    return true;
-  }
-
   static Future<EmailUser> signIntoEmail(String email, String password) async {
     if (dedicatedInstanceBaseUrl == null) {
       return null;
@@ -121,6 +84,15 @@ class RestApiClient {
 
     await signIntoEwallet(email, password);
     return user;
+  }
+
+  static Future<WalletBallance> getWalletBallance() async {
+    var dataURL = 'https://walletdev.appinmail.io/api/v2/wallets?token=' +
+        signedInEwalletUser.accessToken +
+        '&guid=' + 
+        signedInEwalletUser.accessToken;
+    var result = await getResponse(dataURL);
+    return WalletBallance.fromJson(result);
   }
 
   static Future<String> getAntValueForEuro(String euro) async {
