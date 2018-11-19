@@ -12,7 +12,8 @@ class ExchangeScreen extends StatefulWidget {
 }
 
 class _ExchangeScreenState extends State<ExchangeScreen> {
-  
+  bool antToEurMode = false;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,25 +28,44 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                 style: TextStyle(color: AppColors.titleTextColor, fontSize: 34),
               )),
             ),
-            CurrencyBox(
-              icon: SvgPicture.asset(
-                Img.icEuro,
-                width: 16.0,
-                color: AppColors.titleTextColor,
+            Container(
+              height: 180,
+              child: Stack(
+                children: <Widget>[
+                  AnimatedPadding(
+                    child: CurrencyBox(
+                      icon: SvgPicture.asset(
+                        Img.icEuro,
+                        width: 16.0,
+                        color: AppColors.titleTextColor,
+                      ),
+                      valueColor: AppColors.titleTextColor,
+                      text: '100000',
+                      title: this.antToEurMode?Localization.getString(Strings.youHave):Localization.getString(Strings.youGet),
+                    ),
+                    duration: Duration(milliseconds: 300),
+                    padding: antToEurMode
+                        ? EdgeInsets.only(top: 0)
+                        : EdgeInsets.only(top: 80),
+                  ),
+                  AnimatedPadding(
+                    child: CurrencyBox(
+                      icon: SvgPicture.asset(
+                        Img.icAnt,
+                        width: 24.0,
+                        color: AppColors.accentColor,
+                      ),
+                      text: '2.002',
+                      valueColor: AppColors.accentColor,
+                      title: this.antToEurMode?Localization.getString(Strings.youGet):Localization.getString(Strings.youHave),
+                    ),
+                    duration: Duration(milliseconds: 300),
+                    padding: antToEurMode
+                        ? EdgeInsets.only(top: 80)
+                        : EdgeInsets.only(top: 0),
+                  ),
+                ],
               ),
-              valueColor: AppColors.titleTextColor,
-              text: '100000',
-              title: Localization.getString(Strings.youHave),
-            ),
-            CurrencyBox(
-              icon: SvgPicture.asset(
-                Img.icAnt,
-                width: 24.0,
-                color: AppColors.accentColor,
-              ),
-              text: '2.001',
-              valueColor: AppColors.accentColor,
-              title: Localization.getString(Strings.youGet),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 40),
@@ -118,7 +138,9 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                       color: AppColors.titleTextColor,
                     ),
                     onPressed: () {
-                      //Todo switch boxes here
+                      setState(() {
+                        this.antToEurMode = !this.antToEurMode;
+                      });
                     },
                   ),
                 ),

@@ -40,7 +40,7 @@ final localizedStringsFr = {
   Strings.language: 'Language_FR',
   Strings.save: 'SAVE_FR',
   Strings.thisFieldisRequired: 'This field is required_FR',
-  Strings.youHave: 'YOU\nHAVE_FR', 
+  Strings.youPay: 'YOU\nPAY_FR', 
   Strings.youGet: 'YOU\nGET_FR', 
   Strings.exchangeEuroWith: 'Exchange euro with:_FR', 
   Strings.upgradeAccount: 'Upgrade account_FR',
