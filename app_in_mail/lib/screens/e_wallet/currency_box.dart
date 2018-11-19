@@ -22,6 +22,7 @@ class _CurrencyBoxState extends State<CurrencyBox> {
       return Container(
         width: 140,
         child: TextField(
+            textAlign: TextAlign.right,
             controller: widget.controller,
             onChanged: widget.onChanged,
             keyboardType: TextInputType.numberWithOptions(),
