@@ -33,6 +33,11 @@ class _AntScreenState extends State<AntScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (ballance == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Column(
       children: <Widget>[
         Padding(

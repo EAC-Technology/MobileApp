@@ -17,22 +17,26 @@ class EuroScreen extends StatefulWidget {
 
 class _EuroScreenState extends State<EuroScreen> {
   WalletBallance ballance;
-  
+
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
   }
 
   void _loadData() async {
-    RestApiClient.getWalletBallance().then((ballance){
+    RestApiClient.getWalletBallance().then((ballance) {
       setState(() {
-              this.ballance = ballance;
-            });
+        this.ballance = ballance;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (ballance == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Column(
       children: <Widget>[
         Padding(
