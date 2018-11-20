@@ -4,6 +4,7 @@ import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/wallet_ballance.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/e_wallet/currency_card.dart';
+import 'package:app_in_mail/screens/e_wallet/ewallet_webview_screen.dart';
 import 'package:app_in_mail/screens/e_wallet/upgrade_prompt_box.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/utils/localization.dart';
@@ -16,13 +17,12 @@ class AntScreen extends StatefulWidget {
 }
 
 class _AntScreenState extends State<AntScreen> {
-
   WalletBallance ballance;
   void _loadData() async {
-    RestApiClient.getWalletBallance().then((ballance){
+    RestApiClient.getWalletBallance().then((ballance) {
       setState(() {
-              this.ballance = ballance;
-            });
+        this.ballance = ballance;
+      });
     });
   }
 
@@ -33,7 +33,6 @@ class _AntScreenState extends State<AntScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     if (ballance == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -64,7 +63,15 @@ class _AntScreenState extends State<AntScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(url: "http://www.google.com",title: "Google", );
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.buyAnt),
                 icon: SvgPicture.asset(
