@@ -73,4 +73,5 @@ final localizedStringsEn = {
   Strings.agtSupply: 'AGT Supply',
   Strings.antSupply: '@NT Supply',
   Strings.rememberMe: 'Remember me',
+  Strings.operationSuccessful: 'Operation successful',
 };

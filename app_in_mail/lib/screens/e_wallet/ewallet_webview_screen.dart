@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
+import 'package:app_in_mail/screens/ewallet_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
@@ -30,19 +31,49 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
 
   Timer pollingTimer;
   void _startPollingTimer() {
-    const duration = Duration(seconds: 2);
+    const duration = Duration(seconds: 1);
     this.pollingTimer = Timer(duration, _pollTransactionState);
   }
 
   void _pollTransactionState() async {
     print('Polling for transaction id:' + this.secondaryTransactionId);
-    var status =
-        await RestApiClient.pollWalletOperationStatus(this.secondaryTransactionId)
-            .catchError((error) {
+    var status = await RestApiClient.pollWalletOperationStatus(
+            this.secondaryTransactionId)
+        .catchError((error) {
       print(error);
     });
     print(status);
-    this._startPollingTimer();
+    if (status == 'OPERATION CREATED') {
+      _onOperationCreated();
+      this._startPollingTimer();
+    } else if (status == 'OPERATION CREATED') {
+      _onOperationSucceeded();
+    }
+  }
+
+  void _onOperationCreated() {
+    setState(() {
+      this._shouldDisplayProgressIndicator = true;
+    });
+  }
+
+  void _onOperationSucceeded() {
+    setState(() {
+      this._shouldDisplayProgressIndicator = false;
+      this._showSuccess();
+    });
+  }
+
+  void _showSuccess() {
+    Navigator.of(context).pop();
+     Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletSuccessScreen();
+                          },
+                        ),
+                      );
+
   }
 
   String transactionId; //this one we use to load the webview.
@@ -64,8 +95,7 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     webview.hide();
   }
 
-  void webStateChanged(WebViewStateChanged change) async{
-    
+  void webStateChanged(WebViewStateChanged change) async {
     // What follows is black magic. Only two people in the world know how it works
     // Only one knows what it does :(.
     // Be scared!!!
@@ -75,16 +105,20 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     // 2.Find some javascript that is server generated and has the real transaction id init.
     // 3.Be ashamed ot that code big time :(.
 
-    var document = await webview.evalJavascript('document.documentElement.outerHTML');
-    RegExp regExp = new RegExp('transaction_id:"(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})"', caseSensitive: false);
-    var match = regExp.stringMatch(document);
-
-    if (match!= null) {
-       this.secondaryTransactionId = match.replaceAll('transaction_id:"', '').replaceAll('"', '');
-       this._startPollingTimer();
-    }
-    
     if (change.type == WebViewState.finishLoad) {
+      var document =
+          await webview.evalJavascript('document.documentElement.outerHTML');
+      RegExp regExp = new RegExp(
+          'transaction_id:"(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})"',
+          caseSensitive: false);
+      var match = regExp.stringMatch(document);
+
+      if (match != null) {
+        this.secondaryTransactionId =
+            match.replaceAll('transaction_id:"', '').replaceAll('"', '');
+        this._startPollingTimer();
+      }
+
       setState(() {
         this._shouldDisplayProgressIndicator = false;
         webview.show();
@@ -96,11 +130,8 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     final mediaQuery = MediaQuery.of(context);
     var padding = 20.0;
     final verticalOffset = mediaQuery.padding.top + appBar.preferredSize.height;
-    var webViewRect = Rect.fromLTWH(
-        0,
-        verticalOffset + padding,
-        mediaQuery.size.width * 2 * 0.8,
-        mediaQuery.size.height * 2 * 0.8);
+    var webViewRect = Rect.fromLTWH(padding, verticalOffset + padding,
+        mediaQuery.size.width - padding * 2, mediaQuery.size.height);
     return webViewRect;
   }
 

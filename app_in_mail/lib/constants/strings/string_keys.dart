@@ -72,4 +72,5 @@ class Strings{
   static final agtSupply =  'agtSupply';
   static final antSupply =  'antSupply';
   static final rememberMe = 'rememberMe';
+  static final operationSuccessful = 'operationSuccessful';
 }
