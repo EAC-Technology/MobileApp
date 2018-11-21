@@ -101,8 +101,8 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     // Kidding ...here is the deal: For some reason the transaction id from the preauth phase is not the same as the real transaction id :|.
     // Because we do not have API to get the real one we do this:
     // 1.Inject javascript to get the html body of the document inside the webview.
-    // 2.Find some javascript that is server generated and has the real transaction id init.
-    // 3.Be ashamed ot that code big time :(.
+    // 2.Find some javascript that is server generated and has the real transaction id in it.
+    // 3.Be ashamed of that code big time :(.
 
     if (change.type == WebViewState.finishLoad) {
       var document =
