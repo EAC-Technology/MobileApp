@@ -35,17 +35,18 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
   }
 
   void _pollTransactionState() async {
-    print('Polling for transaction id:' + this.transactionId);
+    print('Polling for transaction id:' + this.secondaryTransactionId);
     var status =
-        await RestApiClient.pollWalletOperationStatus(this.transactionId)
+        await RestApiClient.pollWalletOperationStatus(this.secondaryTransactionId)
             .catchError((error) {
       print(error);
     });
     print(status);
-    //_startPollingTimer();
+    this._startPollingTimer();
   }
 
-  String transactionId;
+  String transactionId; //this one we use to load the webview.
+  String secondaryTransactionId; //this one is for the real operation
   void _loadContent() async {
     this.transactionId = await RestApiClient.preauthWalletOperation(
         widget.eWalletOperation['operation']);
@@ -56,7 +57,6 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
-    this._startPollingTimer();
     final rect = _webviewRect();
     print(rect);
     webview.launch(webViewUrl,
@@ -64,8 +64,26 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     webview.hide();
   }
 
-  void webStateChanged(WebViewStateChanged change) {
-    print('url changed to :' + change.url);
+  void webStateChanged(WebViewStateChanged change) async{
+    
+    // What follows is black magic. Only two people in the world know how it works
+    // Only one knows what it does :(.
+    // Be scared!!!
+    // Kidding ...here is the deal: For some reason the transaction id from the preauth phase is not the same as the real transaction id :|.
+    // Because we do not have API to get the real one we do this:
+    // 1.Inject javascript to get the html body of the document inside the webview.
+    // 2.Find some javascript that is server generated and has the real transaction id init.
+    // 3.Be ashamed ot that code big time :(.
+
+    var document = await webview.evalJavascript('document.documentElement.outerHTML');
+    RegExp regExp = new RegExp('transaction_id:"(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})"', caseSensitive: false);
+    var match = regExp.stringMatch(document);
+
+    if (match!= null) {
+       this.secondaryTransactionId = match.replaceAll('transaction_id:"', '').replaceAll('"', '');
+       this._startPollingTimer();
+    }
+    
     if (change.type == WebViewState.finishLoad) {
       setState(() {
         this._shouldDisplayProgressIndicator = false;
@@ -81,8 +99,8 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     var webViewRect = Rect.fromLTWH(
         0,
         verticalOffset + padding,
-        mediaQuery.size.width * mediaQuery.devicePixelRatio * 0.8,
-        mediaQuery.size.height * mediaQuery.devicePixelRatio * 0.8);
+        mediaQuery.size.width * 2 * 0.8,
+        mediaQuery.size.height * 2 * 0.8);
     return webViewRect;
   }
 
