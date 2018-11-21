@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_in_mail/constants/colors.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
@@ -27,25 +29,38 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadContent());
   }
 
+  Timer pollingTimer;
+  void _startPollingTimer() {
+    const duration = Duration(seconds: 2);
+    this.pollingTimer = Timer(duration, _pollTransactionState);
+  }
+
+  void _pollTransactionState() async{
+    print('Polling for transaction id:' + this.transactionId);
+      var status = await RestApiClient.pollWalletOperationStatus(this.transactionId).catchError((error){
+        print(error);
+      });
+      print(status);
+      _startPollingTimer();
+  }
+
+  String transactionId;
   void _loadContent() async {
-    var result = await RestApiClient.preauthWalletOperation('buy');
+    this.transactionId = await RestApiClient.preauthWalletOperation('buy');
+    print('TransactionId after preauth:' + this.transactionId);
+    final webViewUrl = RestApiClient.getOperationTransactionUrl(this.transactionId);
     webview.onStateChanged.listen(webStateChanged);
-    webview.onUrlChanged.listen(urlChanged);
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
-    webview.launch(result,
+    this._startPollingTimer();
+    webview.launch(webViewUrl,
         withJavascript: true, withZoom: false, rect: _webviewRect());
     webview.hide();
   }
-
-  void urlChanged(String newUrl) {
-    print(newUrl);
-  }
-
   void webStateChanged(WebViewStateChanged change) {
+    print('url changed to :' + change.url);
     if (change.type == WebViewState.finishLoad) {
-      print("----->>>>" + change.url);
       setState(() {
         this._shouldDisplayProgressIndicator = false;
         webview.show();
@@ -56,8 +71,7 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
   Rect _webviewRect() {
     final mediaQuery = MediaQuery.of(context);
     var padding = 20.0;
-    final verticalOffset = mediaQuery.padding.top +
-        appBar.preferredSize.height;
+    final verticalOffset = mediaQuery.padding.top + appBar.preferredSize.height;
     var webViewRect = Rect.fromLTWH(
         padding,
         verticalOffset + padding,

@@ -51,6 +51,17 @@ class RestApiClient {
     return dataModel;
   }
 
+  static Future<String> pollWalletOperationStatus(transactionId ) async {
+    String token = signedInEwalletUser.accessToken;
+    String statusUrl = ApiConstants.walletBaseUrl + ApiConstants.transactionStatePath  +
+        '?transaction_id=' +
+        transactionId +
+        "&auth_token=" +
+        token;
+    final status  = await getResponse(statusUrl);
+
+    return status;
+  }
   static Future<String> preauthWalletOperation(String transactionType) async {
     String token = signedInEwalletUser.accessToken;
     String t = '{"msg": "' +
@@ -153,9 +164,9 @@ class RestApiClient {
   }
 
   static Future<EwalletUser> signIntoEwallet(
-    String email, String password) async {
+      String email, String password) async {
     final md5Password = generateMd5(password);
-    
+
     final action = 'remote_login';
     final rawXmlData = '{' +
         '"user_email":"' +
@@ -219,7 +230,7 @@ class RestApiClient {
   }
 
   static Future<String> buildEmailMobileViewerPageURL(
-    String mailbox, int mailId) async {
+      String mailbox, int mailId) async {
     await _awakeInstanceIfNeeded();
     final sid = signedInEmailUser.sessionId;
     final url = dedicatedInstanceBaseUrl +
@@ -256,7 +267,7 @@ class RestApiClient {
 
   static Future<List<String>> getMailboxesList() async {
     final sid = signedInEmailUser.sessionId;
-    
+
     final action = 'list_mailboxes';
 
     final dataURL = dedicatedInstanceBaseUrl +

@@ -18,6 +18,7 @@ class ApiConstants {
   static final walletBallancePath =  '/api/v2/wallets';
   static final antPricePath = '/api/v2/antprice';
   static final euroPricePath = '/api/v2/eurprice';
+  static final transactionStatePath ='/api/v2/transfer_status';
 }
 
 
