@@ -5,10 +5,10 @@ import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
+
 class EwalletWebViewScreen extends StatefulWidget {
-  final String url;
-  final String title;
-  EwalletWebViewScreen({this.url, this.title});
+  final Map<String,String> eWalletOperation;
+  EwalletWebViewScreen({this.eWalletOperation});
 
   @override
   _EwalletWebViewScreenState createState() => _EwalletWebViewScreenState();
@@ -46,7 +46,7 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
 
   String transactionId;
   void _loadContent() async {
-    this.transactionId = await RestApiClient.preauthWalletOperation('buy');
+    this.transactionId = await RestApiClient.preauthWalletOperation(widget.eWalletOperation['operation']);
     print('TransactionId after preauth:' + this.transactionId);
     final webViewUrl = RestApiClient.getOperationTransactionUrl(this.transactionId);
     webview.onStateChanged.listen(webStateChanged);
@@ -94,7 +94,7 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     return new AppBar(
       backgroundColor: AppColors.toolbar,
       title: new Text(
-        widget.title,
+        widget.eWalletOperation['title'],
         style: TextStyle(
             color: AppColors.titleTextColor,
             fontSize: 20.0,

@@ -1,9 +1,11 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/ewallet_operations.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/wallet_ballance.dart';
 import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:app_in_mail/screens/e_wallet/currency_card.dart';
+import 'package:app_in_mail/screens/e_wallet/ewallet_webview_screen.dart';
 import 'package:app_in_mail/screens/e_wallet/upgrade_prompt_box.dart';
 import 'package:app_in_mail/screens/menu/menu_item_view.dart';
 import 'package:app_in_mail/utils/localization.dart';
@@ -63,7 +65,15 @@ class _EuroScreenState extends State<EuroScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.depositEur);
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.depositEur),
                 icon: SvgPicture.asset(
@@ -76,7 +86,15 @@ class _EuroScreenState extends State<EuroScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.exchangeEur);
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.exchangeEurToAnt),
                 icon: SvgPicture.asset(
@@ -89,7 +107,15 @@ class _EuroScreenState extends State<EuroScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.transferEur);
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.transfer),
                 icon: SvgPicture.asset(
@@ -102,7 +128,15 @@ class _EuroScreenState extends State<EuroScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.withdrawEur);
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.withdraw),
                 icon: SvgPicture.asset(

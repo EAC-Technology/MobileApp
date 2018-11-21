@@ -1,4 +1,5 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/constants/ewallet_operations.dart';
 import 'package:app_in_mail/constants/images.dart';
 import 'package:app_in_mail/constants/strings/string_keys.dart';
 import 'package:app_in_mail/model/wallet_ballance.dart';
@@ -67,10 +68,7 @@ class _AntScreenState extends State<AntScreen> {
                       Navigator.of(context).push(
                         new MaterialPageRoute<void>(
                           builder: (BuildContext context) {
-                            final accessToken = RestApiClient.signedInEmailUser.sessionId;
-                            final test = "https://antdev.appinmail.io/ant_wallet?auth_token=eGM7vr2BrbwdesCK5hBHR7Ih0GUeJ7LuQEfsPWrzSkTWN3f&sso_host=eJxTSkzJzczTSywoyMzLTczM0cvMVwIATEMHPQ%3D%3D";
-                            final url =  test;// "https://antdev.appinmail.io/ant_wallet?buy&auth_token=" + accessToken;
-                            return EwalletWebViewScreen(url: url,title:Localization.getString(Strings.buyAnt));
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.buyAnt);
                           },
                         ),
                       );
@@ -87,7 +85,15 @@ class _AntScreenState extends State<AntScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.exchangeAnt);
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.exchangeAntToEur),
                 icon: SvgPicture.asset(
@@ -100,7 +106,15 @@ class _AntScreenState extends State<AntScreen> {
                 verticalPadding: 15,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                onTap: () => () {},
+                onTap: () {
+                      Navigator.of(context).push(
+                        new MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return EwalletWebViewScreen(eWalletOperation: EwalletOperations.transferAnt);
+                          },
+                        ),
+                      );
+                    },
                 textColor: AppColors.accentColor,
                 title: Localization.getString(Strings.transfer),
                 icon: SvgPicture.asset(
