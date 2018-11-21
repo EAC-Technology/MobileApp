@@ -5,9 +5,8 @@ import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-
 class EwalletWebViewScreen extends StatefulWidget {
-  final Map<String,String> eWalletOperation;
+  final Map<String, String> eWalletOperation;
   EwalletWebViewScreen({this.eWalletOperation});
 
   @override
@@ -35,29 +34,36 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     this.pollingTimer = Timer(duration, _pollTransactionState);
   }
 
-  void _pollTransactionState() async{
+  void _pollTransactionState() async {
     print('Polling for transaction id:' + this.transactionId);
-      var status = await RestApiClient.pollWalletOperationStatus(this.transactionId).catchError((error){
-        print(error);
-      });
-      print(status);
-      _startPollingTimer();
+    var status =
+        await RestApiClient.pollWalletOperationStatus(this.transactionId)
+            .catchError((error) {
+      print(error);
+    });
+    print(status);
+    //_startPollingTimer();
   }
 
   String transactionId;
   void _loadContent() async {
-    this.transactionId = await RestApiClient.preauthWalletOperation(widget.eWalletOperation['operation']);
+    this.transactionId = await RestApiClient.preauthWalletOperation(
+        widget.eWalletOperation['operation']);
     print('TransactionId after preauth:' + this.transactionId);
-    final webViewUrl = RestApiClient.getOperationTransactionUrl(this.transactionId);
+    final webViewUrl =
+        RestApiClient.getOperationTransactionUrl(this.transactionId);
     webview.onStateChanged.listen(webStateChanged);
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
     this._startPollingTimer();
+    final rect = _webviewRect();
+    print(rect);
     webview.launch(webViewUrl,
-        withJavascript: true, withZoom: false, rect: _webviewRect());
+        withJavascript: true, withZoom: true, rect: rect);
     webview.hide();
   }
+
   void webStateChanged(WebViewStateChanged change) {
     print('url changed to :' + change.url);
     if (change.type == WebViewState.finishLoad) {
@@ -73,10 +79,10 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     var padding = 20.0;
     final verticalOffset = mediaQuery.padding.top + appBar.preferredSize.height;
     var webViewRect = Rect.fromLTWH(
-        padding,
+        0,
         verticalOffset + padding,
-        mediaQuery.size.width - padding * 2,
-        mediaQuery.size.height - verticalOffset);
+        mediaQuery.size.width * mediaQuery.devicePixelRatio * 0.8,
+        mediaQuery.size.height * mediaQuery.devicePixelRatio * 0.8);
     return webViewRect;
   }
 

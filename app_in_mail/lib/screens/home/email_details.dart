@@ -44,10 +44,10 @@ class EmailDetailsState extends State<EmailDetails>
         40 +
         animation.value;
     var webViewRect = Rect.fromLTWH(
-        padding,
+        20,
         verticalOffset + padding,
-        mediaQuery.size.width - padding * 2,
-        mediaQuery.size.height - verticalOffset);
+        mediaQuery.size.width * mediaQuery.devicePixelRatio * 0.8,
+        mediaQuery.size.height * mediaQuery.devicePixelRatio * 0.8);
     return webViewRect;
   }
 
