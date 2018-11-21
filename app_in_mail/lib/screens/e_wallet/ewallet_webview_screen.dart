@@ -28,20 +28,24 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
   }
 
   void _loadContent() async {
-    var result = await RestApiClient.preauthWalletOperation();
+    var result = await RestApiClient.preauthWalletOperation('buy');
     webview.onStateChanged.listen(webStateChanged);
+    webview.onUrlChanged.listen(urlChanged);
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
     webview.launch(result,
-        headers: {'Set-cookie':'sid=58fa71a115c6d7ef28089f3c62e58c05'},
         withJavascript: true, withZoom: false, rect: _webviewRect());
     webview.hide();
   }
 
+  void urlChanged(String newUrl) {
+    print(newUrl);
+  }
+
   void webStateChanged(WebViewStateChanged change) {
     if (change.type == WebViewState.finishLoad) {
-      //if we have finsihed loading.
+      print("----->>>>" + change.url);
       setState(() {
         this._shouldDisplayProgressIndicator = false;
         webview.show();
