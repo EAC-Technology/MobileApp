@@ -46,13 +46,14 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
     if (status == 'OPERATION CREATED') {
       _onOperationCreated();
       this._startPollingTimer();
-    } else if (status == 'OPERATION CREATED') {
+    } else if (status == 'OPERATION SUCCEEDED') {
       _onOperationSucceeded();
     }
   }
 
   void _onOperationCreated() {
     setState(() {
+      this.webview.hide();
       this._shouldDisplayProgressIndicator = true;
     });
   }
@@ -65,15 +66,13 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
   }
 
   void _showSuccess() {
-    Navigator.of(context).pop();
-     Navigator.of(context).push(
-                        new MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                            return EwalletSuccessScreen();
-                          },
-                        ),
-                      );
-
+    Navigator.of(context).pushReplacement(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return EwalletSuccessScreen(title: widget.eWalletOperation['title'],);
+        },
+      ),
+    );
   }
 
   String transactionId; //this one we use to load the webview.
