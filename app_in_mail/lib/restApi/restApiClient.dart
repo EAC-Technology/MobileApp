@@ -54,6 +54,31 @@ class RestApiClient {
     return dataModel;
   }
 
+  static Future<String> preauthWalletOperation() async{
+    String transactionType = "buy";
+    String token = signedInEwalletUser.accessToken;
+    String t = '{"msg": "'+transactionType+'","vat": false,"success_url": "","fail_url": "","type": "' + transactionType + '","to": ""}';
+    String info = '{"guid":"' +signedInEmailUser.guid + '"}';
+    
+    final preauthUrl = "https://walletdev.appinmail.io/api/preauth?" +
+    'token=' +
+    token +
+    "&t=" +
+    Uri.encodeFull(t) +
+    "&info=" + 
+    Uri.encodeFull(info);
+
+    var transactionId = await getResponse(preauthUrl);
+
+    final dataUrl = "https://walletdev.appinmail.io/operation?transaction_id=" + 
+    transactionId +
+    "&auth_token=" + token;
+    
+    var result = dataUrl;//await getResponse(dataUrl);
+
+    return result;
+  }
+
   static Future<EmailUser> signIntoEmail(String email, String password) async {
     if (dedicatedInstanceBaseUrl == null) {
       return null;

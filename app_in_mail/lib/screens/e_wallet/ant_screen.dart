@@ -67,7 +67,10 @@ class _AntScreenState extends State<AntScreen> {
                       Navigator.of(context).push(
                         new MaterialPageRoute<void>(
                           builder: (BuildContext context) {
-                            return EwalletWebViewScreen(url: "http://www.google.com",title: "Google", );
+                            final accessToken = RestApiClient.signedInEmailUser.sessionId;
+                            final test = "https://antdev.appinmail.io/ant_wallet?auth_token=eGM7vr2BrbwdesCK5hBHR7Ih0GUeJ7LuQEfsPWrzSkTWN3f&sso_host=eJxTSkzJzczTSywoyMzLTczM0cvMVwIATEMHPQ%3D%3D";
+                            final url =  test;// "https://antdev.appinmail.io/ant_wallet?buy&auth_token=" + accessToken;
+                            return EwalletWebViewScreen(url: url,title:Localization.getString(Strings.buyAnt));
                           },
                         ),
                       );

@@ -1,4 +1,5 @@
 import 'package:app_in_mail/constants/colors.dart';
+import 'package:app_in_mail/restApi/restApiClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
@@ -27,11 +28,13 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
   }
 
   void _loadContent() async {
+    var result = await RestApiClient.preauthWalletOperation();
     webview.onStateChanged.listen(webStateChanged);
     setState(() {
       this._shouldDisplayProgressIndicator = true;
     });
-    webview.launch(widget.url,
+    webview.launch(result,
+        headers: {'Set-cookie':'sid=58fa71a115c6d7ef28089f3c62e58c05'},
         withJavascript: true, withZoom: false, rect: _webviewRect());
     webview.hide();
   }
