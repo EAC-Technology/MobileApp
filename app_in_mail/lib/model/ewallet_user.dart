@@ -42,6 +42,7 @@ class EwalletUser {
   final String login;
   final String guid;
   final String shortLogin;
+  final String password;
 
   EwalletUser(
       {this.profile,
@@ -57,9 +58,10 @@ class EwalletUser {
       this.nationality,
       this.login,
       this.guid,
-      this.shortLogin});
+      this.shortLogin, 
+      this.password});
 
-  factory EwalletUser.fromJson(Map<dynamic, dynamic> json) {
+  factory EwalletUser.fromJson(Map<dynamic, dynamic> json, String password) {
     final map = json;
     return EwalletUser(
         profile:  Profile.fromJson(map['profile']),
@@ -75,6 +77,7 @@ class EwalletUser {
         nationality: map['nationality'],
         login: map['login'],
         guid: map['guid'],
-        shortLogin: map['short_login']);
+        shortLogin: map['short_login'],
+        password: password);
   }
 }

@@ -51,17 +51,19 @@ class RestApiClient {
     return dataModel;
   }
 
-  static Future<String> pollWalletOperationStatus(transactionId ) async {
+  static Future<String> pollWalletOperationStatus(transactionId) async {
     String token = signedInEwalletUser.accessToken;
-    String statusUrl = ApiConstants.walletBaseUrl + ApiConstants.transactionStatePath  +
+    String statusUrl = ApiConstants.walletBaseUrl +
+        ApiConstants.transactionStatePath +
         '?transaction_id=' +
         transactionId +
         "&auth_token=" +
         token;
-    final status  = await getResponse(statusUrl);
+    final status = await getResponse(statusUrl);
 
     return status;
   }
+
   static Future<String> preauthWalletOperation(String transactionType) async {
     String token = signedInEwalletUser.accessToken;
     String t = '{"msg": "' +
@@ -87,12 +89,17 @@ class RestApiClient {
 
   static String getOperationTransactionUrl(String transactionId) {
     String token = signedInEwalletUser.accessToken;
-    final operationUrl = ApiConstants.walletBaseUrl +
+    String sid = signedInEmailUser.sessionId;
+
+    final backUrl = ApiConstants.walletBaseUrl +
         ApiConstants.operationTransactionPath +
         '?transaction_id=' +
-        transactionId +
-        "&auth_token=" +
-        token;
+        transactionId;
+    final operationUrl = ApiConstants.adminBaseUrl +
+        ApiConstants.loginPath +
+        '?login=' + signedInEwalletUser.login + '&password='+ signedInEwalletUser.password +
+        '&back_url=' +
+        backUrl;
 
     return operationUrl;
   }
@@ -191,7 +198,7 @@ class RestApiClient {
 
     var result = await getResponse(dataURL);
 
-    final user = EwalletUser.fromJson(result);
+    final user = EwalletUser.fromJson(result, password);
     signedInEwalletUser = user;
     return user;
   }

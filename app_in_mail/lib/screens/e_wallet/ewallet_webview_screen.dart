@@ -88,8 +88,7 @@ class _EwalletWebViewScreenState extends State<EwalletWebViewScreen> {
       this._shouldDisplayProgressIndicator = true;
     });
     final rect = _webviewRect();
-    print(rect);
-    webview.launch(webViewUrl,
+    webview.launch(webViewUrl, 
         withJavascript: true, withZoom: true, rect: rect);
     webview.hide();
   }
